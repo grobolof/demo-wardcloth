@@ -1,7 +1,58 @@
 {{ header }}
-<div id="common-home" class="container">
-  <div class="row">{{ column_left }}
-    <div id="content" class="col">{{ content_top }}{{ content_bottom }}</div>
-    {{ column_right }}</div>
+<section class="mr-banner" data-mr-slider>
+  <div class="mr-banner__viewport">
+    {% for slide in slides %}
+      <a class="mr-slide mr-slide--{{ slide.theme }}{% if loop.first %} is-active{% endif %}" href="{{ slide.href }}">
+        <div class="mr-wrap mr-slide__inner">
+          <div class="mr-slide__copy">
+            <p class="mr-slide__kicker">Mr. Robot</p>
+            <h2>{{ slide.title }}</h2>
+            <p>{{ slide.text }}</p>
+            <span class="mr-slide__more">Подробнее</span>
+          </div>
+          <div class="mr-slide__art" aria-hidden="true"></div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+  {% if slides|length > 1 %}
+    <div class="mr-banner__dots">
+      {% for slide in slides %}
+        <button type="button" class="mr-dot{% if loop.first %} is-active{% endif %}" aria-label="Слайд {{ loop.index }}"></button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+<div class="mr-home">
+  <section class="mr-section">
+    <div class="mr-wrap">
+      <div class="mr-section__head">
+        <h2>Популярные товары</h2>
+      </div>
+      {% if products %}
+        <div class="mr-grid">
+          {% for product in products %}
+            {{ product }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  {% if brands %}
+    <section class="mr-section mr-section--brands">
+      <div class="mr-wrap">
+        <div class="mr-section__head">
+          <h2>Популярные бренды</h2>
+          <a href="{{ brands_href }}">Показать все</a>
+        </div>
+        <div class="mr-brands">
+          {% for brand in brands %}
+            {% set slug = brand.name|lower|replace({"'": '', ' ': '', '’': ''}) %}
+            <a class="mr-brand mr-brand--{{ slug }}" href="{{ brand.href }}">{{ brand.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
 </div>
 {{ footer }}

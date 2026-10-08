@@ -101,6 +101,9 @@ class Header extends \Opencart\System\Engine\Controller {
 		$data['search'] = $this->load->controller('common/search');
 		$data['cart'] = $this->load->controller('common/cart');
 		$data['menu'] = $this->load->controller('common/menu');
+		$data['compare'] = $this->url->link('product/compare', 'language=' . $this->config->get('config_language'));
+		$data['cart_total'] = $this->cart->countProducts();
+		$data['route'] = isset($this->request->get['route']) ? (string)$this->request->get['route'] : 'common/home';
 
 		return $this->load->view('common/header', $data);
 	}

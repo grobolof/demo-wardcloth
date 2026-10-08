@@ -1,4 +1,6 @@
-<form action="{{ action }}" method="post" class="input-group mb-3">
-	<input type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" class="form-control form-control-lg"/>
-	<button type="submit" class="btn btn-light btn-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+<form action="{{ action }}" method="post" class="mr-search">
+  <input type="text" name="search" value="{{ search }}" placeholder="Искать товары" aria-label="Искать товары"/>
+  <button type="submit" aria-label="Найти">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16.5 20 20.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
 </form>

@@ -37,6 +37,15 @@ class Thumb extends \Opencart\System\Engine\Controller {
 		$data['compare_add'] = $this->url->link('product/compare.add', 'language=' . $this->config->get('config_language'));
 
 		$data['review_status'] = (int)$this->config->get('config_review_status');
+		$data['stock'] = (int)($data['quantity'] ?? 0) > 0;
+
+		if (!empty($data['manufacturer_id'])) {
+			$this->load->model('catalog/manufacturer');
+			$manufacturer = $this->model_catalog_manufacturer->getManufacturer((int)$data['manufacturer_id']);
+			$data['manufacturer'] = $manufacturer['name'] ?? '';
+		} else {
+			$data['manufacturer'] = '';
+		}
 
 		return $this->load->view('product/thumb', $data);
 	}

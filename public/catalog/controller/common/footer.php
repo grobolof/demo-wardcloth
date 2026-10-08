@@ -83,6 +83,17 @@ class Footer extends \Opencart\System\Engine\Controller {
 			$this->model_tool_online->addOnline(oc_get_ip(), $this->customer->getId(), $url, $referer);
 		}
 
+		$language = 'language=' . $this->config->get('config_language');
+
+		$data['about'] = $this->url->link('information/information', $language . '&information_id=1');
+		$data['offer'] = $this->url->link('information/information', $language . '&information_id=2');
+		$data['privacy'] = $this->url->link('information/information', $language . '&information_id=3');
+		$data['delivery'] = $this->url->link('information/information', $language . '&information_id=4');
+		$data['payment'] = $this->url->link('information/information', $language . '&information_id=5');
+		$data['warranty'] = $this->url->link('information/information', $language . '&information_id=6');
+		$data['career'] = $this->url->link('information/information', $language . '&information_id=7');
+		$data['bonus'] = $this->url->link('information/information', $language . '&information_id=8');
+
 		$data['bootstrap'] = 'catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js';
 		$data['scripts'] = $this->document->getScripts('footer');
 		$data['cookie'] = $this->load->controller('common/cookie');

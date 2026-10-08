@@ -23,10 +23,100 @@ class Home extends \Opencart\System\Engine\Controller {
 			$this->document->setKeywords($description[$language_id]['meta_keyword']);
 		}
 
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['column_right'] = $this->load->controller('common/column_right');
-		$data['content_top'] = $this->load->controller('common/content_top');
-		$data['content_bottom'] = $this->load->controller('common/content_bottom');
+		$this->load->model('catalog/category');
+		$this->load->model('catalog/product');
+		$this->load->model('catalog/manufacturer');
+		$this->load->model('tool/image');
+
+		$language = 'language=' . $this->config->get('config_language');
+		$stories = [
+			'ноут' => [
+				'title' => 'Ноутбуки',
+				'text'  => 'Лёгкие, тихие и готовые к работе целый день',
+				'theme' => 'laptop'
+			],
+			'теле' => [
+				'title' => 'Телевизоры',
+				'text'  => 'Большой экран для кино, спорта и сериалов',
+				'theme' => 'tv'
+			],
+			'смарт' => [
+				'title' => 'Смартфоны',
+				'text'  => 'Камера, связь и батарея, которых хватает',
+				'theme' => 'phone'
+			],
+			'кофе' => [
+				'title' => 'Кофемашины',
+				'text'  => 'Эспрессо и капучино без очереди в кофейне',
+				'theme' => 'coffee'
+			]
+		];
+
+		$data['slides'] = [];
+
+		foreach ($this->model_catalog_category->getCategories(0) as $category) {
+			$name = mb_strtolower($category['name']);
+
+			foreach ($stories as $needle => $story) {
+				if (mb_strpos($name, $needle) !== false) {
+					$data['slides'][] = $story + [
+						'href' => $this->url->link('product/category', $language . '&path=' . $category['category_id'])
+					];
+					break;
+				}
+			}
+		}
+
+		$data['products'] = [];
+		$results = $this->model_catalog_product->getProducts([
+			'sort'  => 'p.sort_order',
+			'order' => 'ASC',
+			'start' => 0,
+			'limit' => 8
+		]);
+
+		foreach ($results as $result) {
+			if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+				$image = $result['image'];
+			} else {
+				$image = 'placeholder.png';
+			}
+
+			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+				$price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+			} else {
+				$price = false;
+			}
+
+			if ((float)$result['special']) {
+				$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+			} else {
+				$special = false;
+			}
+
+			$product_data = [
+				'description' => '',
+				'thumb'       => $this->model_tool_image->resize($image, 480, 480),
+				'price'       => $price,
+				'special'     => $special,
+				'tax'         => false,
+				'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
+				'href'        => $this->url->link('product/product', $language . '&product_id=' . $result['product_id'])
+			] + $result;
+
+			$data['products'][] = $this->load->controller('product/thumb', $product_data);
+		}
+
+		$data['brands'] = [];
+
+		foreach ($this->model_catalog_manufacturer->getManufacturers(['sort' => 'sort_order', 'order' => 'ASC']) as $manufacturer) {
+			$data['brands'][] = [
+				'name' => $manufacturer['name'],
+				'href' => $this->url->link('product/manufacturer.info', $language . '&manufacturer_id=' . $manufacturer['manufacturer_id'])
+			];
+		}
+
+		$data['brands_href'] = $this->url->link('product/manufacturer', $language);
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 

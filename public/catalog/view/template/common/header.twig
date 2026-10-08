@@ -13,9 +13,13 @@
     <meta name="keywords" content="{{ keywords }}"/>
   {% endif %}
   <script src="{{ jquery }}" type="text/javascript"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="{{ bootstrap }}" type="text/css" rel="stylesheet" media="screen"/>
   <link href="{{ icons }}" rel="stylesheet" type="text/css"/>
   <link href="{{ stylesheet }}" type="text/css" rel="stylesheet"/>
+  <link href="catalog/view/stylesheet/mrrobot.css?v=3" type="text/css" rel="stylesheet"/>
   <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
   {% if icon %}
     <link rel="icon" href="{{ icon }}" type="image/png">
@@ -33,62 +37,65 @@
     {{ analytic }}
   {% endfor %}
 </head>
-<body>
-<div id="container">
-  <div id="alert"></div>
-  <nav id="top">
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <ul class="list-inline">
-            <li class="list-inline-item me-3">{{ currency }}</li>
-            <li class="list-inline-item">{{ language }}</li>
-          </ul>
-        </div>
-        <div class="col text-end">
-          <ul class="list-inline">
-            <li class="list-inline-item"><a href="{{ contact }}"><i class="fa-solid fa-phone"></i> <span class="d-none d-lg-inline">{{ telephone }}</span></a></li>
-            <li class="list-inline-item">
-              <div class="dropdown">
-                <span role="button" class="dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i> <span class="d-none d-lg-inline">{{ text_account }}</span> <i class="fa-solid fa-caret-down"></i></span>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  {% if not logged %}
-                    <li><a href="{{ register }}" class="dropdown-item">{{ text_register }}</a></li>
-                    <li><a href="{{ login }}" class="dropdown-item">{{ text_login }}</a></li>
-                  {% else %}
-                    <li><a href="{{ account }}" class="dropdown-item">{{ text_account }}</a></li>
-                    <li><a href="{{ order }}" class="dropdown-item">{{ text_order }}</a></li>
-                    <li><a href="{{ transaction }}" class="dropdown-item">{{ text_transaction }}</a></li>
-                    <li><a href="{{ download }}" class="dropdown-item">{{ text_download }}</a></li>
-                    <li><a href="{{ logout }}" class="dropdown-item">{{ text_logout }}</a></li>
-                  {% endif %}
-                </ul>
-              </div>
-            </li>
-            <li class="list-inline-item"><a href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}"><i class="fa-solid fa-heart"></i> <span class="d-none d-lg-inline">{{ text_wishlist }}</span></a></li>
-            <li class="list-inline-item"><a href="{{ shopping_cart }}" title="{{ text_shopping_cart }}"><i class="fa-solid fa-cart-shopping"></i> <span class="d-none d-lg-inline">{{ text_shopping_cart }}</span></a></li>
-            <li class="list-inline-item"><a href="{{ checkout }}" title="{{ text_checkout }}"><i class="fa-solid fa-share"></i> <span class="d-none d-lg-inline">{{ text_checkout }}</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <header>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-lg-4">
-          <div id="logo">
-            {% if logo %}
-              <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-fluid"/></a>
-            {% else %}
-              <h1><a href="{{ home }}">{{ name }}</a></h1>
-            {% endif %}
+<body class="mr-store{% if route == 'common/home' %} is-home{% endif %}">
+<div id="alert"></div>
+<header class="mr-header" id="mr-header">
+  <div class="mr-header__bar">
+    <a class="mr-logo" href="{{ home }}" aria-label="Mr. Robot">
+      <svg class="mr-logo__bot" viewBox="0 0 64 48" aria-hidden="true">
+        <rect x="16" y="0" width="10" height="8" fill="#d7e0e6"/>
+        <rect x="38" y="0" width="10" height="8" fill="#d7e0e6"/>
+        <rect x="6" y="10" width="52" height="30" fill="#d7e0e6"/>
+        <rect x="14" y="16" width="10" height="10" fill="#14161c"/>
+        <rect x="40" y="16" width="10" height="10" fill="#14161c"/>
+        <rect x="16" y="30" width="4" height="6" fill="#14161c"/>
+        <rect x="20" y="32" width="24" height="4" fill="#14161c"/>
+        <rect x="44" y="30" width="4" height="6" fill="#14161c"/>
+      </svg>
+      <span class="mr-logo__text">
+        <span class="mr-logo__word">MR. ROBOT</span>
+        <span class="mr-logo__tag">Computer Repair with a Smile</span>
+      </span>
+    </a>
+    <button type="button" class="mr-catalog-btn" id="mr-catalog-btn" aria-expanded="false" aria-controls="mr-catalog">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Каталог
+    </button>
+    {{ search }}
+    <nav class="mr-actions" aria-label="Покупатель">
+      <a class="mr-action" href="{{ compare }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v12M4.5 7.5 7 4l2.5 3.5M17 20V8M14.5 16.5 17 20l2.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Сравнение</span>
+      </a>
+      <a class="mr-action" href="{{ wishlist }}" id="wishlist-total">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span>Избранное</span>
+      </a>
+      <a class="mr-action" href="{{ shopping_cart }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 11H7L6 8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8V7a3 3 0 0 1 6 0v1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span data-mr-cart-count>Корзина{% if cart_total %} ({{ cart_total }}){% endif %}</span>
+      </a>
+      {% if not logged %}
+        <a class="mr-action" href="{{ login }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 19.5c1.4-3 3.6-4.5 6.5-4.5s5.1 1.5 6.5 4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>Войти</span>
+        </a>
+      {% else %}
+        <div class="mr-action mr-action--menu">
+          <a class="mr-action" href="{{ account }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 19.5c1.4-3 3.6-4.5 6.5-4.5s5.1 1.5 6.5 4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <span>Аккаунт</span>
+          </a>
+          <div class="mr-action__drop">
+            <a href="{{ account }}">Личный кабинет</a>
+            <a href="{{ order }}">Заказы</a>
+            <a href="{{ logout }}">Выйти</a>
           </div>
         </div>
-        <div class="col-md-5">{{ search }}</div>
-        <div id="cart" class="col-md-4 col-lg-3 mb-2">{{ cart }}</div>
-      </div>
-    </div>
-  </header>
-  <main>
-    {{ menu }}
+      {% endif %}
+    </nav>
+  </div>
+  {{ menu }}
+  <div id="cart" class="mr-cart-sink" hidden>{{ cart }}</div>
+</header>
+<main>

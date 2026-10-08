@@ -7,7 +7,7 @@ $_['date_format_long']      = 'l jS F Y';
 $_['time_format']           = 'h:i:s A';
 $_['datetime_format']       = 'd/m/Y H:i:s';
 $_['decimal_point']         = '.';
-$_['thousand_point']        = ',';
+$_['thousand_point']        = ' ';
 
 // Text
 $_['text_home']             = '<i class="fas fa-home"></i>';
@@ -38,10 +38,10 @@ $_['text_years_ago']        = '%s years ago';
 $_['button_address_add']    = 'Add Address';
 $_['button_back']           = 'Back';
 $_['button_continue']       = 'Continue';
-$_['button_cart']           = 'Add to Cart';
+$_['button_cart']           = 'В корзину';
 $_['button_cancel']         = 'Cancel';
-$_['button_compare']        = 'Compare this Product';
-$_['button_wishlist']       = 'Add to Wish List';
+$_['button_compare']        = 'Сравнить';
+$_['button_wishlist']       = 'В избранное';
 $_['button_checkout']       = 'Checkout';
 $_['button_confirm']        = 'Confirm Order';
 $_['button_coupon']         = 'Apply Coupon';

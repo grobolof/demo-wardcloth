@@ -97,11 +97,6 @@ class Product extends \Opencart\System\Engine\Controller {
 			$this->load->model('catalog/manufacturer');
 
 			if (isset($this->request->get['manufacturer_id'])) {
-				$data['breadcrumbs'][] = [
-					'text' => $this->language->get('text_brand'),
-					'href' => $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'))
-				];
-
 				$url = '';
 
 				if (isset($this->request->get['sort'])) {
@@ -225,6 +220,27 @@ class Product extends \Opencart\System\Engine\Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
+			$data['category_name'] = '';
+			$data['category_href'] = '';
+
+			if (!isset($this->request->get['path'])) {
+				$product_categories = $this->model_catalog_product->getCategories($product_id);
+
+				if ($product_categories) {
+					$category_info = $this->model_catalog_category->getCategory((int)$product_categories[0]['category_id']);
+
+					if ($category_info) {
+						$data['category_name'] = $category_info['name'];
+						$data['category_href'] = $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category_info['category_id']);
+
+						$data['breadcrumbs'][] = [
+							'text' => $category_info['name'],
+							'href' => $data['category_href']
+						];
+					}
+				}
+			}
+
 			$data['breadcrumbs'][] = [
 				'text' => $product_info['name'],
 				'href' => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . $url . '&product_id=' . $product_id)
@@ -315,15 +331,28 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['images'] = [];
+			$data['gallery'] = [];
+
+			if ($data['popup'] && $data['thumb']) {
+				$data['gallery'][] = [
+					'popup'   => $data['popup'],
+					'preview' => $data['thumb'],
+					'thumb'   => $this->model_tool_image->resize($product_info['image'], $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height'))
+				];
+			}
 
 			$results = $this->model_catalog_product->getImages($product_id);
 
 			foreach ($results as $result) {
 				if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-					$data['images'][] = [
-						'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
-						'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height'))
+					$image = [
+						'popup'   => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
+						'preview' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_thumb_width'), $this->config->get('config_image_thumb_height')),
+						'thumb'   => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height'))
 					];
+
+					$data['images'][] = $image;
+					$data['gallery'][] = $image;
 				}
 			}
 
@@ -434,6 +463,27 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['share'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_id);
 
 			$data['attribute_groups'] = $this->model_catalog_product->getAttributes($product_id);
+			$data['preview_attributes'] = [];
+
+			foreach ($data['attribute_groups'] as $attribute_group) {
+				foreach ($attribute_group['attribute'] as $attribute) {
+					$data['preview_attributes'][] = $attribute;
+
+					if (count($data['preview_attributes']) >= 5) {
+						break 2;
+					}
+				}
+			}
+
+			$data['short_description'] = trim(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')));
+			$data['in_stock'] = (int)$product_info['quantity'] > 0;
+			$data['is_new'] = (int)$product_info['sort_order'] > 8;
+			$data['warranty'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=6');
+
+			if ($data['category_href'] === '' && isset($category_info) && $category_info) {
+				$data['category_name'] = $category_info['name'];
+				$data['category_href'] = $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category_info['category_id']);
+			}
 
 			$data['related'] = $this->load->controller('product/related');
 

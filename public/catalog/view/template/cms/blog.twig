@@ -71,18 +71,18 @@
 </div>
 <script type="text/javascript"><!--
 $('#button-search').bind('click', function() {
-    url = 'index.php?route=cms/blog&language={{ language }}';
+    var url = '{{ blog_url }}';
 
     var search = $('#input-search').val();
 
     if (search) {
-        url += '&search=' + encodeURIComponent(search);
+        url += (url.indexOf('?') === -1 ? '?' : '&') + 'search=' + encodeURIComponent(search);
     }
 
     var topic_id = $('#input-topic').prop('value');
 
     if (topic_id > 0) {
-        url += '&topic_id=' + topic_id;
+        url += (url.indexOf('?') === -1 ? '?' : '&') + 'topic_id=' + topic_id;
     }
 
     location = url;

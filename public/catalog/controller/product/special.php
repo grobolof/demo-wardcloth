@@ -66,7 +66,7 @@ class Special extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('heading_title'),
+			'text' => $this->language->get('text_breadcrumb'),
 			'href' => $this->url->link('product/special', 'language=' . $this->config->get('config_language') . $url)
 		];
 
@@ -171,32 +171,6 @@ class Special extends \Opencart\System\Engine\Controller {
 			'text'  => $this->language->get('text_price_desc'),
 			'value' => 'ps.price-DESC',
 			'href'  => $this->url->link('product/special', 'language=' . $this->config->get('config_language') . '&sort=ps.price&order=DESC' . $url)
-		];
-
-		if ($this->config->get('config_review_status')) {
-			$data['sorts'][] = [
-				'text'  => $this->language->get('text_rating_desc'),
-				'value' => 'rating-DESC',
-				'href'  => $this->url->link('product/special', 'language=' . $this->config->get('config_language') . '&sort=rating&order=DESC' . $url)
-			];
-
-			$data['sorts'][] = [
-				'text'  => $this->language->get('text_rating_asc'),
-				'value' => 'rating-ASC',
-				'href'  => $this->url->link('product/special', 'language=' . $this->config->get('config_language') . '&sort=rating&order=ASC' . $url)
-			];
-		}
-
-		$data['sorts'][] = [
-			'text'  => $this->language->get('text_model_asc'),
-			'value' => 'p.model-ASC',
-			'href'  => $this->url->link('product/special', 'language=' . $this->config->get('config_language') . '&sort=p.model&order=ASC' . $url)
-		];
-
-		$data['sorts'][] = [
-			'text'  => $this->language->get('text_model_desc'),
-			'value' => 'p.model-DESC',
-			'href'  => $this->url->link('product/special', 'language=' . $this->config->get('config_language') . '&sort=p.model&order=DESC' . $url)
 		];
 
 		$url = '';

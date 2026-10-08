@@ -32,6 +32,22 @@ class Related extends \Opencart\System\Engine\Controller {
 
 		$results = $this->model_catalog_product->getRelated($product_id);
 
+		if (!$results) {
+			$categories = $this->model_catalog_product->getCategories($product_id);
+
+			if ($categories) {
+				$results = $this->model_catalog_product->getProducts([
+					'filter_category_id' => (int)$categories[0]['category_id'],
+					'start'              => 0,
+					'limit'              => 8
+				]);
+
+				$results = array_values(array_filter($results, function(array $row) use ($product_id): bool {
+					return (int)$row['product_id'] !== $product_id;
+				}));
+			}
+		}
+
 		foreach ($results as $result) {
 			$description = trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')));
 

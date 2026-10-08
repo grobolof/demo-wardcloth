@@ -11,89 +11,86 @@
   {% if attention %}
     <div class="alert alert-info"><i class="fa-solid fa-circle-info"></i> {{ attention }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
   {% endif %}
-  <h1>{{ heading_title }}{% if weight %} ({{ weight }}){% endif %}</h1>
-  <div id="output-cart" class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th class="text-center">{{ column_image }}</th>
-          <th>{{ column_name }}</th>
-          <th>{{ column_quantity }}</th>
-          <th class="text-end">{{ column_price }}</th>
-          <th class="text-end">{{ column_total }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for product in products %}
-          <tr>
-            <td class="text-center">{% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail"/></a>{% endif %}</td>
-            <td class="text-start text-wrap"><a href="{{ product.href }}">{{ product.name }}</a>{% if not product.stock %} <span class="text-danger">***</span>{% endif %}
-              <ul class="list-unstyled mb-0">
-                <li>
-                  <small> - {{ text_model }}: {{ product.model }}</small>
-                </li>
-                {% for option in product.option %}
-                  <li>
-                    <small> - {{ option.name }}: {{ option.value }}</small>
-                  </li>
-                {% endfor %}
-                {% if product.subscription %}
-                  <li>
-                    <small> - {{ text_subscription }}: {{ product.subscription }}</small>
-                  </li>
-                {% endif %}
-                {% if product.reward %}
-                  <li>
-                    <small> - {{ text_points }}: {{ product.reward }}</small>
-                  </li>
-                {% endif %}
-              </ul>
-            </td>
-            <td>
-              <form method="post" data-oc-target="#shopping-cart">
-                <div class="input-group">
-                  <input type="text" name="quantity" value="{{ product.quantity }}" size="1" class="form-control{% if product.minimum %} is-invalid{% endif %}"/>
-                  <input type="hidden" name="key" value="{{ product.cart_id }}"/>
-                  <button type="submit" formaction="{{ edit }}" data-bs-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa-solid fa-rotate"></i></button>
-                  <a href="{{ product.remove }}" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></a>
-                </div>
-              </form>
-              {% if product.minimum %}
-                <small class="invalid-feedback d-block">{{ product.minimum }}</small>
-              {% endif %}</td>
-            <td class="text-end">{{ product.price }}</td>
-            <td class="text-end">{{ product.total }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-      <tfoot id="checkout-total">
-        {% for total in totals %}
-          <tr>
-            <td colspan="4" class="text-end"><strong>{{ total.title }}</strong></td>
-            <td class="text-end">{{ total.text }}</td>
-          </tr>
-        {% endfor %}
-      </tfoot>
-    </table>
-  </div>
-
-  {% if modules %}
-    <h2>{{ text_next }}</h2>
-    <p>{{ text_next_choice }}</p>
-    <div id="accordion" class="accordion">
-      {% for module in modules %}
-        {{ module }}
+  <div id="output-cart" class="mr-basket">
+    <div class="mr-basket__list">
+      {% for product in products %}
+        <article class="mr-basket__item">
+          <a class="mr-basket__photo" href="{{ product.href }}">
+            {% if product.thumb %}
+              <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/>
+            {% endif %}
+          </a>
+          <div class="mr-basket__info">
+            {% if product.sort_order > 0 and product.sort_order <= 8 %}
+              <span class="mr-basket__badge">Хит</span>
+            {% endif %}
+            <h2 class="mr-basket__name"><a href="{{ product.href }}">{{ product.name }}</a>{% if not product.stock %} <span class="text-danger">***</span>{% endif %}</h2>
+            <p>Модель: {{ product.model }}</p>
+            {% for option in product.option %}
+              <p>{{ option.name }}: {{ option.value }}</p>
+            {% endfor %}
+            {% if product.subscription %}
+              <p>{{ product.subscription }}</p>
+            {% endif %}
+            {% if product.minimum %}
+              <p class="mr-basket__warn">{{ product.minimum }}</p>
+            {% endif %}
+          </div>
+          <form class="mr-basket__qty" method="post">
+            <div class="mr-qty">
+              <button type="submit" formaction="{{ edit }}" data-mr-qty="-1" aria-label="Уменьшить">−</button>
+              <input type="text" name="quantity" value="{{ product.quantity }}" inputmode="numeric" aria-label="Количество"/>
+              <button type="submit" formaction="{{ edit }}" data-mr-qty="1" aria-label="Увеличить">+</button>
+            </div>
+            <input type="hidden" name="key" value="{{ product.cart_id }}"/>
+          </form>
+          <div class="mr-basket__price">
+            <div class="mr-basket__sum">{{ product.total }}</div>
+            {% if product.price %}
+              <div class="mr-basket__each">{{ product.price }}/шт</div>
+            {% endif %}
+          </div>
+          <div class="mr-basket__actions">
+            <form method="post">
+              <input type="hidden" name="product_id" value="{{ product.product_id }}"/>
+              <button type="submit" formaction="{{ wishlist_add }}" class="mr-basket__icon" aria-label="В избранное">
+                <svg viewBox="0 0 24 24"><path d="M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              </button>
+            </form>
+            <a href="{{ product.remove }}" class="mr-basket__icon btn-danger" aria-label="Удалить">
+              <svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 7l1 13h6l1-13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
       {% endfor %}
     </div>
-  {% endif %}
-
-  <br/>
-  <div class="row">
-    <div class="col"><a href="{{ continue }}" class="btn btn-light">{{ button_shopping }}</a></div>
-    <div class="col text-end"><a href="{{ checkout }}" class="btn btn-primary">{{ button_checkout }}</a></div>
+    <aside class="mr-basket__summary">
+      <div class="mr-basket__total">
+        <span>Итого</span>
+        <strong class="mr-basket__grand">{% if totals %}{{ totals|last.text }}{% endif %}</strong>
+      </div>
+      <form class="mr-basket__promo" method="post">
+        <input type="text" name="coupon" value="{{ coupon }}" placeholder="Есть промокод?" aria-label="Промокод"/>
+        <button type="submit" formaction="{{ coupon_save }}" aria-label="Применить промокод">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <a class="mr-basket__checkout" href="{{ checkout }}">Перейти к оформлению</a>
+      <a class="mr-basket__clear" href="{{ clear }}" data-mr-clear>Очистить корзину</a>
+    </aside>
   </div>
 {% else %}
-  <h1>{{ heading_title }}</h1>
-  <p>{{ text_no_results }}</p>
-  <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+  <div class="mr-basket is-empty">
+    <div class="mr-basket-empty">
+      <div class="mr-basket-empty__art" aria-hidden="true">
+        <svg viewBox="0 0 94 80"><path fill="#DADADA" d="M4.5 0a4.4 4.4 0 0 0 0 8.9h14.7l3.4 10.2 10.7 32c2.3 6.7 9.4 10.5 16.3 8.6l34.4-9.3A12 12 0 0 0 94 38.7V26.7c0-7.4-6-13.4-13.4-13.4H30.1L27.6 6.1A12 12 0 0 0 19.2 0H4.5Zm37.4 48.4-8.8-26.2h47.5c2.5 0 4.5 2 4.5 4.5v11c0 2-1.4 3.8-3.3 4.3L46.4 51.3c-2.3.6-4.7-.7-5.4-2.9Z"/><circle cx="26.9" cy="71.1" r="8.9" fill="#DADADA"/><circle cx="76.1" cy="71.1" r="8.9" fill="#DADADA"/></svg>
+      </div>
+      <p class="mr-basket-empty__title">Ваша корзина пуста</p>
+      <p class="mr-basket-empty__text">Найдите то, что вам нужно в каталоге, на<br> главной странице или при помощи поиска</p>
+      <div class="mr-basket-empty__actions">
+        <a class="mr-basket-empty__catalog" href="{{ catalog }}">В каталог</a>
+        <a class="mr-basket-empty__home" href="{{ home }}">На главную</a>
+      </div>
+    </div>
+  </div>
 {% endif %}

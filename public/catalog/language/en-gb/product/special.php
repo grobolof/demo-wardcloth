@@ -1,6 +1,7 @@
 <?php
 // Heading
-$_['heading_title']    = 'Special Offers';
+$_['heading_title']    = 'Акции на компьютеры, ноутбуки и аксессуары';
+$_['text_breadcrumb']  = 'Распродажа';
 
 // Text
 $_['text_no_results']  = 'There are no special offer products to list.';

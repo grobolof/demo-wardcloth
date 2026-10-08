@@ -85,6 +85,21 @@ class Footer extends \Opencart\System\Engine\Controller {
 
 		$language = 'language=' . $this->config->get('config_language');
 
+		$data['telephone'] = $this->config->get('config_telephone');
+		$data['cart_total'] = $this->cart->countProducts();
+		$data['home'] = $this->url->link('common/home', $language);
+		$data['shopping_cart'] = $this->url->link('checkout/cart', $language);
+		$data['categories'] = [];
+
+		$this->load->model('catalog/category');
+
+		foreach ($this->model_catalog_category->getCategories(0) as $category) {
+			$data['categories'][] = [
+				'name' => $category['name'],
+				'href' => $this->url->link('product/category', $language . '&path=' . $category['category_id'])
+			];
+		}
+
 		$data['about'] = $this->url->link('information/information', $language . '&information_id=1');
 		$data['offer'] = $this->url->link('information/information', $language . '&information_id=2');
 		$data['privacy'] = $this->url->link('information/information', $language . '&information_id=3');
@@ -93,6 +108,8 @@ class Footer extends \Opencart\System\Engine\Controller {
 		$data['warranty'] = $this->url->link('information/information', $language . '&information_id=6');
 		$data['career'] = $this->url->link('information/information', $language . '&information_id=7');
 		$data['bonus'] = $this->url->link('information/information', $language . '&information_id=8');
+
+		$data['simple_footer'] = isset($this->request->get['route']) && $this->request->get['route'] == 'checkout/cart' && !$this->cart->hasProducts();
 
 		$data['bootstrap'] = 'catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js';
 		$data['scripts'] = $this->document->getScripts('footer');

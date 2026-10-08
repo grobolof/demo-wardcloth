@@ -2,73 +2,70 @@
 <footer class="mr-footer">
   <div class="mr-wrap mr-footer__main">
     <div>
+      <h3>Интернет-магазин</h3>
+      <ul>
+        {% for category in categories %}
+          <li><a href="{{ category.href }}">{{ category.name }}</a></li>
+        {% endfor %}
+        <li><a href="{{ special }}">Акции</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Компания</h3>
+      <ul>
+        <li><a href="{{ about }}">О компании</a></li>
+        <li><a href="{{ career }}">Карьера</a></li>
+        <li><a href="{{ contact }}">Контакты</a></li>
+        <li><a href="{{ bonus }}">Бонусная программа</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Информация</h3>
+      <ul>
+        <li><a href="{{ payment }}">Условия оплаты</a></li>
+        <li><a href="{{ delivery }}">Условия доставки</a></li>
+        <li><a href="{{ warranty }}">Гарантия на товар</a></li>
+        <li><a href="{{ offer }}">Пользовательское соглашение</a></li>
+        <li><a href="{{ privacy }}">Политика обработки персональных данных</a></li>
+      </ul>
+    </div>
+    <div class="mr-footer__contacts">
       <h3>Контакты</h3>
+      {% if telephone %}
+        <a class="mr-footer__phone" href="tel:{{ telephone|replace({' ': '', '(': '', ')': '', '-': ''}) }}">{{ telephone }}</a>
+      {% endif %}
+      <a class="mr-footer__call" href="{{ contact }}">Заказать звонок</a>
       <p class="mr-footer__address">108811, г. Москва, вн.тер.г. муниципальный округ Солнцево, кв-л 32, д. 17А стр. 1</p>
-      <a class="mr-footer__phone" href="tel:+78001005588">8 (800) 100-55-88</a>
-      <a class="mr-footer__feedback" href="{{ contact }}">Обратная связь</a>
+      <p class="mr-footer__hours">ежедневно с 10:00 до 20:00</p>
       <div class="mr-footer__socials">
-        <a href="{{ contact }}" aria-label="Telegram">
-          <svg viewBox="0 0 24 24"><path d="M20 5 4.5 11.2c-.9.3-.9 1.6.1 1.9l4 1.2 1.5 4.6c.3.9 1.5 1.1 2.1.3l2.2-2.8 4.1 3c.8.6 1.9.1 2.1-.8L21.8 6c.2-1.1-.8-2-1.8-1z" fill="currentColor"/></svg>
-        </a>
         <a href="{{ contact }}" aria-label="ВКонтакте">
           <svg viewBox="0 0 24 24"><path d="M4 7.5h2.3s.1 5.3 3.2 5.3c.5 0 .8-.1.8-.8V7.5h2.4v4.7c0 .7.3.8.8.8 2.1 0 3.3-5.5 3.3-5.5H19s.2 2.8-1.6 5.1c-1.1 1.4-2.4 1.6-2.4 1.6l2.7 3.3H15l-2.2-3.1s-.3-.4-.8-.4c-.6 0-.8.4-.8.4L8.8 17.5H6.4l2.8-3.4S4 11.2 4 7.5z" fill="currentColor"/></svg>
         </a>
-        <a href="{{ contact }}" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17.2 5.7 12 5.7 12 5.7s-5.2 0-6.9.4A3 3 0 0 0 3 8.2 31 31 0 0 0 2.6 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.7.4 6.9.4 6.9.4s5.2 0 6.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-3.8 31 31 0 0 0-.4-3.8zM10.4 15.1V8.9L15.6 12l-5.2 3.1z" fill="currentColor"/></svg>
+        <a href="{{ contact }}" aria-label="Telegram">
+          <svg viewBox="0 0 24 24"><path d="M20 5 4.5 11.2c-.9.3-.9 1.6.1 1.9l4 1.2 1.5 4.6c.3.9 1.5 1.1 2.1.3l2.2-2.8 4.1 3c.8.6 1.9.1 2.1-.8L21.8 6c.2-1.1-.8-2-1.8-1z" fill="currentColor"/></svg>
         </a>
       </div>
     </div>
-    <div>
-      <h3>Компания Mr. Robot</h3>
-      <ul>
-        <li><a href="{{ about }}">Компания</a></li>
-        <li><a href="{{ career }}">Карьера в Mr. Robot</a></li>
-        <li><a href="{{ about }}">Об интернет-магазине</a></li>
-        <li><a href="{{ contact }}">Контакты</a></li>
-        <li><a href="{{ contact }}">Магазины</a></li>
-        <li><a href="{{ about }}">Для бизнеса</a></li>
-      </ul>
-    </div>
-    <div class="mr-footer__help">
-      <h3>Помощь и поддержка</h3>
-      <div class="mr-footer__split">
-        <ul>
-          <li><a href="{{ delivery }}">Доставка</a></li>
-          <li><a href="{{ payment }}">Способы оплаты</a></li>
-          <li><a href="{{ returns }}">Обмен и возврат</a></li>
-          <li><a href="{{ warranty }}">Запасные части</a></li>
-          <li><a href="{{ about }}">Блог</a></li>
-          <li><a href="{{ privacy }}">Конфиденциальность</a></li>
-          <li><a href="{{ account }}">Отслеживаемые товары</a></li>
-          <li><a href="{{ about }}">Трейд-ин</a></li>
-        </ul>
-        <ul>
-          <li><a href="{{ delivery }}">Самовывоз</a></li>
-          <li><a href="{{ payment }}">Рассрочка и кредит</a></li>
-          <li><a href="{{ warranty }}">Гарантии</a></li>
-          <li><a href="{{ privacy }}">О персональных данных</a></li>
-          <li><a href="{{ offer }}">Договор оферты</a></li>
-          <li><a href="{{ sitemap }}">Карта сайта</a></li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <h3>Ваши привилегии</h3>
-      <ul>
-        <li><a href="{{ special }}">Акции</a></li>
-        <li><a href="{{ bonus }}">Бонусная программа</a></li>
-        <li><a href="{{ account }}">Баланс бонусной карты</a></li>
-        <li><a href="{{ bonus }}">VIP Сервис</a></li>
-        <li><a href="{{ bonus }}">Подарочные карты</a></li>
-      </ul>
-    </div>
   </div>
-  <div class="mr-wrap mr-footer__bottom">© {{ "now"|date("Y") }} Mr. Robot</div>
+  <div class="mr-wrap mr-footer__bottom">
+    <span>© {{ "now"|date("Y") }}{% if simple_footer %} Магазин компьютеров и ноутбуков в Калининграде{% else %} Мистер Робот{% endif %}</span>
+    <span class="mr-footer__legal">
+      <a href="{{ privacy }}">Политика обработки персональных данных</a>
+      <a href="{{ offer }}">Пользовательское соглашение</a>
+    </span>
+  </div>
 </footer>
+<nav class="mr-tabbar" aria-label="Мобильное меню">
+  <a href="{{ home }}">Главная</a>
+  <a href="{{ categories|first.href|default(home) }}">Каталог</a>
+  <a href="{{ shopping_cart|default(contact) }}">Корзина<span class="mr-cart-count{% if not cart_total %} is-empty{% endif %}" data-mr-cart-count>{{ cart_total }}</span></a>
+  <a href="{{ account }}">Кабинет</a>
+  <a href="{{ contact }}">Контакты</a>
+</nav>
 {{ cookie }}
 <script src="{{ bootstrap }}" type="text/javascript"></script>
 {% for script in scripts %}
   <script src="{{ script.href }}" type="text/javascript"></script>
 {% endfor %}
-<script src="catalog/view/javascript/mrrobot.js?v=2" type="text/javascript"></script>
+<script src="catalog/view/javascript/mrrobot.js?v=4" type="text/javascript"></script>
 </body></html>

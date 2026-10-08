@@ -67,12 +67,23 @@ class Home extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		$data['categories'] = [];
+
+		foreach ($this->model_catalog_category->getCategories(0) as $category) {
+			$data['categories'][] = [
+				'name' => $category['name'],
+				'href' => $this->url->link('product/category', $language . '&path=' . $category['category_id'])
+			];
+		}
+
+		$data['about'] = $this->url->link('information/information', $language . '&information_id=1');
 		$data['products'] = [];
+		$data['actual'] = [];
 		$results = $this->model_catalog_product->getProducts([
 			'sort'  => 'p.sort_order',
 			'order' => 'ASC',
 			'start' => 0,
-			'limit' => 8
+			'limit' => 16
 		]);
 
 		foreach ($results as $result) {
@@ -104,7 +115,13 @@ class Home extends \Opencart\System\Engine\Controller {
 				'href'        => $this->url->link('product/product', $language . '&product_id=' . $result['product_id'])
 			] + $result;
 
-			$data['products'][] = $this->load->controller('product/thumb', $product_data);
+			$card = $this->load->controller('product/thumb', $product_data);
+
+			if (count($data['products']) < 8) {
+				$data['products'][] = $card;
+			} else {
+				$data['actual'][] = $card;
+			}
 		}
 
 		$data['brands'] = [];

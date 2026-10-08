@@ -53,6 +53,20 @@
     });
   });
 
+  slider.querySelectorAll('[data-mr-prev]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      show(index - 1);
+      restart();
+    });
+  });
+
+  slider.querySelectorAll('[data-mr-next]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      show(index + 1);
+      restart();
+    });
+  });
+
   if (slides.length > 1) {
     restart();
   }
@@ -60,15 +74,20 @@
 
 (function () {
   var sink = document.getElementById('cart');
-  var label = document.querySelector('[data-mr-cart-count]');
+  var badges = document.querySelectorAll('[data-mr-cart-count]');
 
-  if (!sink || !label || !window.MutationObserver) {
+  if (!sink || !badges.length || !window.MutationObserver) {
     return;
   }
 
   var sync = function () {
     var match = (sink.innerText || '').match(/(\d+)\s+item/);
-    label.textContent = match && match[1] !== '0' ? 'Корзина (' + match[1] + ')' : 'Корзина';
+    var count = match ? parseInt(match[1], 10) : 0;
+
+    badges.forEach(function (badge) {
+      badge.textContent = count ? String(count) : '';
+      badge.classList.toggle('is-empty', !count);
+    });
   };
 
   new MutationObserver(sync).observe(sink, {childList: true, subtree: true, characterData: true});

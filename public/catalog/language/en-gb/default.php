@@ -10,13 +10,13 @@ $_['decimal_point']         = '.';
 $_['thousand_point']        = ' ';
 
 // Text
-$_['text_home']             = '<i class="fas fa-home"></i>';
+$_['text_home']             = 'Главная';
 $_['text_yes']              = 'Yes';
 $_['text_no']               = 'No';
 $_['text_none']             = ' --- None --- ';
 $_['text_select']           = ' --- Please Select --- ';
 $_['text_all_zones']        = 'All Zones';
-$_['text_pagination']       = 'Showing %d to %d of %d (%d Pages)';
+$_['text_pagination']       = 'Показано с %d по %d из %d (%d стр.)';
 $_['text_loading']          = 'Loading...';
 $_['text_no_results']       = 'No results!';
 $_['text_just_now']         = 'just now';

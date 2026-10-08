@@ -92,3 +92,123 @@
 
   new MutationObserver(sync).observe(sink, {childList: true, subtree: true, characterData: true});
 })();
+
+(function () {
+  var modal = document.getElementById('mr-login');
+
+  if (!modal || !window.jQuery) {
+    return;
+  }
+
+  var form = modal.querySelector('form');
+  var errorBox = modal.querySelector('.mr-auth__error');
+  var lastFocus = null;
+
+  function openLogin() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add('mr-auth-open');
+
+    var input = modal.querySelector('input[name="email"]');
+
+    if (input) {
+      input.focus();
+    }
+  }
+
+  function closeLogin() {
+    modal.hidden = true;
+    document.body.classList.remove('mr-auth-open');
+
+    if (lastFocus && lastFocus.focus) {
+      lastFocus.focus();
+    }
+  }
+
+  document.addEventListener('click', function (event) {
+    if (event.target.closest('[data-mr-login]')) {
+      event.preventDefault();
+      openLogin();
+      return;
+    }
+
+    if (event.target.closest('[data-mr-login-close]') || event.target === modal) {
+      closeLogin();
+    }
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && !modal.hidden) {
+      closeLogin();
+    }
+  });
+
+  if (modal.getAttribute('data-open') === '1') {
+    openLogin();
+  }
+
+  if (!form) {
+    return;
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var button = form.querySelector('[type="submit"]');
+
+    if (button) {
+      button.disabled = true;
+    }
+
+    window.jQuery.ajax({
+      url: form.action.replaceAll('&amp;', '&'),
+      type: 'post',
+      data: window.jQuery(form).serialize(),
+      dataType: 'json'
+    }).done(function (json) {
+      if (json && json.redirect) {
+        window.location = json.redirect;
+        return;
+      }
+
+      var message = '';
+
+      if (json && typeof json.error === 'string') {
+        message = json.error;
+      } else if (json && json.error && json.error.warning) {
+        message = json.error.warning;
+      }
+
+      if (errorBox) {
+        errorBox.hidden = !message;
+        errorBox.textContent = message;
+      }
+    }).always(function () {
+      if (button) {
+        button.disabled = false;
+      }
+    });
+  });
+})();
+
+document.addEventListener('click', function (event) {
+  var button = event.target.closest('[data-mr-password]');
+
+  if (!button) {
+    return;
+  }
+
+  var input = button.parentElement.querySelector('input');
+
+  if (!input) {
+    return;
+  }
+
+  var show = input.type === 'password';
+
+  input.type = show ? 'text' : 'password';
+  button.classList.toggle('is-open', show);
+  button.setAttribute('aria-label', show ? 'Скрыть пароль' : 'Показать пароль');
+  button.querySelector('.mr-eye-off').hidden = show;
+  button.querySelector('.mr-eye-on').hidden = !show;
+});

@@ -109,6 +109,7 @@ class Footer extends \Opencart\System\Engine\Controller {
 		$data['career'] = $this->url->link('information/information', $language . '&information_id=7');
 		$data['bonus'] = $this->url->link('information/information', $language . '&information_id=8');
 
+		$data['logged'] = $this->customer->isLogged();
 		$data['simple_footer'] = isset($this->request->get['route']) && $this->request->get['route'] == 'checkout/cart' && !$this->cart->hasProducts();
 
 		$data['bootstrap'] = 'catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js';

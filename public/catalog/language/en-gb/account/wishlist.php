@@ -5,7 +5,7 @@ $_['heading_title']   = 'My Wishlist';
 // Text
 $_['text_account']    = 'Account';
 $_['text_wishlist']   = 'Wish List (%s)';
-$_['text_login']      = 'You must <a href="%s">login</a> or <a href="%s">create an account</a> to save <a href="%s">%s</a> to your <a href="%s">wish list</a>!';
+$_['text_login']      = 'Чтобы сохранить <a href="%3$s">%4$s</a> в избранное, <a href="%1$s">войдите</a> или <a href="%2$s">зарегистрируйтесь</a>.';
 $_['text_success']    = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">wish list</a>!';
 $_['text_remove']     = 'Success: You have removed an item from your wishlist';
 $_['text_no_results'] = 'Your wish list is empty.';

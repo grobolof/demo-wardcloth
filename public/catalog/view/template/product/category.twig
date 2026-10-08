@@ -8,12 +8,19 @@
   <div class="row">{{ column_left }}
     <div id="content" class="col">{{ content_top }}
       <h1>{{ heading_title }}</h1>
-      {% if image or description %}
+      {% if brands %}
+        <div class="mr-brand-filter" aria-label="Бренды">
+          {% for brand in brands %}
+            <a class="mr-brand-filter__item{% if brand.active %} is-active{% endif %}" href="{{ brand.href }}">{{ brand.name }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if image or (description and not brands) %}
         <div class="row">
           {% if image %}
             <div class="col-3"><img src="{{ image }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail"/></div>
           {% endif %}
-          {% if description %}
+          {% if description and not brands %}
             <div class="col-9">{{ description }}</div>
           {% endif %}
         </div>

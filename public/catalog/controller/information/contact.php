@@ -39,7 +39,15 @@ class Contact extends \Opencart\System\Engine\Controller {
 			$data['image'] = '';
 		}
 
-		$data['store'] = $this->config->get('config_name');
+		$data['store'] = 'Мистер Робот';
+		$data['place'] = 'Мистер Робот Калининград';
+		$data['address_line'] = 'г. Калининград, Ленинский пр-т, 17';
+		$data['hours'] = 'ежедневно с 10:00 до 20:00';
+		$data['phones'] = ['+7 (4012) 53-21-31', '+7 (901) 390-28-63'];
+		$data['contact_email'] = 'info@mr-robot.ru';
+		$data['legal'] = 'Индивидуальный предприниматель Куликов Игорь Петрович<br>ИНН: 391701713511. Почтовый адрес: 236006, Калининград, Ленинский проспект, д. 17-19, лит. VI из лит. А, пом. 1';
+		$data['bank'] = 'Банк: Калининградское отделение № 8626 ПАО СБЕРБАНК, БИК: 042748634<br>Номер счёта: 40802810220000015970';
+		$data['about_store'] = 'Мистер Робот — магазин компьютеров и ноутбуков в Калининграде';
 		$data['address'] = nl2br($this->config->get('config_address'));
 		$data['geocode'] = $this->config->get('config_geocode');
 		$data['geocode_hl'] = $this->config->get('config_language');

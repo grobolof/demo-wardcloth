@@ -1,26 +1,26 @@
 <?php
 // Heading
-$_['heading_title']  = 'Contact Us';
+$_['heading_title']  = 'Контакты';
 
 // Text
-$_['text_location']  = 'Our Locations';
-$_['text_store']     = 'Our Stores';
-$_['text_contact']   = 'Contact Form';
-$_['text_address']   = 'Address';
-$_['text_telephone'] = 'Telephone';
-$_['text_open']      = 'Opening Times';
-$_['text_comment']   = 'Comments';
-$_['text_message']   = '<p>Your enquiry has been successfully sent to the store owner!</p>';
+$_['text_location']  = 'Адрес магазина';
+$_['text_store']     = 'Магазины';
+$_['text_contact']   = 'Свяжитесь с нами';
+$_['text_address']   = 'Адрес';
+$_['text_telephone'] = 'Телефон';
+$_['text_open']      = 'Режим работы';
+$_['text_comment']   = 'Комментарий';
+$_['text_message']   = '<p>Сообщение отправлено. Мы свяжемся с вами.</p>';
 
 // Entry
-$_['entry_name']     = 'Your Name';
-$_['entry_email']    = 'E-Mail Address';
-$_['entry_enquiry']  = 'Enquiry';
+$_['entry_name']     = 'Имя';
+$_['entry_email']    = 'Эл. почта';
+$_['entry_enquiry']  = 'Сообщение';
 
 // Email
-$_['email_subject']  = 'Enquiry %s';
+$_['email_subject']  = 'Обращение %s';
 
 // Errors
-$_['error_name']     = 'Name must be between 3 and 32 characters!';
-$_['error_email']    = 'E-Mail Address does not appear to be valid!';
-$_['error_enquiry']  = 'Enquiry must be between 10 and 3000 characters!';
+$_['error_name']     = 'Имя должно быть от 3 до 32 символов.';
+$_['error_email']    = 'Укажите корректный адрес эл. почты.';
+$_['error_enquiry']  = 'Сообщение должно быть от 10 до 3000 символов.';

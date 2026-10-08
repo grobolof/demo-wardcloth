@@ -26,7 +26,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 		];
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_brand'),
+			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'))
 		];
 

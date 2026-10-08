@@ -80,9 +80,36 @@ class Header extends \Opencart\System\Engine\Controller {
 		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
 		$data['logged'] = $this->customer->isLogged();
 
+		$data['open_login'] = false;
+		$data['login_error'] = '';
+		$data['login_redirect'] = '';
+		$data['login_action'] = '';
+		$data['forgotten'] = '';
+
 		if (!$this->customer->isLogged()) {
+			if (empty($this->session->data['login_token'])) {
+				$this->session->data['login_token'] = oc_token(26);
+			}
+
 			$data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
 			$data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
+			$data['forgotten'] = $this->url->link('account/forgotten', 'language=' . $this->config->get('config_language'));
+			$data['login_action'] = $this->url->link('account/login.login', 'language=' . $this->config->get('config_language') . '&login_token=' . $this->session->data['login_token']);
+
+			if (!empty($this->session->data['redirect'])) {
+				$data['login_redirect'] = (string)$this->session->data['redirect'];
+				unset($this->session->data['redirect']);
+			}
+
+			if (!empty($this->session->data['error'])) {
+				$data['login_error'] = (string)$this->session->data['error'];
+				unset($this->session->data['error']);
+			}
+
+			if (!empty($this->session->data['mr_login_modal'])) {
+				$data['open_login'] = true;
+				unset($this->session->data['mr_login_modal']);
+			}
 		} else {
 			$data['account'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 			$data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);

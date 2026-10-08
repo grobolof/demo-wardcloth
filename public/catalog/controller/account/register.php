@@ -28,8 +28,9 @@ class Register extends \Opencart\System\Engine\Controller {
 		];
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language'))
+			'text'  => $this->language->get('text_account'),
+			'href'  => $this->url->link('account/login', 'language=' . $this->config->get('config_language')),
+			'login' => true
 		];
 
 		$data['breadcrumbs'][] = [
@@ -107,6 +108,9 @@ class Register extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['language'] = $this->config->get('config_language');
+		$data['password_length'] = (int)$this->config->get('config_password_length');
+		$data['privacy'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=3');
+		$data['offer'] = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=2');
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -159,6 +163,15 @@ class Register extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			$fullname = '';
+
+			if (array_key_exists('fullname', $this->request->post)) {
+				$fullname = trim(preg_replace('/\s+/u', ' ', (string)$this->request->post['fullname']));
+				$parts = $fullname === '' ? [] : explode(' ', $fullname, 2);
+				$post_info['lastname'] = $parts[0] ?? '';
+				$post_info['firstname'] = isset($parts[1]) && $parts[1] !== '' ? $parts[1] : ($parts[0] ?? '');
+			}
+
 			// Customer Group
 			if ($post_info['customer_group_id']) {
 				$customer_group_id = (int)$post_info['customer_group_id'];
@@ -174,12 +187,18 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['error']['warning'] = $this->language->get('error_customer_group');
 			}
 
-			if (!oc_validate_length($post_info['firstname'], 1, 32)) {
-				$json['error']['firstname'] = $this->language->get('error_firstname');
-			}
+			if (array_key_exists('fullname', $this->request->post)) {
+				if ($fullname === '' || !oc_validate_length($post_info['firstname'], 1, 32) || !oc_validate_length($post_info['lastname'], 1, 32)) {
+					$json['error']['fullname'] = $this->language->get('error_fullname');
+				}
+			} else {
+				if (!oc_validate_length($post_info['firstname'], 1, 32)) {
+					$json['error']['firstname'] = $this->language->get('error_firstname');
+				}
 
-			if (!oc_validate_length($post_info['lastname'], 1, 32)) {
-				$json['error']['lastname'] = $this->language->get('error_lastname');
+				if (!oc_validate_length($post_info['lastname'], 1, 32)) {
+					$json['error']['lastname'] = $this->language->get('error_lastname');
+				}
 			}
 
 			if (!oc_validate_email($post_info['email'])) {
@@ -190,7 +209,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			$this->load->model('account/customer');
 
 			if ($this->model_account_customer->getTotalCustomersByEmail($post_info['email'])) {
-				$json['error']['warning'] = $this->language->get('error_exists');
+				$json['error']['email'] = $this->language->get('error_exists');
 			}
 
 			if ($this->config->get('config_telephone_required') && !oc_validate_length($post_info['telephone'], 3, 32)) {
@@ -240,13 +259,19 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['error']['password'] = sprintf($this->language->get('error_password'), implode(', ', $required), $this->config->get('config_password_length'));
 			}
 
+			$confirm = html_entity_decode((string)($this->request->post['confirm'] ?? ''), ENT_QUOTES, 'UTF-8');
+
+			if ($confirm === '' || $confirm !== $password) {
+				$json['error']['confirm'] = $this->language->get('error_confirm');
+			}
+
 			// Agree to terms
 			$this->load->model('catalog/information');
 
 			$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_account_id'));
 
 			if ($information_info && !$post_info['agree']) {
-				$json['error']['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
+				$json['error']['agree'] = $this->language->get('error_agree_plain');
 			}
 		}
 

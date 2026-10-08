@@ -2,11 +2,6 @@
 <div id="checkout-cart" class="mr-basket-page">
   <div class="mr-wrap">
     <a class="mr-basket-back" href="{{ catalog }}">Вернуться в каталог</a>
-    <ul class="breadcrumb">
-      {% for breadcrumb in breadcrumbs %}
-        <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
-      {% endfor %}
-    </ul>
     <div class="mr-basket-head">
       <h1>Корзина</h1>
       <div class="mr-basket-tools">
@@ -17,10 +12,6 @@
         <button type="button" id="mr-basket-print">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V4h10v4M7 17H5a2 2 0 0 1-2-2v-5h18v5a2 2 0 0 1-2 2h-2M7 14h10v6H7v-6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
           Распечатать
-        </button>
-        <button type="button" id="mr-basket-share">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V5m0 0 3.5 3.5M12 5 8.5 8.5M6 14v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Поделиться
         </button>
       </div>
     </div>
@@ -161,19 +152,6 @@ $('#mr-basket-download').on('click', function() {
 
 $('#mr-basket-print').on('click', function() {
     window.print();
-});
-
-$('#mr-basket-share').on('click', function() {
-    var share = {title: 'Корзина', url: window.location.href};
-
-    if (navigator.share) {
-        navigator.share(share);
-        return;
-    }
-
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(window.location.href);
-    }
 });
 //--></script>
 {{ footer }}

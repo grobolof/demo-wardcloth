@@ -69,12 +69,6 @@
         <span>Итого</span>
         <strong class="mr-basket__grand">{% if totals %}{{ totals|last.text }}{% endif %}</strong>
       </div>
-      <form class="mr-basket__promo" method="post">
-        <input type="text" name="coupon" value="{{ coupon }}" placeholder="Есть промокод?" aria-label="Промокод"/>
-        <button type="submit" formaction="{{ coupon_save }}" aria-label="Применить промокод">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </form>
       <a class="mr-basket__checkout" href="{{ checkout }}">Перейти к оформлению</a>
       <a class="mr-basket__clear" href="{{ clear }}" data-mr-clear>Очистить корзину</a>
     </aside>

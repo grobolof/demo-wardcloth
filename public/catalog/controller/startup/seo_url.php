@@ -43,7 +43,17 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 				}
 
 				if (!isset($this->request->get['route'])) {
-					$this->request->get['route'] = $this->config->get('action_default');
+					if (isset($this->request->get['product_id'])) {
+						$this->request->get['route'] = 'product/product';
+					} elseif (isset($this->request->get['path'])) {
+						$this->request->get['route'] = 'product/category';
+					} elseif (isset($this->request->get['manufacturer_id'])) {
+						$this->request->get['route'] = 'product/manufacturer.info';
+					} elseif (isset($this->request->get['information_id'])) {
+						$this->request->get['route'] = 'information/information';
+					} else {
+						$this->request->get['route'] = $this->config->get('action_default');
+					}
 				}
 
 				if ($parts) {
@@ -138,8 +148,14 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 		$url .= str_replace('/index.php', '', $url_info['path'] ?? '');
 
 		foreach ($paths as $result) {
+			if ($result['keyword'] === '' || $result['key'] === 'language' || ($result['key'] === 'route' && in_array($result['value'], ['information/information', 'product/category', 'product/manufacturer.info'], true))) {
+				continue;
+			}
+
 			$url .= '/' . $result['keyword'];
 		}
+
+		unset($query['language']);
 
 		// Rebuild the URL query
 		if ($query) {

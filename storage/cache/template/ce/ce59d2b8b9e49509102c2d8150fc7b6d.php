@@ -136,64 +136,35 @@ class __TwigTemplate_de2651ae838de0499e90e651401d0a0c extends Template
           <label>
             <select name=\"filter_status\" onchange=\"this.form.submit()\">
               <option value=\"\">Любой статус заказа</option>
-              <option value=\"accepted\"";
+              <option value=\"7\"";
         // line 32
-        if ((($context["filter_status"] ?? null) == "accepted")) {
-            yield " selected";
-        }
-        yield ">Принят</option>
-              <option value=\"processing\"";
-        // line 33
-        if ((($context["filter_status"] ?? null) == "processing")) {
-            yield " selected";
-        }
-        yield ">Выполняется</option>
-              <option value=\"ready\"";
-        // line 34
-        if ((($context["filter_status"] ?? null) == "ready")) {
-            yield " selected";
-        }
-        yield ">Готов к выдаче</option>
-              <option value=\"complete\"";
-        // line 35
-        if ((($context["filter_status"] ?? null) == "complete")) {
-            yield " selected";
-        }
-        yield ">Выполнен</option>
-              <option value=\"canceled\"";
-        // line 36
-        if ((($context["filter_status"] ?? null) == "canceled")) {
+        if ((($context["filter_status"] ?? null) == "7")) {
             yield " selected";
         }
         yield ">Отменен</option>
-            </select>
-          </label>
-          <label>
-            <select name=\"filter_payed\" onchange=\"this.form.submit()\">
-              <option value=\"\">Любой статус оплаты</option>
-              <option value=\"N\"";
-        // line 42
-        if ((($context["filter_payed"] ?? null) == "N")) {
+              <option value=\"5\"";
+        // line 33
+        if ((($context["filter_status"] ?? null) == "5")) {
             yield " selected";
         }
-        yield ">Не оплачен</option>
-              <option value=\"Y\"";
-        // line 43
-        if ((($context["filter_payed"] ?? null) == "Y")) {
+        yield ">Выполнен</option>
+              <option value=\"1\"";
+        // line 34
+        if ((($context["filter_status"] ?? null) == "1")) {
             yield " selected";
         }
-        yield ">Оплачен</option>
+        yield ">Ожидает оплату</option>
             </select>
           </label>
           <label>
             <select name=\"filter_year\" onchange=\"this.form.submit()\">
               <option value=\"\">За все время</option>
               ";
-        // line 49
+        // line 40
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(($context["years"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["year"]) {
-            // line 50
+            // line 41
             yield "                <option value=\"";
             yield $context["year"];
             yield "\"";
@@ -208,77 +179,77 @@ class __TwigTemplate_de2651ae838de0499e90e651401d0a0c extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['year'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 52
+        // line 43
         yield "            </select>
           </label>
         </form>
         ";
-        // line 55
+        // line 46
         if ((($tmp = ($context["orders"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 56
+            // line 47
             yield "          <div class=\"mr-orders\">
             ";
-            // line 57
+            // line 48
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable(($context["orders"] ?? null));
             foreach ($context['_seq'] as $context["_key"] => $context["order"]) {
-                // line 58
+                // line 49
                 yield "              <article class=\"mr-order-card";
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "status_done", [], "any", false, false, false, 58)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "status_done", [], "any", false, false, false, 49)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                     yield " is-done";
                 }
                 yield "\">
                 <a class=\"mr-order-card__cover\" href=\"";
-                // line 59
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "view", [], "any", false, false, false, 59);
+                // line 50
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "view", [], "any", false, false, false, 50);
                 yield "\" aria-label=\"Заказ от ";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "date", [], "any", false, false, false, 59);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "date", [], "any", false, false, false, 50);
                 yield "\"></a>
                 <div class=\"mr-order-card__info\">
                   <a class=\"mr-order-card__date\" href=\"";
-                // line 61
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "view", [], "any", false, false, false, 61);
+                // line 52
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "view", [], "any", false, false, false, 52);
                 yield "\">Заказ от ";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "date", [], "any", false, false, false, 61);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "date", [], "any", false, false, false, 52);
                 yield "</a>
                   <div class=\"mr-order-card__meta\">
                     <span>№";
-                // line 63
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "order_id", [], "any", false, false, false, 63);
+                // line 54
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "order_id", [], "any", false, false, false, 54);
                 yield "</span>
                     ";
-                // line 64
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "pay_text", [], "any", false, false, false, 64)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                    // line 65
+                // line 55
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "pay_text", [], "any", false, false, false, 55)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 56
                     yield "                      <span class=\"mr-order-card__pay";
-                    if ((($tmp =  !CoreExtension::getAttribute($this->env, $this->source, $context["order"], "paid", [], "any", false, false, false, 65)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    if ((($tmp =  !CoreExtension::getAttribute($this->env, $this->source, $context["order"], "paid", [], "any", false, false, false, 56)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                         yield " is-wait";
                     }
                     yield "\">";
-                    yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "pay_text", [], "any", false, false, false, 65);
+                    yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "pay_text", [], "any", false, false, false, 56);
                     yield "</span>
                     ";
                 }
-                // line 67
+                // line 58
                 yield "                  </div>
                   <div class=\"mr-order-card__status\">
                     <span class=\"mr-order-card__state";
-                // line 69
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "status_done", [], "any", false, false, false, 69)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                // line 60
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "status_done", [], "any", false, false, false, 60)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                     yield " is-done";
                 }
                 yield "\">";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "status_label", [], "any", false, false, false, 69);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "status_label", [], "any", false, false, false, 60);
                 yield "</span>
                     <span class=\"mr-order-card__steps\" aria-hidden=\"true\">
                       ";
-                // line 71
+                // line 62
                 $context['_parent'] = $context;
                 $context['_seq'] = CoreExtension::ensureTraversable(range(1, 4));
                 foreach ($context['_seq'] as $context["_key"] => $context["step"]) {
-                    // line 72
+                    // line 63
                     yield "                        <i";
-                    if (($context["step"] <= CoreExtension::getAttribute($this->env, $this->source, $context["order"], "step", [], "any", false, false, false, 72))) {
+                    if (($context["step"] <= CoreExtension::getAttribute($this->env, $this->source, $context["order"], "step", [], "any", false, false, false, 63))) {
                         yield " class=\"is-on\"";
                     }
                     yield "></i>
@@ -287,70 +258,70 @@ class __TwigTemplate_de2651ae838de0499e90e651401d0a0c extends Template
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_key'], $context['step'], $context['_parent']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 74
+                // line 65
                 yield "                    </span>
                   </div>
                 </div>
                 <div class=\"mr-order-card__sum\">";
-                // line 77
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "total", [], "any", false, false, false, 77);
+                // line 68
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "total", [], "any", false, false, false, 68);
                 yield "</div>
                 <div class=\"mr-order-card__photos\">
                   ";
-                // line 79
+                // line 70
                 $context['_parent'] = $context;
-                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["order"], "products", [], "any", false, false, false, 79));
+                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["order"], "products", [], "any", false, false, false, 70));
                 foreach ($context['_seq'] as $context["_key"] => $context["product"]) {
-                    // line 80
+                    // line 71
                     yield "                    <a href=\"";
-                    yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "href", [], "any", false, false, false, 80);
+                    yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "href", [], "any", false, false, false, 71);
                     yield "\" title=\"";
-                    yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "name", [], "any", false, false, false, 80);
+                    yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "name", [], "any", false, false, false, 71);
                     yield "\">
                       ";
-                    // line 81
-                    if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["product"], "thumb", [], "any", false, false, false, 81)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                        // line 82
+                    // line 72
+                    if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["product"], "thumb", [], "any", false, false, false, 72)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                        // line 73
                         yield "                        <img src=\"";
-                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "thumb", [], "any", false, false, false, 82);
+                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "thumb", [], "any", false, false, false, 73);
                         yield "\" alt=\"";
-                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "name", [], "any", false, false, false, 82);
+                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "name", [], "any", false, false, false, 73);
                         yield "\">
                       ";
                     }
-                    // line 84
+                    // line 75
                     yield "                    </a>
                   ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_key'], $context['product'], $context['_parent']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 86
+                // line 77
                 yield "                  ";
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "more", [], "any", false, false, false, 86)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                    // line 87
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "more", [], "any", false, false, false, 77)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 78
                     yield "                    <span>+";
-                    yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "more", [], "any", false, false, false, 87);
+                    yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "more", [], "any", false, false, false, 78);
                     yield "</span>
                   ";
                 }
-                // line 89
+                // line 80
                 yield "                </div>
                 <div class=\"mr-order-card__actions\">
                   <a class=\"mr-order-card__repeat\" href=\"";
-                // line 91
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "reorder", [], "any", false, false, false, 91);
+                // line 82
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "reorder", [], "any", false, false, false, 82);
                 yield "\">Повторить заказ</a>
                   ";
-                // line 92
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "can_cancel", [], "any", false, false, false, 92)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                    // line 93
+                // line 83
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["order"], "can_cancel", [], "any", false, false, false, 83)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 84
                     yield "                    <a class=\"mr-order-card__cancel\" href=\"";
-                    yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "cancel", [], "any", false, false, false, 93);
+                    yield CoreExtension::getAttribute($this->env, $this->source, $context["order"], "cancel", [], "any", false, false, false, 84);
                     yield "\">Отменить заказ</a>
                   ";
                 }
-                // line 95
+                // line 86
                 yield "                </div>
               </article>
             ";
@@ -358,35 +329,35 @@ class __TwigTemplate_de2651ae838de0499e90e651401d0a0c extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['order'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 98
+            // line 89
             yield "          </div>
           ";
-            // line 99
+            // line 90
             if ((($tmp = ($context["pagination"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 100
+                // line 91
                 yield "            <div class=\"mr-orders__pages\">";
                 yield ($context["pagination"] ?? null);
                 yield "</div>
           ";
             }
-            // line 102
+            // line 93
             yield "        ";
         } else {
-            // line 103
+            // line 94
             yield "          <div class=\"mr-orders__empty\">Заказов пока нет</div>
         ";
         }
-        // line 105
+        // line 96
         yield "      </div>
     </div>
     ";
-        // line 107
+        // line 98
         yield ($context["content_bottom"] ?? null);
         yield "
   </div>
 </div>
 ";
-        // line 110
+        // line 101
         yield ($context["footer"] ?? null);
         yield "
 ";
@@ -414,7 +385,7 @@ class __TwigTemplate_de2651ae838de0499e90e651401d0a0c extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  390 => 110,  384 => 107,  380 => 105,  376 => 103,  373 => 102,  367 => 100,  365 => 99,  362 => 98,  354 => 95,  348 => 93,  346 => 92,  342 => 91,  338 => 89,  332 => 87,  329 => 86,  322 => 84,  314 => 82,  312 => 81,  305 => 80,  301 => 79,  296 => 77,  291 => 74,  280 => 72,  276 => 71,  267 => 69,  263 => 67,  253 => 65,  251 => 64,  247 => 63,  240 => 61,  233 => 59,  226 => 58,  222 => 57,  219 => 56,  217 => 55,  212 => 52,  197 => 50,  193 => 49,  182 => 43,  176 => 42,  165 => 36,  159 => 35,  153 => 34,  147 => 33,  141 => 32,  134 => 28,  127 => 24,  123 => 23,  119 => 22,  115 => 21,  111 => 20,  103 => 15,  99 => 13,  84 => 11,  76 => 9,  70 => 7,  68 => 6,  65 => 5,  48 => 4,  42 => 1,);
+        return array (  361 => 101,  355 => 98,  351 => 96,  347 => 94,  344 => 93,  338 => 91,  336 => 90,  333 => 89,  325 => 86,  319 => 84,  317 => 83,  313 => 82,  309 => 80,  303 => 78,  300 => 77,  293 => 75,  285 => 73,  283 => 72,  276 => 71,  272 => 70,  267 => 68,  262 => 65,  251 => 63,  247 => 62,  238 => 60,  234 => 58,  224 => 56,  222 => 55,  218 => 54,  211 => 52,  204 => 50,  197 => 49,  193 => 48,  190 => 47,  188 => 46,  183 => 43,  168 => 41,  164 => 40,  153 => 34,  147 => 33,  141 => 32,  134 => 28,  127 => 24,  123 => 23,  119 => 22,  115 => 21,  111 => 20,  103 => 15,  99 => 13,  84 => 11,  76 => 9,  70 => 7,  68 => 6,  65 => 5,  48 => 4,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -450,18 +421,9 @@ class __TwigTemplate_de2651ae838de0499e90e651401d0a0c extends Template
           <label>
             <select name=\"filter_status\" onchange=\"this.form.submit()\">
               <option value=\"\">Любой статус заказа</option>
-              <option value=\"accepted\"{% if filter_status == 'accepted' %} selected{% endif %}>Принят</option>
-              <option value=\"processing\"{% if filter_status == 'processing' %} selected{% endif %}>Выполняется</option>
-              <option value=\"ready\"{% if filter_status == 'ready' %} selected{% endif %}>Готов к выдаче</option>
-              <option value=\"complete\"{% if filter_status == 'complete' %} selected{% endif %}>Выполнен</option>
-              <option value=\"canceled\"{% if filter_status == 'canceled' %} selected{% endif %}>Отменен</option>
-            </select>
-          </label>
-          <label>
-            <select name=\"filter_payed\" onchange=\"this.form.submit()\">
-              <option value=\"\">Любой статус оплаты</option>
-              <option value=\"N\"{% if filter_payed == 'N' %} selected{% endif %}>Не оплачен</option>
-              <option value=\"Y\"{% if filter_payed == 'Y' %} selected{% endif %}>Оплачен</option>
+              <option value=\"7\"{% if filter_status == '7' %} selected{% endif %}>Отменен</option>
+              <option value=\"5\"{% if filter_status == '5' %} selected{% endif %}>Выполнен</option>
+              <option value=\"1\"{% if filter_status == '1' %} selected{% endif %}>Ожидает оплату</option>
             </select>
           </label>
           <label>

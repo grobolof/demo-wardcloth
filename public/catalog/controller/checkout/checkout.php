@@ -35,7 +35,7 @@ class Checkout extends \Opencart\System\Engine\Controller {
 		$data['privacy'] = $this->url->link('information/information', $language . '&information_id=3');
 		$data['offer'] = $this->url->link('information/information', $language . '&information_id=2');
 		$data['comment'] = (string)($this->session->data['comment'] ?? '');
-		$data['store_address'] = '108811, г. Москва, вн.тер.г. муниципальный округ Солнцево, кв-л 32, д. 17А стр. 1';
+		$data['store_address'] = '194354, г. Санкт-Петербург, проспект Энгельса, д. 115, к. 1';
 
 		if ($this->customer->isLogged()) {
 			$firstname = (string)$this->customer->getFirstName();
@@ -239,8 +239,8 @@ class Checkout extends \Opencart\System\Engine\Controller {
 		$this->load->model('localisation/country');
 		$this->load->model('localisation/zone');
 
-		$country_id = (int)$this->config->get('config_country_id');
-		$zone_id = (int)$this->config->get('config_zone_id');
+		$country_id = 176;
+		$zone_id = 4334;
 		$country = $this->model_localisation_country->getCountry($country_id);
 		$zone = $this->model_localisation_zone->getZone($zone_id);
 
@@ -249,10 +249,10 @@ class Checkout extends \Opencart\System\Engine\Controller {
 			'firstname'      => (string)($customer['firstname'] ?? ''),
 			'lastname'       => (string)($customer['lastname'] ?? ''),
 			'company'        => '',
-			'address_1'      => 'кв-л 32, д. 17А стр. 1',
+			'address_1'      => 'проспект Энгельса, д. 115, к. 1',
 			'address_2'      => '',
-			'city'           => 'Москва',
-			'postcode'       => '108811',
+			'city'           => 'Санкт-Петербург',
+			'postcode'       => '194354',
 			'zone_id'        => $zone_id,
 			'zone'           => $zone['name'] ?? '',
 			'zone_code'      => $zone['code'] ?? '',

@@ -69,6 +69,7 @@ class Header extends \Opencart\System\Engine\Controller {
 
 		// Wishlist
 		if ($this->customer->isLogged()) {
+			$this->load->controller('account/wishlist.sync');
 			$this->load->model('account/wishlist');
 
 			$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist($this->customer->getId()));

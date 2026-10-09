@@ -95,7 +95,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         // line 21
         yield ($context["stylesheet"] ?? null);
         yield "\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=21\" type=\"text/css\" rel=\"stylesheet\"/>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=23\" type=\"text/css\" rel=\"stylesheet\"/>
   <script src=\"catalog/view/javascript/common.js?v=2\" type=\"text/javascript\"></script>
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.ico\" sizes=\"any\">
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.svg\" type=\"image/svg+xml\">
@@ -255,15 +255,12 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         ";
             }
             // line 80
-            yield "        <a class=\"mr-top__call\" href=\"";
-            yield ($context["contact"] ?? null);
-            yield "\">Заказать звонок</a>
-      </div>
+            yield "      </div>
     </div>
   </div>
   <div class=\"mr-header__bar\">
     <a class=\"mr-logo\" href=\"";
-            // line 85
+            // line 84
             yield ($context["home"] ?? null);
             yield "\" aria-label=\"Мистер Робот\">
       <svg class=\"mr-logo__bot\" viewBox=\"0 0 64 58\" aria-hidden=\"true\">
@@ -289,24 +286,24 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
       <span>Каталог</span>
     </button>
     ";
-            // line 108
+            // line 107
             yield ($context["search"] ?? null);
             yield "
     <nav class=\"mr-actions\" aria-label=\"Покупатель\">
       ";
-            // line 110
+            // line 109
             if ((($tmp =  !($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 111
+                // line 110
                 yield "        <button type=\"button\" class=\"mr-action\" data-mr-login>
           <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"3.2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"/><path d=\"M5.5 19.5c1.4-3 3.6-4.5 6.5-4.5s5.1 1.5 6.5 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"/></svg>
           <span>Войти</span>
         </button>
       ";
             } else {
-                // line 116
+                // line 115
                 yield "        <div class=\"mr-action mr-action--menu\">
           <a class=\"mr-action\" href=\"";
-                // line 117
+                // line 116
                 yield ($context["account"] ?? null);
                 yield "\">
             <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"3.2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"/><path d=\"M5.5 19.5c1.4-3 3.6-4.5 6.5-4.5s5.1 1.5 6.5 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"/></svg>
@@ -314,22 +311,22 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
           </a>
           <div class=\"mr-action__drop\">
             <a href=\"";
-                // line 122
+                // line 121
                 yield ($context["account"] ?? null);
                 yield "\">Личный кабинет</a>
             <a href=\"";
-                // line 123
+                // line 122
                 yield ($context["order"] ?? null);
                 yield "\">Заказы</a>
             <a href=\"";
-                // line 124
+                // line 123
                 yield ($context["logout"] ?? null);
                 yield "\">Выйти</a>
           </div>
         </div>
       ";
             }
-            // line 128
+            // line 127
             yield "      <a class=\"mr-action\" href=\"";
             yield ($context["wishlist"] ?? null);
             yield "\" id=\"wishlist-total\">
@@ -337,13 +334,13 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         <span>Избранное</span>
       </a>
       <a class=\"mr-action mr-action--cart\" href=\"";
-            // line 132
+            // line 131
             yield ($context["shopping_cart"] ?? null);
             yield "\">
         <span class=\"mr-action__icon\">
           <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 7h15l-1.6 9.2a1 1 0 0 1-1 .8H8.2a1 1 0 0 1-1-.8L5.2 4H3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"9\" cy=\"20\" r=\"1.3\" fill=\"currentColor\"/><circle cx=\"17\" cy=\"20\" r=\"1.3\" fill=\"currentColor\"/></svg>
           <span class=\"mr-cart-count";
-            // line 135
+            // line 134
             if ((($tmp =  !($context["cart_total"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield " is-empty";
             }
@@ -356,20 +353,20 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
     </nav>
   </div>
   ";
-            // line 141
+            // line 140
             yield ($context["menu"] ?? null);
             yield "
 ";
         }
-        // line 143
+        // line 142
         yield "  <div id=\"cart\" class=\"mr-cart-sink\" hidden>";
         yield ($context["cart"] ?? null);
         yield "</div>
 </header>
 ";
-        // line 145
+        // line 144
         if ((($tmp =  !($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 146
+            // line 145
             yield "  <div class=\"mr-auth\" id=\"mr-login\"";
             if ((($tmp = ($context["open_login"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield " data-open=\"1\"";
@@ -381,11 +378,11 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
       </button>
       <div class=\"mr-auth__header\" id=\"mr-login-title\">Вход в личный кабинет</div>
       <form class=\"mr-auth__form\" id=\"form-login\" action=\"";
-            // line 152
+            // line 151
             yield ($context["login_action"] ?? null);
             yield "\" method=\"post\">
         <div class=\"mr-auth__error\"";
-            // line 153
+            // line 152
             if ((($tmp =  !($context["login_error"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield " hidden";
             }
@@ -401,22 +398,22 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
           <input type=\"password\" name=\"password\" autocomplete=\"current-password\" required>
         </label>
         <a class=\"mr-auth__forgot\" href=\"";
-            // line 162
+            // line 161
             yield ($context["forgotten"] ?? null);
             yield "\">Забыли пароль?</a>
         ";
-            // line 163
+            // line 162
             if ((($tmp = ($context["login_redirect"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 164
+                // line 163
                 yield "          <input type=\"hidden\" name=\"redirect\" value=\"";
                 yield ($context["login_redirect"] ?? null);
                 yield "\">
         ";
             }
-            // line 166
+            // line 165
             yield "        <button type=\"submit\" class=\"mr-auth__submit\">Войти</button>
         <p class=\"mr-auth__register\">Нет аккаунта? <a href=\"";
-            // line 167
+            // line 166
             yield ($context["register"] ?? null);
             yield "\">Зарегистрироваться</a></p>
       </form>
@@ -424,7 +421,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
   </div>
 ";
         }
-        // line 172
+        // line 171
         yield "<main>
 ";
         yield from [];
@@ -451,7 +448,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  428 => 172,  420 => 167,  417 => 166,  411 => 164,  409 => 163,  405 => 162,  389 => 153,  385 => 152,  373 => 146,  371 => 145,  365 => 143,  360 => 141,  347 => 135,  341 => 132,  333 => 128,  326 => 124,  322 => 123,  318 => 122,  310 => 117,  307 => 116,  300 => 111,  298 => 110,  293 => 108,  267 => 85,  258 => 80,  250 => 78,  248 => 77,  242 => 74,  238 => 73,  234 => 72,  229 => 69,  225 => 67,  217 => 65,  215 => 64,  193 => 45,  190 => 44,  188 => 43,  182 => 42,  169 => 40,  166 => 39,  157 => 37,  152 => 36,  141 => 34,  136 => 33,  127 => 31,  122 => 30,  109 => 28,  105 => 27,  96 => 21,  92 => 20,  88 => 19,  80 => 15,  74 => 13,  71 => 12,  65 => 10,  63 => 9,  59 => 8,  55 => 7,  45 => 2,  42 => 1,);
+        return array (  425 => 171,  417 => 166,  414 => 165,  408 => 163,  406 => 162,  402 => 161,  386 => 152,  382 => 151,  370 => 145,  368 => 144,  362 => 142,  357 => 140,  344 => 134,  338 => 131,  330 => 127,  323 => 123,  319 => 122,  315 => 121,  307 => 116,  304 => 115,  297 => 110,  295 => 109,  290 => 107,  264 => 84,  258 => 80,  250 => 78,  248 => 77,  242 => 74,  238 => 73,  234 => 72,  229 => 69,  225 => 67,  217 => 65,  215 => 64,  193 => 45,  190 => 44,  188 => 43,  182 => 42,  169 => 40,  166 => 39,  157 => 37,  152 => 36,  141 => 34,  136 => 33,  127 => 31,  122 => 30,  109 => 28,  105 => 27,  96 => 21,  92 => 20,  88 => 19,  80 => 15,  74 => 13,  71 => 12,  65 => 10,  63 => 9,  59 => 8,  55 => 7,  45 => 2,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -477,7 +474,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
   <link href=\"{{ bootstrap }}\" type=\"text/css\" rel=\"stylesheet\" media=\"screen\"/>
   <link href=\"{{ icons }}\" rel=\"stylesheet\" type=\"text/css\"/>
   <link href=\"{{ stylesheet }}\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=21\" type=\"text/css\" rel=\"stylesheet\"/>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=23\" type=\"text/css\" rel=\"stylesheet\"/>
   <script src=\"catalog/view/javascript/common.js?v=2\" type=\"text/javascript\"></script>
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.ico\" sizes=\"any\">
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.svg\" type=\"image/svg+xml\">
@@ -535,7 +532,6 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         {% if telephone %}
           <a class=\"mr-top__phone\" href=\"tel:{{ telephone|replace({' ': '', '(': '', ')': '', '-': ''}) }}\">{{ telephone }}</a>
         {% endif %}
-        <a class=\"mr-top__call\" href=\"{{ contact }}\">Заказать звонок</a>
       </div>
     </div>
   </div>

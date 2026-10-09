@@ -120,22 +120,13 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
       ";
         }
         // line 35
-        yield "      <a class=\"mr-footer__call\" href=\"";
-        yield ($context["contact"] ?? null);
-        yield "\">Заказать звонок</a>
-      <p class=\"mr-footer__address\">108811, г. Москва, вн.тер.г. муниципальный округ Солнцево, кв-л 32, д. 17А стр. 1</p>
+        yield "      <p class=\"mr-footer__address\">194354, г. Санкт-Петербург, проспект Энгельса, д. 115, к. 1</p>
       <p class=\"mr-footer__hours\">Ежедневно с 10:00 до 20:00</p>
       <div class=\"mr-footer__socials\">
-        <a href=\"";
-        // line 39
-        yield ($context["contact"] ?? null);
-        yield "\" aria-label=\"ВКонтакте\">
+        <a href=\"https://vk.com\" aria-label=\"ВКонтакте\">
           <svg viewBox=\"0 0 24 24\"><path d=\"M4 7.5h2.3s.1 5.3 3.2 5.3c.5 0 .8-.1.8-.8V7.5h2.4v4.7c0 .7.3.8.8.8 2.1 0 3.3-5.5 3.3-5.5H19s.2 2.8-1.6 5.1c-1.1 1.4-2.4 1.6-2.4 1.6l2.7 3.3H15l-2.2-3.1s-.3-.4-.8-.4c-.6 0-.8.4-.8.4L8.8 17.5H6.4l2.8-3.4S4 11.2 4 7.5z\" fill=\"currentColor\"/></svg>
         </a>
-        <a href=\"";
-        // line 42
-        yield ($context["contact"] ?? null);
-        yield "\" aria-label=\"Telegram\">
+        <a href=\"https://telegram.org\" aria-label=\"Telegram\">
           <svg viewBox=\"0 0 24 24\"><path d=\"M20 5 4.5 11.2c-.9.3-.9 1.6.1 1.9l4 1.2 1.5 4.6c.3.9 1.5 1.1 2.1.3l2.2-2.8 4.1 3c.8.6 1.9.1 2.1-.8L21.8 6c.2-1.1-.8-2-1.8-1z\" fill=\"currentColor\"/></svg>
         </a>
       </div>
@@ -143,21 +134,21 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
   </div>
   <div class=\"mr-wrap mr-footer__bottom\">
     <span>© ";
-        // line 49
+        // line 48
         yield $this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "Y");
         if ((($tmp = ($context["simple_footer"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            yield " Магазин компьютеров и ноутбуков в Калининграде";
+            yield " Магазин компьютеров и ноутбуков в Санкт-Петербурге";
         } else {
             yield " Мистер Робот";
         }
         yield "</span>
     <span class=\"mr-footer__legal\">
       <a href=\"";
-        // line 51
+        // line 50
         yield ($context["privacy"] ?? null);
         yield "\">Политика обработки персональных данных</a>
       <a href=\"";
-        // line 52
+        // line 51
         yield ($context["offer"] ?? null);
         yield "\">Пользовательское соглашение</a>
     </span>
@@ -165,15 +156,15 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
 </footer>
 <nav class=\"mr-tabbar\" aria-label=\"Мобильное меню\">
   <a href=\"";
-        // line 57
+        // line 56
         yield ($context["home"] ?? null);
         yield "\">Главная</a>
   <a href=\"";
-        // line 58
-        yield ((CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::first($this->env->getCharset(), ($context["categories"] ?? null)), "href", [], "any", true, true, false, 58)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::first($this->env->getCharset(), ($context["categories"] ?? null)), "href", [], "any", false, false, false, 58), ($context["home"] ?? null))) : (($context["home"] ?? null)));
+        // line 57
+        yield ((CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::first($this->env->getCharset(), ($context["categories"] ?? null)), "href", [], "any", true, true, false, 57)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::first($this->env->getCharset(), ($context["categories"] ?? null)), "href", [], "any", false, false, false, 57), ($context["home"] ?? null))) : (($context["home"] ?? null)));
         yield "\">Каталог</a>
   <a href=\"";
-        // line 59
+        // line 58
         yield ((array_key_exists("shopping_cart", $context)) ? (Twig\Extension\CoreExtension::default(($context["shopping_cart"] ?? null), ($context["contact"] ?? null))) : (($context["contact"] ?? null)));
         yield "\">Корзина<span class=\"mr-cart-count";
         if ((($tmp =  !($context["cart_total"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
@@ -183,46 +174,46 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
         yield ($context["cart_total"] ?? null);
         yield "</span></a>
   ";
-        // line 60
+        // line 59
         if ((($tmp = ($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 61
+            // line 60
             yield "    <a href=\"";
             yield ($context["account"] ?? null);
             yield "\">Кабинет</a>
   ";
         } else {
-            // line 63
+            // line 62
             yield "    <button type=\"button\" data-mr-login>Кабинет</button>
   ";
         }
-        // line 65
+        // line 64
         yield "  <a href=\"";
         yield ($context["contact"] ?? null);
         yield "\">Контакты</a>
 </nav>
 ";
-        // line 67
+        // line 66
         yield ($context["cookie"] ?? null);
         yield "
 <script src=\"";
-        // line 68
+        // line 67
         yield ($context["bootstrap"] ?? null);
         yield "\" type=\"text/javascript\"></script>
 ";
-        // line 69
+        // line 68
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(($context["scripts"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["script"]) {
-            // line 70
+            // line 69
             yield "  <script src=\"";
-            yield CoreExtension::getAttribute($this->env, $this->source, $context["script"], "href", [], "any", false, false, false, 70);
+            yield CoreExtension::getAttribute($this->env, $this->source, $context["script"], "href", [], "any", false, false, false, 69);
             yield "\" type=\"text/javascript\"></script>
 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['script'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 72
+        // line 71
         yield "<script src=\"catalog/view/javascript/mrrobot.js?v=10\" type=\"text/javascript\"></script>
 </body></html>
 ";
@@ -250,7 +241,7 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  226 => 72,  217 => 70,  213 => 69,  209 => 68,  205 => 67,  199 => 65,  195 => 63,  189 => 61,  187 => 60,  177 => 59,  173 => 58,  169 => 57,  161 => 52,  157 => 51,  147 => 49,  137 => 42,  131 => 39,  123 => 35,  115 => 33,  113 => 32,  105 => 27,  101 => 26,  97 => 25,  93 => 24,  89 => 23,  80 => 17,  76 => 16,  69 => 11,  58 => 9,  54 => 8,  50 => 7,  42 => 1,);
+        return array (  217 => 71,  208 => 69,  204 => 68,  200 => 67,  196 => 66,  190 => 64,  186 => 62,  180 => 60,  178 => 59,  168 => 58,  164 => 57,  160 => 56,  152 => 51,  148 => 50,  138 => 48,  123 => 35,  115 => 33,  113 => 32,  105 => 27,  101 => 26,  97 => 25,  93 => 24,  89 => 23,  80 => 17,  76 => 16,  69 => 11,  58 => 9,  54 => 8,  50 => 7,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -289,21 +280,20 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
       {% if telephone %}
         <a class=\"mr-footer__phone\" href=\"tel:{{ telephone|replace({' ': '', '(': '', ')': '', '-': ''}) }}\">{{ telephone }}</a>
       {% endif %}
-      <a class=\"mr-footer__call\" href=\"{{ contact }}\">Заказать звонок</a>
-      <p class=\"mr-footer__address\">108811, г. Москва, вн.тер.г. муниципальный округ Солнцево, кв-л 32, д. 17А стр. 1</p>
+      <p class=\"mr-footer__address\">194354, г. Санкт-Петербург, проспект Энгельса, д. 115, к. 1</p>
       <p class=\"mr-footer__hours\">Ежедневно с 10:00 до 20:00</p>
       <div class=\"mr-footer__socials\">
-        <a href=\"{{ contact }}\" aria-label=\"ВКонтакте\">
+        <a href=\"https://vk.com\" aria-label=\"ВКонтакте\">
           <svg viewBox=\"0 0 24 24\"><path d=\"M4 7.5h2.3s.1 5.3 3.2 5.3c.5 0 .8-.1.8-.8V7.5h2.4v4.7c0 .7.3.8.8.8 2.1 0 3.3-5.5 3.3-5.5H19s.2 2.8-1.6 5.1c-1.1 1.4-2.4 1.6-2.4 1.6l2.7 3.3H15l-2.2-3.1s-.3-.4-.8-.4c-.6 0-.8.4-.8.4L8.8 17.5H6.4l2.8-3.4S4 11.2 4 7.5z\" fill=\"currentColor\"/></svg>
         </a>
-        <a href=\"{{ contact }}\" aria-label=\"Telegram\">
+        <a href=\"https://telegram.org\" aria-label=\"Telegram\">
           <svg viewBox=\"0 0 24 24\"><path d=\"M20 5 4.5 11.2c-.9.3-.9 1.6.1 1.9l4 1.2 1.5 4.6c.3.9 1.5 1.1 2.1.3l2.2-2.8 4.1 3c.8.6 1.9.1 2.1-.8L21.8 6c.2-1.1-.8-2-1.8-1z\" fill=\"currentColor\"/></svg>
         </a>
       </div>
     </div>
   </div>
   <div class=\"mr-wrap mr-footer__bottom\">
-    <span>© {{ \"now\"|date(\"Y\") }}{% if simple_footer %} Магазин компьютеров и ноутбуков в Калининграде{% else %} Мистер Робот{% endif %}</span>
+    <span>© {{ \"now\"|date(\"Y\") }}{% if simple_footer %} Магазин компьютеров и ноутбуков в Санкт-Петербурге{% else %} Мистер Робот{% endif %}</span>
     <span class=\"mr-footer__legal\">
       <a href=\"{{ privacy }}\">Политика обработки персональных данных</a>
       <a href=\"{{ offer }}\">Пользовательское соглашение</a>

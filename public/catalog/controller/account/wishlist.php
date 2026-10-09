@@ -106,6 +106,8 @@ class WishList extends \Opencart\System\Engine\Controller {
 		// Stock Status
 		$this->load->model('localisation/stock_status');
 
+		$this->sync();
+
 		$results = $this->model_account_wishlist->getWishlist($this->customer->getId());
 
 		foreach ($results as $result) {
@@ -163,17 +165,36 @@ class WishList extends \Opencart\System\Engine\Controller {
 		return $this->load->view('account/wishlist_list', $data);
 	}
 
-	/**
-	 * Add
-	 *
-	 * @return void
-	 */
+	public function sync(): void {
+		if (!$this->customer->isLogged()) {
+			return;
+		}
+
+		if (empty($this->session->data['wishlist']) || !is_array($this->session->data['wishlist'])) {
+			return;
+		}
+
+		$this->load->model('account/wishlist');
+
+		foreach ($this->session->data['wishlist'] as $product_id) {
+			$product_id = (int)$product_id;
+
+			if ($product_id > 0) {
+				$this->model_account_wishlist->addWishlist($this->customer->getId(), $product_id);
+			}
+		}
+
+		$this->session->data['wishlist'] = [];
+	}
+
 	public function ids(): array {
 		static $ids = null;
 
 		if (is_array($ids)) {
 			return $ids;
 		}
+
+		$this->sync();
 
 		$ids = [];
 
@@ -291,6 +312,18 @@ class WishList extends \Opencart\System\Engine\Controller {
 			$this->load->model('account/wishlist');
 
 			$this->model_account_wishlist->deleteWishlists($this->customer->getId(), $product_id);
+
+			if (isset($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
+				$kept = [];
+
+				foreach ($this->session->data['wishlist'] as $wishlist_id) {
+					if ((int)$wishlist_id !== $product_id) {
+						$kept[] = (int)$wishlist_id;
+					}
+				}
+
+				$this->session->data['wishlist'] = $kept;
+			}
 
 			$json['success'] = $this->language->get('text_remove');
 		}

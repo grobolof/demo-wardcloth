@@ -29,18 +29,9 @@
           <label>
             <select name="filter_status" onchange="this.form.submit()">
               <option value="">Любой статус заказа</option>
-              <option value="accepted"{% if filter_status == 'accepted' %} selected{% endif %}>Принят</option>
-              <option value="processing"{% if filter_status == 'processing' %} selected{% endif %}>Выполняется</option>
-              <option value="ready"{% if filter_status == 'ready' %} selected{% endif %}>Готов к выдаче</option>
-              <option value="complete"{% if filter_status == 'complete' %} selected{% endif %}>Выполнен</option>
-              <option value="canceled"{% if filter_status == 'canceled' %} selected{% endif %}>Отменен</option>
-            </select>
-          </label>
-          <label>
-            <select name="filter_payed" onchange="this.form.submit()">
-              <option value="">Любой статус оплаты</option>
-              <option value="N"{% if filter_payed == 'N' %} selected{% endif %}>Не оплачен</option>
-              <option value="Y"{% if filter_payed == 'Y' %} selected{% endif %}>Оплачен</option>
+              <option value="7"{% if filter_status == '7' %} selected{% endif %}>Отменен</option>
+              <option value="5"{% if filter_status == '5' %} selected{% endif %}>Выполнен</option>
+              <option value="1"{% if filter_status == '1' %} selected{% endif %}>Ожидает оплату</option>
             </select>
           </label>
           <label>

@@ -54,12 +54,15 @@ class Order extends \Opencart\System\Engine\Controller {
 		$limit = 10;
 		$language = 'language=' . $this->config->get('config_language');
 		$filter_status = (string)($this->request->get['filter_status'] ?? '');
-		$filter_payed = (string)($this->request->get['filter_payed'] ?? '');
+
+		if (!in_array($filter_status, ['1', '5', '7'], true)) {
+			$filter_status = '';
+		}
+
 		$filter_year = (string)($this->request->get['filter_year'] ?? '');
 
 		$data['orders'] = [];
 		$data['filter_status'] = $filter_status;
-		$data['filter_payed'] = $filter_payed;
 		$data['filter_year'] = $filter_year;
 
 		$this->load->model('account/order');
@@ -90,15 +93,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$state = $this->orderState((int)$result['order_status_id']);
 			$year = date('Y', strtotime($result['date_added']));
 
-			if ($filter_status !== '' && $state['group'] !== $filter_status) {
-				continue;
-			}
-
-			if ($filter_payed === 'Y' && !$state['paid']) {
-				continue;
-			}
-
-			if ($filter_payed === 'N' && ($state['paid'] || $state['canceled'])) {
+			if ($filter_status !== '' && (string)$result['order_status_id'] !== $filter_status) {
 				continue;
 			}
 
@@ -156,10 +151,6 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		if ($filter_status !== '') {
 			$filter_url .= '&filter_status=' . urlencode($filter_status);
-		}
-
-		if ($filter_payed !== '') {
-			$filter_url .= '&filter_payed=' . urlencode($filter_payed);
 		}
 
 		if ($filter_year !== '') {

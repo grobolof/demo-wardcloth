@@ -209,10 +209,15 @@ body.mr-store #button-cart:hover {
   flex: 0 0 auto;
 }
 
+.mr-actions > .mr-action {
+  flex: 0 0 84px;
+}
+
 .mr-action {
   position: relative;
-  width: auto;
-  padding: 0 10px;
+  box-sizing: border-box;
+  width: 84px;
+  padding: 0;
   color: #444;
   display: flex;
   flex-direction: column;
@@ -236,10 +241,6 @@ button.mr-action {
   cursor: pointer;
 }
 
-.mr-action--cart {
-  padding-right: 0;
-}
-
 .mr-action svg {
   width: 22px;
   height: 22px;
@@ -251,6 +252,13 @@ button.mr-action {
 
 .mr-action--menu {
   position: relative;
+  padding: 0;
+}
+
+.mr-action--menu > .mr-action {
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
 }
 
 .mr-action__drop {
@@ -1014,13 +1022,6 @@ button.mr-action {
   font-weight: 700;
 }
 
-.mr-footer__call {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: var(--mr-red) !important;
-  font-weight: 600;
-}
-
 .mr-footer__address,
 .mr-footer__hours {
   max-width: 280px;
@@ -1090,6 +1091,8 @@ body.mr-store .breadcrumb {
 }
 
 body.mr-store .breadcrumb > li.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
   padding: 0;
   text-shadow: none;
   white-space: nowrap;
@@ -1106,7 +1109,7 @@ body.mr-store .breadcrumb > li.breadcrumb-item:after {
 
 body.mr-store .breadcrumb > .breadcrumb-item + .breadcrumb-item::before {
   float: none;
-  padding: 0 8px;
+  padding: 0 6px;
   color: #c4c4c4;
   content: "–";
 }

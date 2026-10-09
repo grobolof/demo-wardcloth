@@ -48,6 +48,7 @@ class Account extends \Opencart\System\Engine\Controller {
 		$data['email'] = $this->customer->getEmail();
 		$data['telephone'] = $this->customer->getTelephone();
 
+		$this->load->controller('account/wishlist.sync');
 		$this->load->model('account/wishlist');
 		$this->load->model('account/order');
 		$this->load->model('account/address');

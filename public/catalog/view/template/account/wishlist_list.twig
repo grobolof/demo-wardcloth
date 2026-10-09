@@ -1,51 +1,39 @@
 {% if products %}
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th class="text-center">{{ column_image }}</th>
-          <th>{{ column_name }}</th>
-          <th>{{ column_model }}</th>
-          <th class="text-end">{{ column_stock }}</th>
-          <th class="text-end">{{ column_price }}</th>
-          <th class="text-end">{{ column_action }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% set product_row = 0 %}
-        {% for product in products %}
-          <tr>
-            <td class="text-center">{% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/></a>{% endif %}</td>
-            <td><a href="{{ product.href }}">{{ product.name }}</a>
-              <form id="form-product-{{ product_row }}" action="{{ cart_add }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart">
-                <input type="hidden" name="product_id" value="{{ product.product_id }}"/>
-                <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
-              </form>
-            </td>
-            <td>{{ product.model }}</td>
-            <td class="text-end">{{ product.stock }}</td>
-            <td class="text-end text-nowrap">
-              {% if product.price %}
-                <div class="price">
-                  {% if not product.special %}
-                    {{ product.price }}
-                  {% else %}
-                    <b>{{ product.special }}</b> <s>{{ product.price }}</s>
-                  {% endif %}
-                </div>
-              {% endif %}</td>
-            <td class="text-end text-nowrap" style="width: 1px;">
-              <div class="d-grid">
-                <button type="submit" form="form-product-{{ product_row }}" class="btn btn-primary mb-1">{{ button_cart }}</button>
-                <a href="{{ product.remove }}" class="btn btn-danger">{{ button_remove }}</a>
-              </div>
-            </td>
-          </tr>
-          {% set product_row = product_row + 1 %}
-        {% endfor %}
-      </tbody>
-    </table>
+  <div class="mr-grid mr-fav">
+    {% for product in products %}
+      <div class="mr-cell">
+        <article class="mr-card">
+          <div class="mr-card__media">
+            <a class="mr-card__image" href="{{ product.href }}">
+              {% if product.thumb %}
+                <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/>
+              {% endif %}
+            </a>
+            <a class="mr-fav__remove" href="{{ product.remove }}" aria-label="Удалить из избранного">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z" fill="currentColor" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          {% if product.price %}
+            <div class="mr-card__price">
+              {% if not product.special %}
+                <span>{{ product.price }}</span>
+              {% else %}
+                <span>{{ product.special }}</span>
+                <s>{{ product.price }}</s>
+              {% endif %}
+            </div>
+          {% endif %}
+          <h3 class="mr-card__name"><a href="{{ product.href }}">{{ product.name }}</a></h3>
+          <p class="mr-card__stock{% if product.quantity <= 0 %} is-out{% endif %}">{{ product.quantity > 0 ? 'Есть в наличии' : 'Нет в наличии' }}</p>
+          <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart">
+            <button class="mr-card__buy" type="submit" formaction="{{ cart_add }}">В корзину</button>
+            <input type="hidden" name="product_id" value="{{ product.product_id }}"/>
+            <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
+          </form>
+        </article>
+      </div>
+    {% endfor %}
   </div>
 {% else %}
-  <p>{{ text_no_results }}</p>
+  <p class="mr-fav__empty">Список избранных элементов пуст</p>
 {% endif %}

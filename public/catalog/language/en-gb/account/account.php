@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']       = 'My Account';
+$_['heading_title']       = 'Личный кабинет';
 
 // Text
-$_['text_account']        = 'Account';
+$_['text_account']        = 'Личный кабинет';
 $_['text_my_account']     = 'My Account';
 $_['text_my_orders']      = 'My Orders';
 $_['text_my_affiliate']   = 'My Affiliate Account';

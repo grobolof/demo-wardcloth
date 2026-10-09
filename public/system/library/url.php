@@ -63,15 +63,18 @@ class Url {
 
 		if ($args) {
 			if (is_array($args)) {
+				unset($args['customer_token']);
 				$url .= '&' . http_build_query($args);
 			} else {
-				$url .= '&' . trim($args, '&');
+				$url .= '&' . trim($this->withoutCustomerToken((string)$args), '&');
 			}
 		}
 
 		foreach ($this->rewrite as $rewrite) {
 			$url = $rewrite->rewrite($url);
 		}
+
+		$url = $this->withoutCustomerToken($url);
 
 		// See https://stackoverflow.com/questions/78729429/403-forbidden-when-url-contains-get-with-encoded-question-mark-unsafeallow3f
 		// https://github.com/opencart/opencart/issues/14202
@@ -82,5 +85,17 @@ class Url {
 		} else {
 			return $url;
 		}
+	}
+
+	/**
+	 * Customer token lives in a cookie, so it must not leak into links.
+	 */
+	private function withoutCustomerToken(string $value): string {
+		$value = (string)preg_replace('/(^|[?&])customer_token=[^&#]*/', '$1', $value);
+		$value = (string)preg_replace('/\?&+/', '?', $value);
+		$value = (string)preg_replace('/&&+/', '&', $value);
+		$value = ltrim($value, '&');
+
+		return rtrim($value, '?&');
 	}
 }

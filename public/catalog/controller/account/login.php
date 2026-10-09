@@ -145,9 +145,9 @@ class Login extends \Opencart\System\Engine\Controller {
 
 			// Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
 			if ($redirect && str_starts_with($redirect, $this->config->get('config_url'))) {
-				$json['redirect'] = $redirect . '&customer_token=' . $this->session->data['customer_token'];
+				$json['redirect'] = $redirect;
 			} else {
-				$json['redirect'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'], true);
+				$json['redirect'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'), true);
 			}
 		}
 

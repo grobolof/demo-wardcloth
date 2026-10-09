@@ -20,7 +20,7 @@ class Edit extends \Opencart\System\Engine\Controller {
 			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language'), true));
 		}
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle('Персональные данные');
 
 		$data['breadcrumbs'] = [];
 
@@ -30,12 +30,12 @@ class Edit extends \Opencart\System\Engine\Controller {
 		];
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_account'),
+			'text' => 'Личный кабинет',
 			'href' => $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'])
 		];
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_edit'),
+			'text' => 'Персональные данные',
 			'href' => $this->url->link('account/edit', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'])
 		];
 
@@ -58,6 +58,7 @@ class Edit extends \Opencart\System\Engine\Controller {
 
 		$data['firstname'] = $customer_info['firstname'];
 		$data['lastname'] = $customer_info['lastname'];
+		$data['fullname'] = $customer_info['firstname'] === $customer_info['lastname'] ? $customer_info['firstname'] : trim($customer_info['lastname'] . ' ' . $customer_info['firstname']);
 		$data['email'] = $customer_info['email'];
 		$data['telephone'] = $customer_info['telephone'];
 
@@ -76,7 +77,18 @@ class Edit extends \Opencart\System\Engine\Controller {
 
 		$data['account_custom_field'] = $customer_info['custom_field'];
 
-		$data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+		$language = 'language=' . $this->config->get('config_language');
+		$token = '&customer_token=' . $this->session->data['customer_token'];
+
+		$data['back'] = $this->url->link('account/account', $language . $token);
+		$data['edit'] = $this->url->link('account/edit', $language . $token);
+		$data['account'] = $data['back'];
+		$data['order'] = $this->url->link('account/order', $language . $token);
+		$data['wishlist'] = $this->url->link('account/wishlist', $language . $token);
+		$data['logout'] = $this->url->link('account/logout', $language);
+		$data['password_save'] = $this->url->link('account/password.save', $language . $token);
+		$data['privacy'] = $this->url->link('information/information', $language . '&information_id=3');
+		$data['offer'] = $this->url->link('information/information', $language . '&information_id=2');
 
 		$data['language'] = $this->config->get('config_language');
 
@@ -116,15 +128,30 @@ class Edit extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			if (!oc_validate_length($post_info['firstname'], 1, 32)) {
-				$json['error']['firstname'] = $this->language->get('error_firstname');
+			$fullname = '';
+
+			if (array_key_exists('fullname', $this->request->post)) {
+				$fullname = trim(preg_replace('/\s+/u', ' ', (string)$post_info['fullname']));
+				$parts = $fullname === '' ? [] : explode(' ', $fullname, 2);
+				$post_info['lastname'] = $parts[0] ?? '';
+				$post_info['firstname'] = isset($parts[1]) && $parts[1] !== '' ? $parts[1] : ($parts[0] ?? '');
 			}
 
-			if (!oc_validate_length($post_info['lastname'], 1, 32)) {
-				$json['error']['lastname'] = $this->language->get('error_lastname');
+			if (array_key_exists('fullname', $this->request->post)) {
+				if ($fullname === '' || !oc_validate_length($post_info['firstname'], 1, 32) || !oc_validate_length($post_info['lastname'], 1, 32)) {
+					$json['error']['fullname'] = $this->language->get('error_fullname');
+				}
+			} else {
+				if (!oc_validate_length($post_info['firstname'], 1, 32)) {
+					$json['error']['firstname'] = $this->language->get('error_firstname');
+				}
+
+				if (!oc_validate_length($post_info['lastname'], 1, 32)) {
+					$json['error']['lastname'] = $this->language->get('error_lastname');
+				}
 			}
 
-			if (!oc_validate_email($post_info['email'])) {
+			if (!oc_validate_email($post_info['email']) || !preg_match('/^[A-Za-z0-9._%+\-]+@[A-Za-z0-9](?:[A-Za-z0-9\-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9\-]{0,61}[A-Za-z0-9])?)+$/', $post_info['email'])) {
 				$json['error']['email'] = $this->language->get('error_email');
 			}
 
@@ -132,11 +159,20 @@ class Edit extends \Opencart\System\Engine\Controller {
 			$this->load->model('account/customer');
 
 			if (($this->customer->getEmail() != $post_info['email']) && $this->model_account_customer->getTotalCustomersByEmail($post_info['email'])) {
-				$json['error']['warning'] = $this->language->get('error_exists');
+				$json['error']['email'] = $this->language->get('error_exists');
 			}
 
-			if ($this->config->get('config_telephone_required') && !oc_validate_length($post_info['telephone'], 3, 32)) {
+			$telephone = trim((string)$post_info['telephone']);
+			$digits = preg_replace('/\D+/', '', $telephone) ?? '';
+
+			if ($digits !== '' && ($digits[0] === '8' || $digits[0] === '7')) {
+				$digits = substr($digits, 1);
+			}
+
+			if (!preg_match('/^\d{10}$/', $digits)) {
 				$json['error']['telephone'] = $this->language->get('error_telephone');
+			} else {
+				$post_info['telephone'] = '+7 (' . substr($digits, 0, 3) . ') ' . substr($digits, 3, 3) . '-' . substr($digits, 6, 2) . '-' . substr($digits, 8, 2);
 			}
 
 			// Custom fields validation
@@ -156,6 +192,11 @@ class Edit extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			if (!array_key_exists('custom_field', $this->request->post)) {
+				$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
+				$post_info['custom_field'] = $customer_info['custom_field'] ?? [];
+			}
+
 			// Update customer in db
 			$this->model_account_customer->editCustomer($this->customer->getId(), $post_info);
 

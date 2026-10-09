@@ -168,28 +168,25 @@ $context["breadcrumb"], "login", [], "any", true, true, false, 8)) ? (Twig\Exten
         </div>
         <div class=\"mr-register__field\">
           <label for=\"input-telephone\">Телефон</label>
-          <input type=\"tel\" name=\"telephone\" id=\"input-telephone\" autocomplete=\"tel\">
+          <input type=\"tel\" name=\"telephone\" id=\"input-telephone\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"+7 (___) ___-__-__\">
           <div id=\"error-telephone\" class=\"invalid-feedback\"></div>
         </div>
         <div class=\"mr-register__field\">
           <label for=\"input-password\">Пароль <i>*</i></label>
           <div class=\"mr-register__password\">
-            <input type=\"password\" name=\"password\" id=\"input-password\" autocomplete=\"new-password\" required>
+            <input type=\"password\" name=\"password\" id=\"input-password\" autocomplete=\"new-password\" minlength=\"6\" maxlength=\"20\" required>
             <button type=\"button\" class=\"mr-register__eye\" data-mr-password aria-label=\"Показать пароль\">
               <svg class=\"mr-eye-off\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M2.2 12S5.6 6.5 12 6.5 21.8 12 21.8 12 18.4 17.5 12 17.5 2.2 12 2.2 12Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"12\" cy=\"12\" r=\"2.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>
               <svg class=\"mr-eye-on\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" hidden><path d=\"M3 4.5 20 19.5M9.2 9.4A3 3 0 0 0 14.6 15M6.2 7.2C4.2 8.6 2.8 10.6 2.2 12c0 0 3.4 5.5 9.8 5.5 1.5 0 2.9-.3 4.1-.8M10.2 6.7c.6-.1 1.2-.2 1.8-.2 6.4 0 9.8 5.5 9.8 5.5a16 16 0 0 1-2.4 3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/></svg>
             </button>
           </div>
-          <p class=\"mr-register__hint\">Длина пароля не менее ";
-        // line 55
-        yield ($context["password_length"] ?? null);
-        yield " символов</p>
+          <p class=\"mr-register__hint\">От 6 до 20 символов: латиница, цифры и спецсимволы</p>
           <div id=\"error-password\" class=\"invalid-feedback\"></div>
         </div>
         <div class=\"mr-register__field\">
           <label for=\"input-confirm\">Подтверждение пароля <i>*</i></label>
           <div class=\"mr-register__password\">
-            <input type=\"password\" name=\"confirm\" id=\"input-confirm\" autocomplete=\"new-password\" required>
+            <input type=\"password\" name=\"confirm\" id=\"input-confirm\" autocomplete=\"new-password\" minlength=\"6\" maxlength=\"20\" required>
             <button type=\"button\" class=\"mr-register__eye\" data-mr-password aria-label=\"Показать пароль\">
               <svg class=\"mr-eye-off\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M2.2 12S5.6 6.5 12 6.5 21.8 12 21.8 12 18.4 17.5 12 17.5 2.2 12 2.2 12Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"12\" cy=\"12\" r=\"2.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>
               <svg class=\"mr-eye-on\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" hidden><path d=\"M3 4.5 20 19.5M9.2 9.4A3 3 0 0 0 14.6 15M6.2 7.2C4.2 8.6 2.8 10.6 2.2 12c0 0 3.4 5.5 9.8 5.5 1.5 0 2.9-.3 4.1-.8M10.2 6.7c.6-.1 1.2-.2 1.8-.2 6.4 0 9.8 5.5 9.8 5.5a16 16 0 0 1-2.4 3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/></svg>
@@ -254,7 +251,7 @@ $context["breadcrumb"], "login", [], "any", true, true, false, 8)) ? (Twig\Exten
      */
     public function getDebugInfo(): array
     {
-        return array (  230 => 84,  224 => 81,  210 => 74,  202 => 69,  185 => 55,  158 => 30,  153 => 27,  138 => 25,  134 => 24,  129 => 22,  126 => 21,  124 => 20,  120 => 19,  116 => 18,  112 => 17,  108 => 15,  93 => 13,  85 => 11,  77 => 9,  75 => 8,  70 => 7,  68 => 6,  65 => 5,  48 => 4,  42 => 1,);
+        return array (  227 => 84,  221 => 81,  207 => 74,  199 => 69,  158 => 30,  153 => 27,  138 => 25,  134 => 24,  129 => 22,  126 => 21,  124 => 20,  120 => 19,  116 => 18,  112 => 17,  108 => 15,  93 => 13,  85 => 11,  77 => 9,  75 => 8,  70 => 7,  68 => 6,  65 => 5,  48 => 4,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -301,25 +298,25 @@ $context["breadcrumb"], "login", [], "any", true, true, false, 8)) ? (Twig\Exten
         </div>
         <div class=\"mr-register__field\">
           <label for=\"input-telephone\">Телефон</label>
-          <input type=\"tel\" name=\"telephone\" id=\"input-telephone\" autocomplete=\"tel\">
+          <input type=\"tel\" name=\"telephone\" id=\"input-telephone\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"+7 (___) ___-__-__\">
           <div id=\"error-telephone\" class=\"invalid-feedback\"></div>
         </div>
         <div class=\"mr-register__field\">
           <label for=\"input-password\">Пароль <i>*</i></label>
           <div class=\"mr-register__password\">
-            <input type=\"password\" name=\"password\" id=\"input-password\" autocomplete=\"new-password\" required>
+            <input type=\"password\" name=\"password\" id=\"input-password\" autocomplete=\"new-password\" minlength=\"6\" maxlength=\"20\" required>
             <button type=\"button\" class=\"mr-register__eye\" data-mr-password aria-label=\"Показать пароль\">
               <svg class=\"mr-eye-off\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M2.2 12S5.6 6.5 12 6.5 21.8 12 21.8 12 18.4 17.5 12 17.5 2.2 12 2.2 12Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"12\" cy=\"12\" r=\"2.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>
               <svg class=\"mr-eye-on\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" hidden><path d=\"M3 4.5 20 19.5M9.2 9.4A3 3 0 0 0 14.6 15M6.2 7.2C4.2 8.6 2.8 10.6 2.2 12c0 0 3.4 5.5 9.8 5.5 1.5 0 2.9-.3 4.1-.8M10.2 6.7c.6-.1 1.2-.2 1.8-.2 6.4 0 9.8 5.5 9.8 5.5a16 16 0 0 1-2.4 3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/></svg>
             </button>
           </div>
-          <p class=\"mr-register__hint\">Длина пароля не менее {{ password_length }} символов</p>
+          <p class=\"mr-register__hint\">От 6 до 20 символов: латиница, цифры и спецсимволы</p>
           <div id=\"error-password\" class=\"invalid-feedback\"></div>
         </div>
         <div class=\"mr-register__field\">
           <label for=\"input-confirm\">Подтверждение пароля <i>*</i></label>
           <div class=\"mr-register__password\">
-            <input type=\"password\" name=\"confirm\" id=\"input-confirm\" autocomplete=\"new-password\" required>
+            <input type=\"password\" name=\"confirm\" id=\"input-confirm\" autocomplete=\"new-password\" minlength=\"6\" maxlength=\"20\" required>
             <button type=\"button\" class=\"mr-register__eye\" data-mr-password aria-label=\"Показать пароль\">
               <svg class=\"mr-eye-off\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M2.2 12S5.6 6.5 12 6.5 21.8 12 21.8 12 18.4 17.5 12 17.5 2.2 12 2.2 12Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"12\" cy=\"12\" r=\"2.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>
               <svg class=\"mr-eye-on\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" hidden><path d=\"M3 4.5 20 19.5M9.2 9.4A3 3 0 0 0 14.6 15M6.2 7.2C4.2 8.6 2.8 10.6 2.2 12c0 0 3.4 5.5 9.8 5.5 1.5 0 2.9-.3 4.1-.8M10.2 6.7c.6-.1 1.2-.2 1.8-.2 6.4 0 9.8 5.5 9.8 5.5a16 16 0 0 1-2.4 3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/></svg>

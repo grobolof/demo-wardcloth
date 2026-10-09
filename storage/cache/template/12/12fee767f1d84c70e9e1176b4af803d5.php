@@ -95,7 +95,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         // line 21
         yield ($context["stylesheet"] ?? null);
         yield "\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=14\" type=\"text/css\" rel=\"stylesheet\"/>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=17\" type=\"text/css\" rel=\"stylesheet\"/>
   <script src=\"catalog/view/javascript/common.js\" type=\"text/javascript\"></script>
   ";
         // line 24
@@ -334,26 +334,19 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
             }
             // line 128
             yield "      <a class=\"mr-action\" href=\"";
-            yield ($context["compare"] ?? null);
-            yield "\">
-        <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 4v16M5 7l3-3 3 3M16 20V4M13 17l3 3 3-3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
-        <span>Сравнение</span>
-      </a>
-      <a class=\"mr-action\" href=\"";
-            // line 132
             yield ($context["wishlist"] ?? null);
             yield "\" id=\"wishlist-total\">
         <svg viewBox=\"1.6 2.6 20.8 19.4\" aria-hidden=\"true\"><path d=\"M12 20.6 10.4 19.1C6.2 15.3 3.2 12.6 3.2 9.2 3.2 6.4 5.4 4.2 8.2 4.2c1.6 0 3.1.75 4 1.92a5.2 5.2 0 0 1 4-1.92c2.8 0 5 2.2 5 5 0 3.4-3 6.1-7.2 9.9L12 20.6z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linejoin=\"round\"/></svg>
         <span>Избранное</span>
       </a>
       <a class=\"mr-action mr-action--cart\" href=\"";
-            // line 136
+            // line 132
             yield ($context["shopping_cart"] ?? null);
             yield "\">
         <span class=\"mr-action__icon\">
           <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 7h15l-1.6 9.2a1 1 0 0 1-1 .8H8.2a1 1 0 0 1-1-.8L5.2 4H3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"9\" cy=\"20\" r=\"1.3\" fill=\"currentColor\"/><circle cx=\"17\" cy=\"20\" r=\"1.3\" fill=\"currentColor\"/></svg>
           <span class=\"mr-cart-count";
-            // line 139
+            // line 135
             if ((($tmp =  !($context["cart_total"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield " is-empty";
             }
@@ -366,20 +359,20 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
     </nav>
   </div>
   ";
-            // line 145
+            // line 141
             yield ($context["menu"] ?? null);
             yield "
 ";
         }
-        // line 147
+        // line 143
         yield "  <div id=\"cart\" class=\"mr-cart-sink\" hidden>";
         yield ($context["cart"] ?? null);
         yield "</div>
 </header>
 ";
-        // line 149
+        // line 145
         if ((($tmp =  !($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 150
+            // line 146
             yield "  <div class=\"mr-auth\" id=\"mr-login\"";
             if ((($tmp = ($context["open_login"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield " data-open=\"1\"";
@@ -391,11 +384,11 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
       </button>
       <div class=\"mr-auth__header\" id=\"mr-login-title\">Вход в личный кабинет</div>
       <form class=\"mr-auth__form\" id=\"form-login\" action=\"";
-            // line 156
+            // line 152
             yield ($context["login_action"] ?? null);
             yield "\" method=\"post\">
         <div class=\"mr-auth__error\"";
-            // line 157
+            // line 153
             if ((($tmp =  !($context["login_error"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield " hidden";
             }
@@ -411,22 +404,22 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
           <input type=\"password\" name=\"password\" autocomplete=\"current-password\" required>
         </label>
         <a class=\"mr-auth__forgot\" href=\"";
-            // line 166
+            // line 162
             yield ($context["forgotten"] ?? null);
             yield "\">Забыли пароль?</a>
         ";
-            // line 167
+            // line 163
             if ((($tmp = ($context["login_redirect"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 168
+                // line 164
                 yield "          <input type=\"hidden\" name=\"redirect\" value=\"";
                 yield ($context["login_redirect"] ?? null);
                 yield "\">
         ";
             }
-            // line 170
+            // line 166
             yield "        <button type=\"submit\" class=\"mr-auth__submit\">Войти</button>
         <p class=\"mr-auth__register\">Нет аккаунта? <a href=\"";
-            // line 171
+            // line 167
             yield ($context["register"] ?? null);
             yield "\">Зарегистрироваться</a></p>
       </form>
@@ -434,7 +427,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
   </div>
 ";
         }
-        // line 176
+        // line 172
         yield "<main>
 ";
         yield from [];
@@ -461,7 +454,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  438 => 176,  430 => 171,  427 => 170,  421 => 168,  419 => 167,  415 => 166,  399 => 157,  395 => 156,  383 => 150,  381 => 149,  375 => 147,  370 => 145,  357 => 139,  351 => 136,  344 => 132,  336 => 128,  329 => 124,  325 => 123,  321 => 122,  313 => 117,  310 => 116,  303 => 111,  301 => 110,  296 => 108,  270 => 85,  261 => 80,  253 => 78,  251 => 77,  245 => 74,  241 => 73,  237 => 72,  232 => 69,  228 => 67,  220 => 65,  218 => 64,  196 => 45,  193 => 44,  191 => 43,  185 => 42,  175 => 40,  172 => 39,  163 => 37,  158 => 36,  147 => 34,  142 => 33,  133 => 31,  128 => 30,  115 => 28,  110 => 27,  104 => 25,  102 => 24,  96 => 21,  92 => 20,  88 => 19,  80 => 15,  74 => 13,  71 => 12,  65 => 10,  63 => 9,  59 => 8,  55 => 7,  45 => 2,  42 => 1,);
+        return array (  431 => 172,  423 => 167,  420 => 166,  414 => 164,  412 => 163,  408 => 162,  392 => 153,  388 => 152,  376 => 146,  374 => 145,  368 => 143,  363 => 141,  350 => 135,  344 => 132,  336 => 128,  329 => 124,  325 => 123,  321 => 122,  313 => 117,  310 => 116,  303 => 111,  301 => 110,  296 => 108,  270 => 85,  261 => 80,  253 => 78,  251 => 77,  245 => 74,  241 => 73,  237 => 72,  232 => 69,  228 => 67,  220 => 65,  218 => 64,  196 => 45,  193 => 44,  191 => 43,  185 => 42,  175 => 40,  172 => 39,  163 => 37,  158 => 36,  147 => 34,  142 => 33,  133 => 31,  128 => 30,  115 => 28,  110 => 27,  104 => 25,  102 => 24,  96 => 21,  92 => 20,  88 => 19,  80 => 15,  74 => 13,  71 => 12,  65 => 10,  63 => 9,  59 => 8,  55 => 7,  45 => 2,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -487,7 +480,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
   <link href=\"{{ bootstrap }}\" type=\"text/css\" rel=\"stylesheet\" media=\"screen\"/>
   <link href=\"{{ icons }}\" rel=\"stylesheet\" type=\"text/css\"/>
   <link href=\"{{ stylesheet }}\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=14\" type=\"text/css\" rel=\"stylesheet\"/>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=17\" type=\"text/css\" rel=\"stylesheet\"/>
   <script src=\"catalog/view/javascript/common.js\" type=\"text/javascript\"></script>
   {% if icon %}
     <link rel=\"icon\" href=\"{{ icon }}\" type=\"image/png\">
@@ -593,10 +586,6 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
           </div>
         </div>
       {% endif %}
-      <a class=\"mr-action\" href=\"{{ compare }}\">
-        <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 4v16M5 7l3-3 3 3M16 20V4M13 17l3 3 3-3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
-        <span>Сравнение</span>
-      </a>
       <a class=\"mr-action\" href=\"{{ wishlist }}\" id=\"wishlist-total\">
         <svg viewBox=\"1.6 2.6 20.8 19.4\" aria-hidden=\"true\"><path d=\"M12 20.6 10.4 19.1C6.2 15.3 3.2 12.6 3.2 9.2 3.2 6.4 5.4 4.2 8.2 4.2c1.6 0 3.1.75 4 1.92a5.2 5.2 0 0 1 4-1.92c2.8 0 5 2.2 5 5 0 3.4-3 6.1-7.2 9.9L12 20.6z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linejoin=\"round\"/></svg>
         <span>Избранное</span>

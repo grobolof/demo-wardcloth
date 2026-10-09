@@ -1,0 +1,416 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+use Twig\TemplateWrapper;
+
+/* catalog/view/template/checkout/cart.twig */
+class __TwigTemplate_0454f55d36878cd83ece6e320c5ccacd extends Template
+{
+    private Source $source;
+    /**
+     * @var array<string, Template>
+     */
+    private array $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->parent = false;
+
+        $this->blocks = [
+        ];
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        // line 1
+        yield ($context["header"] ?? null);
+        yield "
+<div id=\"checkout-cart\" class=\"mr-basket-page\">
+  <div class=\"mr-wrap\">
+    <a class=\"mr-basket-back\" href=\"";
+        // line 4
+        yield ($context["catalog"] ?? null);
+        yield "\">Вернуться в каталог</a>
+    <div class=\"mr-basket-head\">
+      <h1>Корзина</h1>
+      <div class=\"mr-basket-tools\">
+        <button type=\"button\" id=\"mr-basket-download\">
+          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 4v10m0 0 4-4m-4 4-4-4M5 19h14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
+          Скачать файлом
+        </button>
+        <button type=\"button\" id=\"mr-basket-print\">
+          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 8V4h10v4M7 17H5a2 2 0 0 1-2-2v-5h18v5a2 2 0 0 1-2 2h-2M7 14h10v6H7v-6z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>
+          Распечатать
+        </button>
+      </div>
+    </div>
+    <div id=\"shopping-cart\">";
+        // line 18
+        yield ($context["list"] ?? null);
+        yield "</div>
+  </div>
+</div>
+<script type=\"text/javascript\"><!--
+\$('#shopping-cart').on('click', '[data-mr-qty]', function() {
+    var input = \$(this).closest('form').find('input[name=\"quantity\"]');
+    var next = Math.max(1, (parseInt(input.val(), 10) || 1) + parseInt(this.getAttribute('data-mr-qty'), 10));
+    input.val(next);
+});
+
+\$('#shopping-cart').on('change', '.mr-qty input', function() {
+    this.value = Math.max(1, parseInt(this.value, 10) || 1);
+    var button = this.form.querySelector('[data-mr-qty=\"1\"]');
+
+    if (this.form.requestSubmit && button) {
+        this.form.requestSubmit(button);
+    }
+});
+
+\$('#shopping-cart').on('submit', '#output-cart form', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    if (e.originalEvent !== undefined && e.originalEvent.submitter !== undefined) {
+        var button = e.originalEvent.submitter;
+    } else {
+        var button = '';
+    }
+
+    \$.ajax({
+        url: \$(button).attr('formaction'),
+        type: 'post',
+        data: \$(element).serialize(),
+        dataType: 'json',
+        beforeSend: function() {
+            \$(button).button('loading');
+        },
+        complete: function() {
+            \$(button).button('reset');
+        },
+        success: function(json) {
+            if (json['redirect']) {
+                location = json['redirect'];
+            }
+
+            if (json['error']) {
+                \$('#alert').prepend('<div class=\"alert alert-danger alert-dismissible\"><i class=\"fa-solid fa-circle-exclamation\"></i> ' + json['error'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+            }
+
+            if (json['success']) {
+                \$('#alert').prepend('<div class=\"alert alert-success alert-dismissible\"><i class=\"fa-solid fa-circle-check\"></i> ' + json['success'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+
+                \$('#shopping-cart').load('index.php?route=checkout/cart.list&language=";
+        // line 71
+        yield ($context["language"] ?? null);
+        yield "', {}, function() {
+                    \$('#cart').load('index.php?route=common/cart.info&language=";
+        // line 72
+        yield ($context["language"] ?? null);
+        yield "');
+                });
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + \"\\r\\n\" + xhr.statusText + \"\\r\\n\" + xhr.responseText);
+        }
+    });
+});
+
+\$('#shopping-cart').on('click', '.btn-danger, [data-mr-clear]', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    \$.ajax({
+        url: \$(element).attr('href'),
+        dataType: 'json',
+        beforeSend: function() {
+            \$(element).button('loading');
+        },
+        complete: function() {
+            \$(element).button('reset');
+        },
+        success: function(json) {
+            if (json['redirect']) {
+                location = json['redirect'];
+            }
+
+            if (json['error']) {
+                \$('#alert').prepend('<div class=\"alert alert-danger alert-dismissible\"><i class=\"fa-solid fa-circle-exclamation\"></i> ' + json['error'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+            }
+
+            if (json['success']) {
+                \$('#alert').prepend('<div class=\"alert alert-success alert-dismissible\"><i class=\"fa-solid fa-circle-check\"></i> ' + json['success'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+
+                \$('#shopping-cart').load('index.php?route=checkout/cart.list&language=";
+        // line 108
+        yield ($context["language"] ?? null);
+        yield "', {}, function() {
+                    \$('#cart').load('index.php?route=common/cart.info&language=";
+        // line 109
+        yield ($context["language"] ?? null);
+        yield "');
+                });
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + \"\\r\\n\" + xhr.statusText + \"\\r\\n\" + xhr.responseText);
+        }
+    });
+});
+
+\$('#shopping-cart').observe(function(e) {
+    \$('#cart').load('index.php?route=common/cart.info&language=";
+        // line 120
+        yield ($context["language"] ?? null);
+        yield "');
+});
+
+\$('#cart').on('submit', 'form', function(e) {
+    window.setTimeout(function() {
+        \$('#shopping-cart').load('index.php?route=checkout/cart.list&language=";
+        // line 125
+        yield ($context["language"] ?? null);
+        yield "');
+    }, 3000);
+});
+
+\$('#mr-basket-download').on('click', function() {
+    var lines = ['Корзина', ''];
+
+    document.querySelectorAll('.mr-basket__item').forEach(function(item) {
+        var name = (item.querySelector('.mr-basket__name') || {}).innerText || '';
+        var price = (item.querySelector('.mr-basket__sum') || {}).innerText || '';
+        var qty = (item.querySelector('input[name=\"quantity\"]') || {}).value || '1';
+        lines.push(name.trim() + ' — ' + qty + ' шт. — ' + price.trim());
+    });
+
+    var total = document.querySelector('.mr-basket__grand');
+
+    if (total) {
+        lines.push('', 'Итого: ' + total.innerText.trim());
+    }
+
+    var blob = new Blob([lines.join('\\n')], {type: 'text/plain;charset=utf-8'});
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'korzina.txt';
+    link.click();
+    URL.revokeObjectURL(link.href);
+});
+
+\$('#mr-basket-print').on('click', function() {
+    window.print();
+});
+//--></script>
+";
+        // line 157
+        yield ($context["footer"] ?? null);
+        yield "
+";
+        yield from [];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName(): string
+    {
+        return "catalog/view/template/checkout/cart.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo(): array
+    {
+        return array (  225 => 157,  190 => 125,  182 => 120,  168 => 109,  164 => 108,  125 => 72,  121 => 71,  65 => 18,  48 => 4,  42 => 1,);
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source("{{ header }}
+<div id=\"checkout-cart\" class=\"mr-basket-page\">
+  <div class=\"mr-wrap\">
+    <a class=\"mr-basket-back\" href=\"{{ catalog }}\">Вернуться в каталог</a>
+    <div class=\"mr-basket-head\">
+      <h1>Корзина</h1>
+      <div class=\"mr-basket-tools\">
+        <button type=\"button\" id=\"mr-basket-download\">
+          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 4v10m0 0 4-4m-4 4-4-4M5 19h14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
+          Скачать файлом
+        </button>
+        <button type=\"button\" id=\"mr-basket-print\">
+          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 8V4h10v4M7 17H5a2 2 0 0 1-2-2v-5h18v5a2 2 0 0 1-2 2h-2M7 14h10v6H7v-6z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>
+          Распечатать
+        </button>
+      </div>
+    </div>
+    <div id=\"shopping-cart\">{{ list }}</div>
+  </div>
+</div>
+<script type=\"text/javascript\"><!--
+\$('#shopping-cart').on('click', '[data-mr-qty]', function() {
+    var input = \$(this).closest('form').find('input[name=\"quantity\"]');
+    var next = Math.max(1, (parseInt(input.val(), 10) || 1) + parseInt(this.getAttribute('data-mr-qty'), 10));
+    input.val(next);
+});
+
+\$('#shopping-cart').on('change', '.mr-qty input', function() {
+    this.value = Math.max(1, parseInt(this.value, 10) || 1);
+    var button = this.form.querySelector('[data-mr-qty=\"1\"]');
+
+    if (this.form.requestSubmit && button) {
+        this.form.requestSubmit(button);
+    }
+});
+
+\$('#shopping-cart').on('submit', '#output-cart form', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    if (e.originalEvent !== undefined && e.originalEvent.submitter !== undefined) {
+        var button = e.originalEvent.submitter;
+    } else {
+        var button = '';
+    }
+
+    \$.ajax({
+        url: \$(button).attr('formaction'),
+        type: 'post',
+        data: \$(element).serialize(),
+        dataType: 'json',
+        beforeSend: function() {
+            \$(button).button('loading');
+        },
+        complete: function() {
+            \$(button).button('reset');
+        },
+        success: function(json) {
+            if (json['redirect']) {
+                location = json['redirect'];
+            }
+
+            if (json['error']) {
+                \$('#alert').prepend('<div class=\"alert alert-danger alert-dismissible\"><i class=\"fa-solid fa-circle-exclamation\"></i> ' + json['error'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+            }
+
+            if (json['success']) {
+                \$('#alert').prepend('<div class=\"alert alert-success alert-dismissible\"><i class=\"fa-solid fa-circle-check\"></i> ' + json['success'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+
+                \$('#shopping-cart').load('index.php?route=checkout/cart.list&language={{ language }}', {}, function() {
+                    \$('#cart').load('index.php?route=common/cart.info&language={{ language }}');
+                });
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + \"\\r\\n\" + xhr.statusText + \"\\r\\n\" + xhr.responseText);
+        }
+    });
+});
+
+\$('#shopping-cart').on('click', '.btn-danger, [data-mr-clear]', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    \$.ajax({
+        url: \$(element).attr('href'),
+        dataType: 'json',
+        beforeSend: function() {
+            \$(element).button('loading');
+        },
+        complete: function() {
+            \$(element).button('reset');
+        },
+        success: function(json) {
+            if (json['redirect']) {
+                location = json['redirect'];
+            }
+
+            if (json['error']) {
+                \$('#alert').prepend('<div class=\"alert alert-danger alert-dismissible\"><i class=\"fa-solid fa-circle-exclamation\"></i> ' + json['error'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+            }
+
+            if (json['success']) {
+                \$('#alert').prepend('<div class=\"alert alert-success alert-dismissible\"><i class=\"fa-solid fa-circle-check\"></i> ' + json['success'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
+
+                \$('#shopping-cart').load('index.php?route=checkout/cart.list&language={{ language }}', {}, function() {
+                    \$('#cart').load('index.php?route=common/cart.info&language={{ language }}');
+                });
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + \"\\r\\n\" + xhr.statusText + \"\\r\\n\" + xhr.responseText);
+        }
+    });
+});
+
+\$('#shopping-cart').observe(function(e) {
+    \$('#cart').load('index.php?route=common/cart.info&language={{ language }}');
+});
+
+\$('#cart').on('submit', 'form', function(e) {
+    window.setTimeout(function() {
+        \$('#shopping-cart').load('index.php?route=checkout/cart.list&language={{ language }}');
+    }, 3000);
+});
+
+\$('#mr-basket-download').on('click', function() {
+    var lines = ['Корзина', ''];
+
+    document.querySelectorAll('.mr-basket__item').forEach(function(item) {
+        var name = (item.querySelector('.mr-basket__name') || {}).innerText || '';
+        var price = (item.querySelector('.mr-basket__sum') || {}).innerText || '';
+        var qty = (item.querySelector('input[name=\"quantity\"]') || {}).value || '1';
+        lines.push(name.trim() + ' — ' + qty + ' шт. — ' + price.trim());
+    });
+
+    var total = document.querySelector('.mr-basket__grand');
+
+    if (total) {
+        lines.push('', 'Итого: ' + total.innerText.trim());
+    }
+
+    var blob = new Blob([lines.join('\\n')], {type: 'text/plain;charset=utf-8'});
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'korzina.txt';
+    link.click();
+    URL.revokeObjectURL(link.href);
+});
+
+\$('#mr-basket-print').on('click', function() {
+    window.print();
+});
+//--></script>
+{{ footer }}
+", "catalog/view/template/checkout/cart.twig", "/pub/www/app/public/catalog/view/template/checkout/cart.twig");
+    }
+}

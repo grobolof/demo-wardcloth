@@ -181,13 +181,6 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 12.5l2.4 2.4L16.5 9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             {{ in_stock ? 'Есть в наличии' : 'Нет в наличии' }}
           </p>
-          <form method="post" data-oc-toggle="ajax">
-            <button class="mr-pdp__perk" type="submit" formaction="{{ wishlist_add }}">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-              Хочу в подарок
-            </button>
-            <input type="hidden" name="product_id" value="{{ product_id }}"/>
-          </form>
           <a class="mr-pdp__perk" href="{{ warranty }}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5M12 8h.01" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             Гарантия качества
@@ -198,9 +191,6 @@
     </div>
     <ul class="nav nav-tabs mr-pdp__tabs">
       <li class="nav-item"><a href="#tab-specification" data-bs-toggle="tab" class="nav-link active">Характеристики</a></li>
-      {% if review_status %}
-        <li class="nav-item"><a href="#tab-review" data-bs-toggle="tab" class="nav-link">Отзывы</a></li>
-      {% endif %}
     </ul>
     <div class="tab-content mr-pdp__panes">
       <div id="tab-specification" class="tab-pane fade show active">
@@ -219,9 +209,6 @@
           <div class="mr-pdp__lead">{{ description }}</div>
         {% endif %}
       </div>
-      {% if review_status %}
-        <div id="tab-review" class="tab-pane fade">{{ review }}</div>
-      {% endif %}
     </div>
     {% if category_href %}
       <a class="mr-pdp__back" href="{{ category_href }}">Назад к списку</a>

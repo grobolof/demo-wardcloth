@@ -1051,7 +1051,20 @@ class Order extends \Opencart\System\Engine\Controller {
 		// Order Statuses
 		$this->load->model('localisation/order_status');
 
-		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+		$allowed_statuses = [1 => 0, 5 => 1, 7 => 2];
+		$order_statuses = [];
+
+		foreach ($this->model_localisation_order_status->getOrderStatuses() as $order_status) {
+			$status_id = (int)$order_status['order_status_id'];
+
+			if (isset($allowed_statuses[$status_id])) {
+				$order_statuses[$allowed_statuses[$status_id]] = $order_status;
+			}
+		}
+
+		ksort($order_statuses);
+
+		$data['order_statuses'] = array_values($order_statuses);
 
 		if (!empty($order_info)) {
 			$data['order_status_id'] = $order_info['order_status_id'];

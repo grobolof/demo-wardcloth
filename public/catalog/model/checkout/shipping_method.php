@@ -24,6 +24,10 @@ class ShippingMethod extends \Opencart\System\Engine\Model {
 		$results = $this->model_setting_extension->getExtensionsByType('shipping');
 
 		foreach ($results as $result) {
+			if ($result['code'] !== 'pickup') {
+				continue;
+			}
+
 			if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 				$this->load->model('extension/' . $result['extension'] . '/shipping/' . $result['code']);
 

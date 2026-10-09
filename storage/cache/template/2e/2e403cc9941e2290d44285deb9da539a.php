@@ -239,87 +239,77 @@ class __TwigTemplate_10a72d8ef079e31d61c922c445785617 extends Template
         if ((($tmp = ($context["products"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
             // line 65
             yield "        <div class=\"row\">
-          <div class=\"col-lg-3\">
-            <div class=\"mb-3\">
-              <a href=\"";
-            // line 68
-            yield ($context["compare"] ?? null);
-            yield "\" id=\"compare-total\" class=\"btn btn-primary d-block\"><i class=\"fa-solid fa-arrow-right-arrow-left\"></i> <span class=\"d-none d-xl-inline\">";
-            yield ($context["text_compare"] ?? null);
-            yield "</span></a>
-            </div>
-          </div>
           <div class=\"col-lg-1 d-none d-lg-block\">
             <div class=\"btn-group\">
               <button type=\"button\" id=\"button-list\" class=\"btn btn-light\" data-bs-toggle=\"tooltip\" title=\"";
-            // line 73
+            // line 68
             yield ($context["button_list"] ?? null);
             yield "\"><i class=\"fa-solid fa-table-list\"></i></button>
               <button type=\"button\" id=\"button-grid\" class=\"btn btn-light\" data-bs-toggle=\"tooltip\" title=\"";
-            // line 74
+            // line 69
             yield ($context["button_grid"] ?? null);
             yield "\"><i class=\"fa-solid fa-table-cells\"></i></button>
             </div>
           </div>
-          <div class=\"col-lg-4 offset-lg-1 col-6\">
+          <div class=\"col-lg-4 offset-lg-4 col-6\">
             <div class=\"input-group mb-3\">
               <label for=\"input-sort\" class=\"input-group-text\">";
-            // line 79
+            // line 74
             yield ($context["text_sort"] ?? null);
             yield "</label>
               <select id=\"input-sort\" class=\"form-select\" onchange=\"location = this.value;\">
                 ";
-            // line 81
+            // line 76
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable($context["sorts"]);
             foreach ($context['_seq'] as $context["_key"] => $context["sorts"]) {
-                // line 82
+                // line 77
                 yield "                  <option value=\"";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["sorts"], "href", [], "any", false, false, false, 82);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["sorts"], "href", [], "any", false, false, false, 77);
                 yield "\"";
-                if ((CoreExtension::getAttribute($this->env, $this->source, $context["sorts"], "value", [], "any", false, false, false, 82) == Twig\Extension\CoreExtension::sprintf("%s-%s", ($context["sort"] ?? null), ($context["order"] ?? null)))) {
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["sorts"], "value", [], "any", false, false, false, 77) == Twig\Extension\CoreExtension::sprintf("%s-%s", ($context["sort"] ?? null), ($context["order"] ?? null)))) {
                     yield " selected";
                 }
                 yield ">";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["sorts"], "text", [], "any", false, false, false, 82);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["sorts"], "text", [], "any", false, false, false, 77);
                 yield "</option>
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['sorts'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 84
+            // line 79
             yield "              </select>
             </div>
           </div>
           <div class=\"col-lg-3 col-6\">
             <div class=\"input-group mb-3\">
               <label for=\"input-limit\" class=\"input-group-text\">";
-            // line 89
+            // line 84
             yield ($context["text_limit"] ?? null);
             yield "</label>
               <select id=\"input-limit\" class=\"form-select\" onchange=\"location = this.value;\">
                 ";
-            // line 91
+            // line 86
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable($context["limits"]);
             foreach ($context['_seq'] as $context["_key"] => $context["limits"]) {
-                // line 92
+                // line 87
                 yield "                  <option value=\"";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["limits"], "href", [], "any", false, false, false, 92);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["limits"], "href", [], "any", false, false, false, 87);
                 yield "\"";
-                if ((CoreExtension::getAttribute($this->env, $this->source, $context["limits"], "value", [], "any", false, false, false, 92) == ($context["limit"] ?? null))) {
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["limits"], "value", [], "any", false, false, false, 87) == ($context["limit"] ?? null))) {
                     yield " selected";
                 }
                 yield ">";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["limits"], "text", [], "any", false, false, false, 92);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["limits"], "text", [], "any", false, false, false, 87);
                 yield "</option>
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['limits'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 94
+            // line 89
             yield "              </select>
             </div>
           </div>
@@ -327,11 +317,11 @@ class __TwigTemplate_10a72d8ef079e31d61c922c445785617 extends Template
 
         <div id=\"product-list\" class=\"row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4\">
           ";
-            // line 100
+            // line 95
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable(($context["products"] ?? null));
             foreach ($context['_seq'] as $context["_key"] => $context["product"]) {
-                // line 101
+                // line 96
                 yield "            <div class=\"col mb-3\">";
                 yield $context["product"];
                 yield "</div>
@@ -340,47 +330,47 @@ class __TwigTemplate_10a72d8ef079e31d61c922c445785617 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['product'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 103
+            // line 98
             yield "        </div>
 
         <div class=\"row\">
           <div class=\"col-sm-6 text-start\">";
-            // line 106
+            // line 101
             yield ($context["pagination"] ?? null);
             yield "</div>
           <div class=\"col-sm-6 text-end\">";
-            // line 107
+            // line 102
             yield ($context["results"] ?? null);
             yield "</div>
         </div>
       ";
         }
-        // line 110
+        // line 105
         yield "      ";
         if (( !($context["categories"] ?? null) &&  !($context["products"] ?? null))) {
-            // line 111
+            // line 106
             yield "        <p>";
             yield ($context["text_no_results"] ?? null);
             yield "</p>
         <div class=\"text-end\"><a href=\"";
-            // line 112
+            // line 107
             yield ($context["continue"] ?? null);
             yield "\" class=\"btn btn-primary\">";
             yield ($context["button_continue"] ?? null);
             yield "</a></div>
       ";
         }
-        // line 114
+        // line 109
         yield "      ";
         yield ($context["content_bottom"] ?? null);
         yield "</div>
     ";
-        // line 115
+        // line 110
         yield ($context["column_right"] ?? null);
         yield "</div>
 </div>
 ";
-        // line 117
+        // line 112
         yield ($context["footer"] ?? null);
         yield "
 ";
@@ -408,7 +398,7 @@ class __TwigTemplate_10a72d8ef079e31d61c922c445785617 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  384 => 117,  379 => 115,  374 => 114,  367 => 112,  362 => 111,  359 => 110,  353 => 107,  349 => 106,  344 => 103,  335 => 101,  331 => 100,  323 => 94,  308 => 92,  304 => 91,  299 => 89,  292 => 84,  277 => 82,  273 => 81,  268 => 79,  260 => 74,  256 => 73,  246 => 68,  241 => 65,  239 => 64,  236 => 63,  233 => 62,  228 => 59,  220 => 56,  209 => 54,  205 => 53,  201 => 51,  196 => 50,  193 => 49,  190 => 48,  187 => 47,  184 => 46,  181 => 45,  179 => 44,  176 => 43,  170 => 39,  159 => 37,  155 => 36,  150 => 33,  148 => 32,  143 => 31,  141 => 30,  138 => 29,  133 => 26,  127 => 24,  124 => 23,  114 => 21,  112 => 20,  109 => 19,  106 => 18,  102 => 16,  87 => 14,  83 => 13,  80 => 12,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  63 => 7,  52 => 5,  48 => 4,  42 => 1,);
+        return array (  374 => 112,  369 => 110,  364 => 109,  357 => 107,  352 => 106,  349 => 105,  343 => 102,  339 => 101,  334 => 98,  325 => 96,  321 => 95,  313 => 89,  298 => 87,  294 => 86,  289 => 84,  282 => 79,  267 => 77,  263 => 76,  258 => 74,  250 => 69,  246 => 68,  241 => 65,  239 => 64,  236 => 63,  233 => 62,  228 => 59,  220 => 56,  209 => 54,  205 => 53,  201 => 51,  196 => 50,  193 => 49,  190 => 48,  187 => 47,  184 => 46,  181 => 45,  179 => 44,  176 => 43,  170 => 39,  159 => 37,  155 => 36,  150 => 33,  148 => 32,  143 => 31,  141 => 30,  138 => 29,  133 => 26,  127 => 24,  124 => 23,  114 => 21,  112 => 20,  109 => 19,  106 => 18,  102 => 16,  87 => 14,  83 => 13,  80 => 12,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  63 => 7,  52 => 5,  48 => 4,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -478,18 +468,13 @@ class __TwigTemplate_10a72d8ef079e31d61c922c445785617 extends Template
 
       {% if products %}
         <div class=\"row\">
-          <div class=\"col-lg-3\">
-            <div class=\"mb-3\">
-              <a href=\"{{ compare }}\" id=\"compare-total\" class=\"btn btn-primary d-block\"><i class=\"fa-solid fa-arrow-right-arrow-left\"></i> <span class=\"d-none d-xl-inline\">{{ text_compare }}</span></a>
-            </div>
-          </div>
           <div class=\"col-lg-1 d-none d-lg-block\">
             <div class=\"btn-group\">
               <button type=\"button\" id=\"button-list\" class=\"btn btn-light\" data-bs-toggle=\"tooltip\" title=\"{{ button_list }}\"><i class=\"fa-solid fa-table-list\"></i></button>
               <button type=\"button\" id=\"button-grid\" class=\"btn btn-light\" data-bs-toggle=\"tooltip\" title=\"{{ button_grid }}\"><i class=\"fa-solid fa-table-cells\"></i></button>
             </div>
           </div>
-          <div class=\"col-lg-4 offset-lg-1 col-6\">
+          <div class=\"col-lg-4 offset-lg-4 col-6\">
             <div class=\"input-group mb-3\">
               <label for=\"input-sort\" class=\"input-group-text\">{{ text_sort }}</label>
               <select id=\"input-sort\" class=\"form-select\" onchange=\"location = this.value;\">

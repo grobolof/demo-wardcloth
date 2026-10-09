@@ -14,6 +14,8 @@ class Confirm extends \Opencart\System\Engine\Controller {
 	 * @return string
 	 */
 	public function index(): string {
+		$this->load->controller('checkout/checkout.prepare');
+
 		$this->load->language('checkout/confirm');
 
 		// Order Totals

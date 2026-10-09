@@ -31,9 +31,9 @@
         <h1>{{ heading_title }}</h1>
         <div class="mr-pdp__meta">
           <span class="mr-pdp__sku">Арт. {{ model }}</span>
-          <form class="mr-pdp__icons" method="post" data-oc-toggle="ajax">
-            <button type="submit" formaction="{{ wishlist_add }}" aria-label="В избранное">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <form class="mr-pdp__icons" method="post" data-mr-wishlist>
+            <button type="submit" formaction="{{ wishlist_add }}" aria-label="В избранное" aria-pressed="{{ in_wishlist ? 'true' : 'false' }}"{% if in_wishlist %} class="is-active"{% endif %}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.2 10.5 18.8C6.4 15.1 3.5 12.5 3.5 9.2 3.5 6.5 5.6 4.4 8.3 4.4c1.5 0 3 .7 3.7 1.8a4.9 4.9 0 0 1 3.7-1.8c2.7 0 4.8 2.1 4.8 4.8 0 3.3-2.9 5.9-7 9.6L12 20.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
             </button>
             <input type="hidden" name="product_id" value="{{ product_id }}"/>
           </form>

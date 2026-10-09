@@ -41,59 +41,52 @@ class __TwigTemplate_1d1912ab17cdf612e787eacd8a3dc706 extends Template
         // line 1
         yield ($context["header"] ?? null);
         yield "
-<div id=\"common-success\" class=\"container\">
-  <ul class=\"breadcrumb\">
-    ";
-        // line 4
-        $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(($context["breadcrumbs"] ?? null));
-        foreach ($context['_seq'] as $context["_key"] => $context["breadcrumb"]) {
-            // line 5
-            yield "      <li class=\"breadcrumb-item\"><a href=\"";
-            yield CoreExtension::getAttribute($this->env, $this->source, $context["breadcrumb"], "href", [], "any", false, false, false, 5);
-            yield "\">";
-            yield CoreExtension::getAttribute($this->env, $this->source, $context["breadcrumb"], "text", [], "any", false, false, false, 5);
-            yield "</a></li>
-    ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_key'], $context['breadcrumb'], $context['_parent']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 7
-        yield "  </ul>
-  <div class=\"row\">";
-        // line 8
-        yield ($context["column_left"] ?? null);
-        yield "
-    <div id=\"content\" class=\"col\">";
+<div id=\"common-success\" class=\"mr-success\">
+  <div class=\"mr-wrap\">
+    <div class=\"mr-success__card\">
+      <div class=\"mr-success__icon\" aria-hidden=\"true\">
+        <svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M8 12.2 10.8 15 16 9.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
+      </div>
+      <h1>Заказ оформлен</h1>
+      <p>Спасибо за покупку. Мы приняли ваш заказ";
         // line 9
-        yield ($context["content_top"] ?? null);
-        yield "
-      <h1>";
+        if ((($tmp = ($context["order_id"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            yield " №";
+            yield ($context["order_id"] ?? null);
+        }
+        yield " и скоро свяжемся с вами для подтверждения.</p>
+      ";
         // line 10
-        yield ($context["heading_title"] ?? null);
-        yield "</h1>
+        if ((($tmp = ($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 11
+            yield "        <p>Статус и состав заказа можно посмотреть в личном кабинете.</p>
       ";
-        // line 11
-        yield ($context["text_message"] ?? null);
-        yield "
-      <div class=\"text-end\"><a href=\"";
-        // line 12
-        yield ($context["continue"] ?? null);
-        yield "\" class=\"btn btn-primary\">";
-        yield ($context["button_continue"] ?? null);
-        yield "</a></div>
-      ";
+        }
         // line 13
-        yield ($context["content_bottom"] ?? null);
-        yield "</div>
-    ";
+        yield "      <div class=\"mr-success__actions\">
+        ";
         // line 14
-        yield ($context["column_right"] ?? null);
-        yield "</div>
+        if ((($tmp = ($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 15
+            yield "          <a class=\"mr-success__btn\" href=\"";
+            yield ($context["orders"] ?? null);
+            yield "\">Перейти к заказам</a>
+        ";
+        }
+        // line 17
+        yield "        <a class=\"mr-success__btn";
+        if ((($tmp = ($context["logged"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            yield " mr-success__btn--ghost";
+        }
+        yield "\" href=\"";
+        yield ($context["continue"] ?? null);
+        yield "\">Продолжить покупки</a>
+      </div>
+    </div>
+  </div>
 </div>
 ";
-        // line 16
+        // line 22
         yield ($context["footer"] ?? null);
         yield "
 ";
@@ -121,25 +114,31 @@ class __TwigTemplate_1d1912ab17cdf612e787eacd8a3dc706 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  97 => 16,  92 => 14,  88 => 13,  82 => 12,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  63 => 7,  52 => 5,  48 => 4,  42 => 1,);
+        return array (  90 => 22,  77 => 17,  71 => 15,  69 => 14,  66 => 13,  62 => 11,  60 => 10,  53 => 9,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("{{ header }}
-<div id=\"common-success\" class=\"container\">
-  <ul class=\"breadcrumb\">
-    {% for breadcrumb in breadcrumbs %}
-      <li class=\"breadcrumb-item\"><a href=\"{{ breadcrumb.href }}\">{{ breadcrumb.text }}</a></li>
-    {% endfor %}
-  </ul>
-  <div class=\"row\">{{ column_left }}
-    <div id=\"content\" class=\"col\">{{ content_top }}
-      <h1>{{ heading_title }}</h1>
-      {{ text_message }}
-      <div class=\"text-end\"><a href=\"{{ continue }}\" class=\"btn btn-primary\">{{ button_continue }}</a></div>
-      {{ content_bottom }}</div>
-    {{ column_right }}</div>
+<div id=\"common-success\" class=\"mr-success\">
+  <div class=\"mr-wrap\">
+    <div class=\"mr-success__card\">
+      <div class=\"mr-success__icon\" aria-hidden=\"true\">
+        <svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M8 12.2 10.8 15 16 9.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
+      </div>
+      <h1>Заказ оформлен</h1>
+      <p>Спасибо за покупку. Мы приняли ваш заказ{% if order_id %} №{{ order_id }}{% endif %} и скоро свяжемся с вами для подтверждения.</p>
+      {% if logged %}
+        <p>Статус и состав заказа можно посмотреть в личном кабинете.</p>
+      {% endif %}
+      <div class=\"mr-success__actions\">
+        {% if logged %}
+          <a class=\"mr-success__btn\" href=\"{{ orders }}\">Перейти к заказам</a>
+        {% endif %}
+        <a class=\"mr-success__btn{% if logged %} mr-success__btn--ghost{% endif %}\" href=\"{{ continue }}\">Продолжить покупки</a>
+      </div>
+    </div>
+  </div>
 </div>
 {{ footer }}
 ", "catalog/view/template/common/success.twig", "/pub/www/app/public/catalog/view/template/common/success.twig");

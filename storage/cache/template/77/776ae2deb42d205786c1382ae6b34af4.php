@@ -154,11 +154,11 @@ class __TwigTemplate_bb4f9735d1d808425168fecea5876e34 extends Template
                 <div id=\"error-email\" class=\"invalid-feedback\"></div>
               </div>
               <div class=\"mr-private__field\">
-                <label for=\"input-telephone\">Телефон <i>*</i></label>
+                <label for=\"input-telephone\">Телефон</label>
                 <input type=\"tel\" name=\"telephone\" value=\"";
         // line 45
         yield ($context["telephone"] ?? null);
-        yield "\" id=\"input-telephone\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"+7 (___) ___-__-__\" required>
+        yield "\" id=\"input-telephone\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"+7 (___) ___-__-__\">
                 <p class=\"mr-private__hint\">Необходим для уточнения деталей заказа</p>
                 <div id=\"error-telephone\" class=\"invalid-feedback\"></div>
               </div>
@@ -720,8 +720,8 @@ class __TwigTemplate_bb4f9735d1d808425168fecea5876e34 extends Template
                 <div id=\"error-email\" class=\"invalid-feedback\"></div>
               </div>
               <div class=\"mr-private__field\">
-                <label for=\"input-telephone\">Телефон <i>*</i></label>
-                <input type=\"tel\" name=\"telephone\" value=\"{{ telephone }}\" id=\"input-telephone\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"+7 (___) ___-__-__\" required>
+                <label for=\"input-telephone\">Телефон</label>
+                <input type=\"tel\" name=\"telephone\" value=\"{{ telephone }}\" id=\"input-telephone\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"+7 (___) ___-__-__\">
                 <p class=\"mr-private__hint\">Необходим для уточнения деталей заказа</p>
                 <div id=\"error-telephone\" class=\"invalid-feedback\"></div>
               </div>

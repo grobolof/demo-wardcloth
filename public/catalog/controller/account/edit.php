@@ -169,7 +169,9 @@ class Edit extends \Opencart\System\Engine\Controller {
 				$digits = substr($digits, 1);
 			}
 
-			if (!preg_match('/^\d{10}$/', $digits)) {
+			if ($digits === '') {
+				$post_info['telephone'] = '';
+			} elseif (!preg_match('/^\d{10}$/', $digits)) {
 				$json['error']['telephone'] = $this->language->get('error_telephone');
 			} else {
 				$post_info['telephone'] = '+7 (' . substr($digits, 0, 3) . ') ' . substr($digits, 3, 3) . '-' . substr($digits, 6, 2) . '-' . substr($digits, 8, 2);

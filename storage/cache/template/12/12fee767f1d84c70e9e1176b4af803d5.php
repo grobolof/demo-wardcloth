@@ -95,19 +95,13 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         // line 21
         yield ($context["stylesheet"] ?? null);
         yield "\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=17\" type=\"text/css\" rel=\"stylesheet\"/>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=20\" type=\"text/css\" rel=\"stylesheet\"/>
   <script src=\"catalog/view/javascript/common.js\" type=\"text/javascript\"></script>
+  <link rel=\"icon\" href=\"image/catalog/mr/favicon.ico\" sizes=\"any\">
+  <link rel=\"icon\" href=\"image/catalog/mr/favicon.svg\" type=\"image/svg+xml\">
+  <link rel=\"apple-touch-icon\" href=\"image/catalog/mr/apple-touch-icon.png\">
   ";
-        // line 24
-        if ((($tmp = ($context["icon"] ?? null)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 25
-            yield "    <link rel=\"icon\" href=\"";
-            yield ($context["icon"] ?? null);
-            yield "\" type=\"image/png\">
-  ";
-        }
         // line 27
-        yield "  ";
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(($context["styles"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["style"]) {
@@ -178,17 +172,20 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         if ((($context["route"] ?? null) == "checkout/cart")) {
             yield " is-cart";
         }
+        if ((($context["route"] ?? null) == "checkout/checkout")) {
+            yield " is-checkout";
+        }
         yield "\">
 <div id=\"alert\"></div>
 <header class=\"mr-header";
         // line 42
-        if ((($context["route"] ?? null) == "checkout/cart")) {
+        if (((($context["route"] ?? null) == "checkout/cart") || (($context["route"] ?? null) == "checkout/checkout"))) {
             yield " mr-header--cart";
         }
         yield "\" id=\"mr-header\">
 ";
         // line 43
-        if ((($context["route"] ?? null) == "checkout/cart")) {
+        if (((($context["route"] ?? null) == "checkout/cart") || (($context["route"] ?? null) == "checkout/checkout"))) {
             // line 44
             yield "  <div class=\"mr-wrap mr-carthead\">
     <a class=\"mr-logo\" href=\"";
@@ -454,7 +451,7 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  431 => 172,  423 => 167,  420 => 166,  414 => 164,  412 => 163,  408 => 162,  392 => 153,  388 => 152,  376 => 146,  374 => 145,  368 => 143,  363 => 141,  350 => 135,  344 => 132,  336 => 128,  329 => 124,  325 => 123,  321 => 122,  313 => 117,  310 => 116,  303 => 111,  301 => 110,  296 => 108,  270 => 85,  261 => 80,  253 => 78,  251 => 77,  245 => 74,  241 => 73,  237 => 72,  232 => 69,  228 => 67,  220 => 65,  218 => 64,  196 => 45,  193 => 44,  191 => 43,  185 => 42,  175 => 40,  172 => 39,  163 => 37,  158 => 36,  147 => 34,  142 => 33,  133 => 31,  128 => 30,  115 => 28,  110 => 27,  104 => 25,  102 => 24,  96 => 21,  92 => 20,  88 => 19,  80 => 15,  74 => 13,  71 => 12,  65 => 10,  63 => 9,  59 => 8,  55 => 7,  45 => 2,  42 => 1,);
+        return array (  428 => 172,  420 => 167,  417 => 166,  411 => 164,  409 => 163,  405 => 162,  389 => 153,  385 => 152,  373 => 146,  371 => 145,  365 => 143,  360 => 141,  347 => 135,  341 => 132,  333 => 128,  326 => 124,  322 => 123,  318 => 122,  310 => 117,  307 => 116,  300 => 111,  298 => 110,  293 => 108,  267 => 85,  258 => 80,  250 => 78,  248 => 77,  242 => 74,  238 => 73,  234 => 72,  229 => 69,  225 => 67,  217 => 65,  215 => 64,  193 => 45,  190 => 44,  188 => 43,  182 => 42,  169 => 40,  166 => 39,  157 => 37,  152 => 36,  141 => 34,  136 => 33,  127 => 31,  122 => 30,  109 => 28,  105 => 27,  96 => 21,  92 => 20,  88 => 19,  80 => 15,  74 => 13,  71 => 12,  65 => 10,  63 => 9,  59 => 8,  55 => 7,  45 => 2,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -480,11 +477,11 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
   <link href=\"{{ bootstrap }}\" type=\"text/css\" rel=\"stylesheet\" media=\"screen\"/>
   <link href=\"{{ icons }}\" rel=\"stylesheet\" type=\"text/css\"/>
   <link href=\"{{ stylesheet }}\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=17\" type=\"text/css\" rel=\"stylesheet\"/>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=20\" type=\"text/css\" rel=\"stylesheet\"/>
   <script src=\"catalog/view/javascript/common.js\" type=\"text/javascript\"></script>
-  {% if icon %}
-    <link rel=\"icon\" href=\"{{ icon }}\" type=\"image/png\">
-  {% endif %}
+  <link rel=\"icon\" href=\"image/catalog/mr/favicon.ico\" sizes=\"any\">
+  <link rel=\"icon\" href=\"image/catalog/mr/favicon.svg\" type=\"image/svg+xml\">
+  <link rel=\"apple-touch-icon\" href=\"image/catalog/mr/apple-touch-icon.png\">
   {% for style in styles %}
     <link href=\"{{ style.href }}\" type=\"text/css\" rel=\"{{ style.rel }}\" media=\"{{ style.media }}\"/>
   {% endfor %}
@@ -498,10 +495,10 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
     {{ analytic }}
   {% endfor %}
 </head>
-<body class=\"mr-store{% if route == 'common/home' %} is-home{% endif %}{% if route == 'checkout/cart' %} is-cart{% endif %}\">
+<body class=\"mr-store{% if route == 'common/home' %} is-home{% endif %}{% if route == 'checkout/cart' %} is-cart{% endif %}{% if route == 'checkout/checkout' %} is-checkout{% endif %}\">
 <div id=\"alert\"></div>
-<header class=\"mr-header{% if route == 'checkout/cart' %} mr-header--cart{% endif %}\" id=\"mr-header\">
-{% if route == 'checkout/cart' %}
+<header class=\"mr-header{% if route == 'checkout/cart' or route == 'checkout/checkout' %} mr-header--cart{% endif %}\" id=\"mr-header\">
+{% if route == 'checkout/cart' or route == 'checkout/checkout' %}
   <div class=\"mr-wrap mr-carthead\">
     <a class=\"mr-logo\" href=\"{{ home }}\" aria-label=\"Мистер Робот\">
       <svg class=\"mr-logo__bot\" viewBox=\"0 0 64 58\" aria-hidden=\"true\">

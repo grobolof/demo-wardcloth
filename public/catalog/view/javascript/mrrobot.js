@@ -502,7 +502,7 @@ document.addEventListener('click', function (event) {
 
         if (digits.length <= 1) {
           phone.value = '';
-          setError(phone, 'Укажите телефон в формате +7 (999) 999-99-99');
+          setError(phone, '');
           return;
         }
 
@@ -543,7 +543,7 @@ document.addEventListener('click', function (event) {
         setError(email, '');
       }
 
-      if (!phone || phoneDigits.length !== 11) {
+      if (phoneDigits.length > 1 && phoneDigits.length !== 11) {
         setError(phone, 'Укажите телефон в формате +7 (999) 999-99-99');
         valid = false;
       } else {
@@ -617,3 +617,53 @@ document.addEventListener('click', function (event) {
     }
   }
 })();
+
+document.addEventListener('submit', function (event) {
+  var form = event.target;
+
+  if (!(form instanceof HTMLFormElement) || !form.hasAttribute('data-mr-wishlist')) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (!window.jQuery || form.dataset.mrBusy === '1') {
+    return;
+  }
+
+  var button = event.submitter || form.querySelector('button');
+  var action = (button && button.getAttribute('formaction')) || form.getAttribute('action') || '';
+
+  form.dataset.mrBusy = '1';
+
+  window.jQuery.ajax({
+    url: action.replaceAll('&amp;', '&'),
+    type: 'post',
+    data: window.jQuery(form).serialize(),
+    dataType: 'json',
+    complete: function () {
+      delete form.dataset.mrBusy;
+    },
+    success: function (json) {
+      if (!json || json.error || !button) {
+        return;
+      }
+
+      var active = Boolean(json.active);
+      var productId = String(json.product_id || '');
+
+      document.querySelectorAll('form[data-mr-wishlist]').forEach(function (item) {
+        var input = item.querySelector('input[name="product_id"]');
+        var heart = item.querySelector('button');
+
+        if (!input || !heart || input.value !== productId) {
+          return;
+        }
+
+        heart.classList.toggle('is-active', active);
+        heart.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    }
+  });
+}, true);

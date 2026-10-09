@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']              = 'Orders';
+$_['heading_title']              = 'Заказы';
 
 // Text
-$_['text_account']               = 'Account';
+$_['text_account']               = 'Личный кабинет';
 $_['text_order']                 = 'Order #%s';
 $_['text_order_id']              = 'Order ID';
 $_['text_invoice_no']            = 'Invoice No.';
@@ -28,7 +28,7 @@ $_['text_remaining']             = 'Remaining';
 $_['text_comment']               = 'Note';
 $_['text_history']               = 'Order History';
 $_['text_success']               = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>!';
-$_['text_no_results']            = 'You have not made any previous orders!';
+$_['text_no_results']            = 'Заказов пока нет';
 
 // Column
 $_['column_order_id']            = 'Order ID';

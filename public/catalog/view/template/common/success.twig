@@ -1,16 +1,22 @@
 {{ header }}
-<div id="common-success" class="container">
-  <ul class="breadcrumb">
-    {% for breadcrumb in breadcrumbs %}
-      <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
-    {% endfor %}
-  </ul>
-  <div class="row">{{ column_left }}
-    <div id="content" class="col">{{ content_top }}
-      <h1>{{ heading_title }}</h1>
-      {{ text_message }}
-      <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
-      {{ content_bottom }}</div>
-    {{ column_right }}</div>
+<div id="common-success" class="mr-success">
+  <div class="mr-wrap">
+    <div class="mr-success__card">
+      <div class="mr-success__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.2 10.8 15 16 9.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1>Заказ оформлен</h1>
+      <p>Спасибо за покупку. Мы приняли ваш заказ{% if order_id %} №{{ order_id }}{% endif %} и скоро свяжемся с вами для подтверждения.</p>
+      {% if logged %}
+        <p>Статус и состав заказа можно посмотреть в личном кабинете.</p>
+      {% endif %}
+      <div class="mr-success__actions">
+        {% if logged %}
+          <a class="mr-success__btn" href="{{ orders }}">Перейти к заказам</a>
+        {% endif %}
+        <a class="mr-success__btn{% if logged %} mr-success__btn--ghost{% endif %}" href="{{ continue }}">Продолжить покупки</a>
+      </div>
+    </div>
+  </div>
 </div>
 {{ footer }}

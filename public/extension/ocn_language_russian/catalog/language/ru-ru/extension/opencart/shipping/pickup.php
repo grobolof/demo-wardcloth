@@ -3,4 +3,4 @@
 $_['heading_title']    = 'Самовывоз';
 
 // Text
-$_['text_description'] = 'Самовывоз из магазина';
+$_['text_description'] = 'Самовывоз';

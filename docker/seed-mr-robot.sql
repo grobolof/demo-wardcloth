@@ -1,16 +1,37 @@
 SET NAMES utf8mb4;
 
-DELETE FROM oc_product_to_category WHERE product_id BETWEEN 100 AND 115;
-DELETE FROM oc_product_to_store WHERE product_id BETWEEN 100 AND 115;
-DELETE FROM oc_product_description WHERE product_id BETWEEN 100 AND 115;
-DELETE FROM oc_product WHERE product_id BETWEEN 100 AND 115;
-DELETE FROM oc_category_path WHERE category_id BETWEEN 40 AND 43;
-DELETE FROM oc_category_to_store WHERE category_id BETWEEN 40 AND 43;
-DELETE FROM oc_category_description WHERE category_id BETWEEN 40 AND 43;
-DELETE FROM oc_category WHERE category_id BETWEEN 40 AND 43;
+DELETE FROM oc_product_option_value;
+DELETE FROM oc_product_option;
+DELETE FROM oc_product_attribute;
+DELETE FROM oc_product_code;
+DELETE FROM oc_product_description;
+DELETE FROM oc_product_discount;
+DELETE FROM oc_product_filter;
+DELETE FROM oc_product_image;
+DELETE FROM oc_product_related;
+DELETE FROM oc_product_report;
+DELETE FROM oc_product_reward;
+DELETE FROM oc_product_subscription;
+DELETE FROM oc_product_to_category;
+DELETE FROM oc_product_to_download;
+DELETE FROM oc_product_to_layout;
+DELETE FROM oc_product_to_store;
+DELETE FROM oc_product_viewed;
+DELETE FROM oc_review;
+DELETE FROM oc_coupon_product;
+DELETE FROM oc_cart;
+DELETE FROM oc_customer_wishlist;
+DELETE FROM oc_seo_url WHERE `key` = 'product_id';
+DELETE FROM oc_product;
 
-UPDATE oc_product SET status = 0, manufacturer_id = 0;
-UPDATE oc_category SET status = 0;
+DELETE FROM oc_category_filter;
+DELETE FROM oc_category_path;
+DELETE FROM oc_category_to_layout;
+DELETE FROM oc_category_to_store;
+DELETE FROM oc_category_description;
+DELETE FROM oc_coupon_category;
+DELETE FROM oc_seo_url WHERE `key` = 'path';
+DELETE FROM oc_category;
 
 DELETE FROM oc_manufacturer_to_store;
 DELETE FROM oc_manufacturer_to_layout;

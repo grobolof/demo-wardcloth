@@ -106,8 +106,10 @@ class __TwigTemplate_6ab76b7c84923a7e651d54036b5970b6 extends Template
         // line 16
         yield ($context["heading_title"] ?? null);
         yield "</h1>
-    <div id=\"wishlist\">";
+    <div id=\"wishlist\" data-mr-list=\"index.php?route=account/wishlist.list&language=";
         // line 17
+        yield ($context["language"] ?? null);
+        yield "\">";
         yield ($context["list"] ?? null);
         yield "</div>
     ";
@@ -116,35 +118,8 @@ class __TwigTemplate_6ab76b7c84923a7e651d54036b5970b6 extends Template
         yield "
   </div>
 </div>
-<script type=\"text/javascript\"><!--
-\$('#wishlist').on('click', '.mr-fav__remove', function(e) {
-    e.preventDefault();
-
-    var element = this;
-
-    \$.ajax({
-        url: \$(element).attr('href'),
-        dataType: 'json',
-        success: function(json) {
-            if (json['error']) {
-                \$('#alert').prepend('<div class=\"alert alert-danger alert-dismissible\"><i class=\"fa-solid fa-circle-exclamation\"></i> ' + json['error'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
-            }
-
-            if (json['success']) {
-                \$('#wishlist').load('index.php?route=account/wishlist.list&language=";
-        // line 36
-        yield ($context["language"] ?? null);
-        yield "');
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + \"\\r\\n\" + xhr.statusText + \"\\r\\n\" + xhr.responseText);
-        }
-    });
-});
-//--></script>
 ";
-        // line 45
+        // line 21
         yield ($context["footer"] ?? null);
         yield "
 ";
@@ -172,7 +147,7 @@ class __TwigTemplate_6ab76b7c84923a7e651d54036b5970b6 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  148 => 45,  136 => 36,  115 => 18,  111 => 17,  107 => 16,  103 => 15,  99 => 13,  84 => 11,  76 => 9,  70 => 7,  68 => 6,  65 => 5,  48 => 4,  42 => 1,);
+        return array (  123 => 21,  117 => 18,  111 => 17,  107 => 16,  103 => 15,  99 => 13,  84 => 11,  76 => 9,  70 => 7,  68 => 6,  65 => 5,  48 => 4,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -193,34 +168,10 @@ class __TwigTemplate_6ab76b7c84923a7e651d54036b5970b6 extends Template
   <div id=\"content\">
     {{ content_top }}
     <h1>{{ heading_title }}</h1>
-    <div id=\"wishlist\">{{ list }}</div>
+    <div id=\"wishlist\" data-mr-list=\"index.php?route=account/wishlist.list&language={{ language }}\">{{ list }}</div>
     {{ content_bottom }}
   </div>
 </div>
-<script type=\"text/javascript\"><!--
-\$('#wishlist').on('click', '.mr-fav__remove', function(e) {
-    e.preventDefault();
-
-    var element = this;
-
-    \$.ajax({
-        url: \$(element).attr('href'),
-        dataType: 'json',
-        success: function(json) {
-            if (json['error']) {
-                \$('#alert').prepend('<div class=\"alert alert-danger alert-dismissible\"><i class=\"fa-solid fa-circle-exclamation\"></i> ' + json['error'] + ' <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button></div>');
-            }
-
-            if (json['success']) {
-                \$('#wishlist').load('index.php?route=account/wishlist.list&language={{ language }}');
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + \"\\r\\n\" + xhr.statusText + \"\\r\\n\" + xhr.responseText);
-        }
-    });
-});
-//--></script>
 {{ footer }}
 ", "catalog/view/template/account/wishlist.twig", "/pub/www/app/public/catalog/view/template/account/wishlist.twig");
     }

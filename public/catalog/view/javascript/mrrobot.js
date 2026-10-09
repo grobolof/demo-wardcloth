@@ -652,6 +652,12 @@ document.addEventListener('submit', function (event) {
 
       var active = Boolean(json.active);
       var productId = String(json.product_id || '');
+      var list = document.getElementById('wishlist');
+
+      if (list && list.getAttribute('data-mr-list') && !active) {
+        window.jQuery(list).load(list.getAttribute('data-mr-list'));
+        return;
+      }
 
       document.querySelectorAll('form[data-mr-wishlist]').forEach(function (item) {
         var input = item.querySelector('input[name="product_id"]');

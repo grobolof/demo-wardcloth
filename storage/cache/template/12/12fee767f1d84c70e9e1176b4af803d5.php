@@ -95,8 +95,8 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
         // line 21
         yield ($context["stylesheet"] ?? null);
         yield "\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=20\" type=\"text/css\" rel=\"stylesheet\"/>
-  <script src=\"catalog/view/javascript/common.js\" type=\"text/javascript\"></script>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=21\" type=\"text/css\" rel=\"stylesheet\"/>
+  <script src=\"catalog/view/javascript/common.js?v=2\" type=\"text/javascript\"></script>
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.ico\" sizes=\"any\">
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.svg\" type=\"image/svg+xml\">
   <link rel=\"apple-touch-icon\" href=\"image/catalog/mr/apple-touch-icon.png\">
@@ -477,8 +477,8 @@ class __TwigTemplate_db1e4ae33b8077546a209da1ec1fe466 extends Template
   <link href=\"{{ bootstrap }}\" type=\"text/css\" rel=\"stylesheet\" media=\"screen\"/>
   <link href=\"{{ icons }}\" rel=\"stylesheet\" type=\"text/css\"/>
   <link href=\"{{ stylesheet }}\" type=\"text/css\" rel=\"stylesheet\"/>
-  <link href=\"catalog/view/stylesheet/mrrobot.css?v=20\" type=\"text/css\" rel=\"stylesheet\"/>
-  <script src=\"catalog/view/javascript/common.js\" type=\"text/javascript\"></script>
+  <link href=\"catalog/view/stylesheet/mrrobot.css?v=21\" type=\"text/css\" rel=\"stylesheet\"/>
+  <script src=\"catalog/view/javascript/common.js?v=2\" type=\"text/javascript\"></script>
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.ico\" sizes=\"any\">
   <link rel=\"icon\" href=\"image/catalog/mr/favicon.svg\" type=\"image/svg+xml\">
   <link rel=\"apple-touch-icon\" href=\"image/catalog/mr/apple-touch-icon.png\">

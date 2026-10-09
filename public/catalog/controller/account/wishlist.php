@@ -90,6 +90,7 @@ class WishList extends \Opencart\System\Engine\Controller {
 	protected function getList(): string {
 		$data['cart'] = $this->url->link('common/cart.info', 'language=' . $this->config->get('config_language'));
 		$data['cart_add'] = $this->url->link('checkout/cart.add', 'language=' . $this->config->get('config_language'));
+		$data['wishlist_add'] = $this->url->link('account/wishlist.add', 'language=' . $this->config->get('config_language'));
 
 		$data['products'] = [];
 

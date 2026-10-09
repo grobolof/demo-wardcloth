@@ -70,70 +70,80 @@ class __TwigTemplate_29ff235075687ea7bc95aa0d562122c2 extends Template
                 }
                 // line 11
                 yield "            </a>
-            <a class=\"mr-fav__remove\" href=\"";
-                // line 12
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "remove", [], "any", false, false, false, 12);
-                yield "\" aria-label=\"Удалить из избранного\">
-              <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linejoin=\"round\"/></svg>
-            </a>
+            <form class=\"mr-card__tools\" method=\"post\" data-mr-wishlist>
+              <button type=\"submit\" formaction=\"";
+                // line 13
+                yield ($context["wishlist_add"] ?? null);
+                yield "\" aria-label=\"Удалить из избранного\" aria-pressed=\"true\" class=\"is-active\">
+                <svg viewBox=\"0 0 24 24\"><path d=\"M12 20.2 10.5 18.8C6.4 15.1 3.5 12.5 3.5 9.2 3.5 6.5 5.6 4.4 8.3 4.4c1.5 0 3 .7 3.7 1.8a4.9 4.9 0 0 1 3.7-1.8c2.7 0 4.8 2.1 4.8 4.8 0 3.3-2.9 5.9-7 9.6L12 20.2z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>
+              </button>
+              <input type=\"hidden\" name=\"product_id\" value=\"";
+                // line 16
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "product_id", [], "any", false, false, false, 16);
+                yield "\"/>
+              <input type=\"hidden\" name=\"quantity\" value=\"";
+                // line 17
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "minimum", [], "any", false, false, false, 17);
+                yield "\"/>
+            </form>
           </div>
           ";
-                // line 16
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 16)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                    // line 17
+                // line 20
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 20)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 21
                     yield "            <div class=\"mr-card__price\">
               ";
-                    // line 18
-                    if ((($tmp =  !CoreExtension::getAttribute($this->env, $this->source, $context["product"], "special", [], "any", false, false, false, 18)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                        // line 19
+                    // line 22
+                    if ((($tmp =  !CoreExtension::getAttribute($this->env, $this->source, $context["product"], "special", [], "any", false, false, false, 22)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                        // line 23
                         yield "                <span>";
-                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 19);
+                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 23);
                         yield "</span>
               ";
                     } else {
-                        // line 21
+                        // line 25
                         yield "                <span>";
-                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "special", [], "any", false, false, false, 21);
+                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "special", [], "any", false, false, false, 25);
                         yield "</span>
                 <s>";
-                        // line 22
-                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 22);
+                        // line 26
+                        yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 26);
                         yield "</s>
               ";
                     }
-                    // line 24
+                    // line 28
                     yield "            </div>
           ";
                 }
-                // line 26
+                // line 30
                 yield "          <h3 class=\"mr-card__name\"><a href=\"";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "href", [], "any", false, false, false, 26);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "href", [], "any", false, false, false, 30);
                 yield "\">";
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "name", [], "any", false, false, false, 26);
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "name", [], "any", false, false, false, 30);
                 yield "</a></h3>
           <p class=\"mr-card__stock";
-                // line 27
-                if ((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "quantity", [], "any", false, false, false, 27) <= 0)) {
+                // line 31
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "quantity", [], "any", false, false, false, 31) <= 0)) {
                     yield " is-out";
                 }
                 yield "\">";
-                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "quantity", [], "any", false, false, false, 27) > 0)) ? ("Есть в наличии") : ("Нет в наличии"));
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "quantity", [], "any", false, false, false, 31) > 0)) ? ("Есть в наличии") : ("Нет в наличии"));
                 yield "</p>
           <form method=\"post\" data-oc-toggle=\"ajax\" data-oc-load=\"";
-                // line 28
+                // line 32
                 yield ($context["cart"] ?? null);
                 yield "\" data-oc-target=\"#cart\">
             <button class=\"mr-card__buy\" type=\"submit\" formaction=\"";
-                // line 29
+                // line 33
                 yield ($context["cart_add"] ?? null);
                 yield "\">В корзину</button>
             <input type=\"hidden\" name=\"product_id\" value=\"";
-                // line 30
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "product_id", [], "any", false, false, false, 30);
+                // line 34
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "product_id", [], "any", false, false, false, 34);
                 yield "\"/>
             <input type=\"hidden\" name=\"quantity\" value=\"";
-                // line 31
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "minimum", [], "any", false, false, false, 31);
+                // line 35
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["product"], "minimum", [], "any", false, false, false, 35);
                 yield "\"/>
           </form>
         </article>
@@ -143,11 +153,11 @@ class __TwigTemplate_29ff235075687ea7bc95aa0d562122c2 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['product'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 36
+            // line 40
             yield "  </div>
 ";
         } else {
-            // line 38
+            // line 42
             yield "  <p class=\"mr-fav__empty\">Список избранных элементов пуст</p>
 ";
         }
@@ -175,7 +185,7 @@ class __TwigTemplate_29ff235075687ea7bc95aa0d562122c2 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  151 => 38,  147 => 36,  136 => 31,  132 => 30,  128 => 29,  124 => 28,  116 => 27,  109 => 26,  105 => 24,  100 => 22,  95 => 21,  89 => 19,  87 => 18,  84 => 17,  82 => 16,  75 => 12,  72 => 11,  62 => 9,  60 => 8,  56 => 7,  51 => 4,  47 => 3,  44 => 2,  42 => 1,);
+        return array (  161 => 42,  157 => 40,  146 => 35,  142 => 34,  138 => 33,  134 => 32,  126 => 31,  119 => 30,  115 => 28,  110 => 26,  105 => 25,  99 => 23,  97 => 22,  94 => 21,  92 => 20,  86 => 17,  82 => 16,  76 => 13,  72 => 11,  62 => 9,  60 => 8,  56 => 7,  51 => 4,  47 => 3,  44 => 2,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -191,9 +201,13 @@ class __TwigTemplate_29ff235075687ea7bc95aa0d562122c2 extends Template
                 <img src=\"{{ product.thumb }}\" alt=\"{{ product.name }}\" title=\"{{ product.name }}\"/>
               {% endif %}
             </a>
-            <a class=\"mr-fav__remove\" href=\"{{ product.remove }}\" aria-label=\"Удалить из избранного\">
-              <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linejoin=\"round\"/></svg>
-            </a>
+            <form class=\"mr-card__tools\" method=\"post\" data-mr-wishlist>
+              <button type=\"submit\" formaction=\"{{ wishlist_add }}\" aria-label=\"Удалить из избранного\" aria-pressed=\"true\" class=\"is-active\">
+                <svg viewBox=\"0 0 24 24\"><path d=\"M12 20.2 10.5 18.8C6.4 15.1 3.5 12.5 3.5 9.2 3.5 6.5 5.6 4.4 8.3 4.4c1.5 0 3 .7 3.7 1.8a4.9 4.9 0 0 1 3.7-1.8c2.7 0 4.8 2.1 4.8 4.8 0 3.3-2.9 5.9-7 9.6L12 20.2z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>
+              </button>
+              <input type=\"hidden\" name=\"product_id\" value=\"{{ product.product_id }}\"/>
+              <input type=\"hidden\" name=\"quantity\" value=\"{{ product.minimum }}\"/>
+            </form>
           </div>
           {% if product.price %}
             <div class=\"mr-card__price\">

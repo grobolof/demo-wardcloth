@@ -223,7 +223,7 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
         unset($context['_seq'], $context['_key'], $context['script'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 72
-        yield "<script src=\"catalog/view/javascript/mrrobot.js?v=9\" type=\"text/javascript\"></script>
+        yield "<script src=\"catalog/view/javascript/mrrobot.js?v=10\" type=\"text/javascript\"></script>
 </body></html>
 ";
         yield from [];
@@ -326,7 +326,7 @@ class __TwigTemplate_617f8d04b70584a6f6c2a8c1608043a0 extends Template
 {% for script in scripts %}
   <script src=\"{{ script.href }}\" type=\"text/javascript\"></script>
 {% endfor %}
-<script src=\"catalog/view/javascript/mrrobot.js?v=9\" type=\"text/javascript\"></script>
+<script src=\"catalog/view/javascript/mrrobot.js?v=10\" type=\"text/javascript\"></script>
 </body></html>
 ", "catalog/view/template/common/footer.twig", "/pub/www/app/public/catalog/view/template/common/footer.twig");
     }

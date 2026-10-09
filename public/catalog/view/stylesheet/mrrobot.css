@@ -2145,8 +2145,9 @@ a.mr-pdp__perk:hover {
   font-size: 20px;
 }
 
-#alert {
-  z-index: 80;
+#alert .alert-success,
+.alert-success.alert-dismissible {
+  display: none !important;
 }
 
 @media (max-width: 1100px) {
@@ -2679,27 +2680,6 @@ body.mr-auth-open {
   color: #555;
   font-size: 16px;
   line-height: 1.5;
-}
-
-.mr-fav__remove {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  color: var(--mr-red);
-}
-
-.mr-fav__remove svg {
-  width: 18px;
-  height: 18px;
-}
-
-.mr-fav__remove:hover {
-  color: var(--mr-red-2);
 }
 
 #account-account .breadcrumb-item span,

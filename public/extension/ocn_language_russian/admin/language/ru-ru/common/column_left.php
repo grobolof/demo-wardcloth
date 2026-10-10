@@ -25,6 +25,7 @@ $_['text_customer_approval']   = 'Одобрение покупателей';
 $_['text_customer_group']      = 'Группы покупателя';
 $_['text_custom_field']        = 'Настраиваемые поля';
 $_['text_dashboard']           = 'Панель';
+$_['text_demo_reset']          = 'Восстановить демо';
 $_['text_design']              = 'Дизайн';
 $_['text_download']            = 'Загрузки';
 $_['text_log']                 = 'Журнал ошибок';

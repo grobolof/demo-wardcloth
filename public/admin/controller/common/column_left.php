@@ -811,6 +811,20 @@ class ColumnLeft extends \Opencart\System\Engine\Controller {
 				];
 			}
 
+			if ($this->user->hasPermission('access', 'tool/demo_reset')) {
+				$data['menus'][] = [
+					'id'       => 'menu-demo-reset',
+					'icon'     => 'fa-solid fa-rotate-left',
+					'name'     => $this->language->get('text_demo_reset'),
+					'href'     => $this->url->link('tool/demo_reset', 'user_token=' . $this->session->data['user_token']),
+					'children' => []
+				];
+			}
+
+			if (!$this->user->hasPermission('access', 'user/user')) {
+				$data['menus'] = $this->filterRestrictedMenus($data['menus']);
+			}
+
 			// Stats
 			if ($this->user->hasPermission('access', 'report/statistics')) {
 				$this->load->model('sale/order');
@@ -852,5 +866,57 @@ class ColumnLeft extends \Opencart\System\Engine\Controller {
 		} else {
 			return '';
 		}
+	}
+
+	/**
+	 * Keep only demo-allowed items in the left menu for restricted users.
+	 *
+	 * @param array<int, array<string, mixed>> $menus
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function filterRestrictedMenus(array $menus): array {
+		$allowed_routes = [
+			'common/dashboard',
+			'catalog/category',
+			'catalog/product',
+			'sale/order',
+			'tool/demo_reset'
+		];
+
+		$filter = function (array $items) use (&$filter, $allowed_routes): array {
+			$filtered = [];
+
+			foreach ($items as $item) {
+				$children = [];
+
+				if (!empty($item['children'])) {
+					$children = $filter($item['children']);
+				}
+
+				$href = (string)($item['href'] ?? '');
+				$allowed = false;
+
+				if ($href === '') {
+					$allowed = (bool)$children;
+				} else {
+					foreach ($allowed_routes as $route) {
+						if (preg_match('/(?:^|[?&])route=' . preg_quote($route, '/') . '(?:&|$)/', $href)) {
+							$allowed = true;
+							break;
+						}
+					}
+				}
+
+				if ($allowed) {
+					$item['children'] = $children;
+					$filtered[] = $item;
+				}
+			}
+
+			return $filtered;
+		};
+
+		return $filter($menus);
 	}
 }

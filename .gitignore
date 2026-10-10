@@ -8,7 +8,21 @@
 
 /vendor
 /node_modules
+
+# OpenCart generated / runtime
 /public/system/storage/cache
+/storage/cache/*
+!/storage/cache/index.html
+/storage/logs/*
+!/storage/logs/index.html
+/storage/session/*
+!/storage/session/index.html
+/storage/upload/*
+!/storage/upload/index.html
+/storage/backup/*
+!/storage/backup/index.html
+/public/image/cache/*
+!/public/image/cache/index.html
 
 *.log
 *.pid

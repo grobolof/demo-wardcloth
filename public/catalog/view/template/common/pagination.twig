@@ -1,21 +1,17 @@
-<ul class="pagination">
-  {% if first %}
-    <li class="page-item"><a href="{{ first }}" class="page-link">|&lt;</a></li>
-  {% endif %}
-  {% if prev %}
-    <li class="page-item"><a href="{{ prev }}" class="page-link">&lt;</a></li>
-  {% endif %}
-  {% for link in links %}
-    {% if link.page == page %}
-      <li class="page-item active"><span class="page-link">{{ link.page }}</span></li>
-    {% else %}
-      <li class="page-item"><a href="{{ link.href }}" class="page-link">{{ link.page }}</a></li>
+<nav class="mr-pages" aria-label="Страницы">
+  <ul class="pagination">
+    {% if prev %}
+      <li class="page-item mr-pages__arrow is-prev"><a href="{{ prev }}" class="page-link" aria-label="Предыдущая"><svg width="7" height="12" viewBox="0 0 7 12" aria-hidden="true"><path d="M6 1 1 6l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
     {% endif %}
-  {% endfor %}
-  {% if next %}
-    <li class="page-item"><a href="{{ next }}" class="page-link">&gt;</a></li>
-  {% endif %}
-  {% if last %}
-    <li class="page-item"><a href="{{ last }}" class="page-link">&gt;|</a></li>
-  {% endif %}
-</ul>
+    {% for link in links %}
+      {% if link.page == page %}
+        <li class="page-item active"><span class="page-link">{{ link.page }}</span></li>
+      {% else %}
+        <li class="page-item"><a href="{{ link.href }}" class="page-link">{{ link.page }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if next %}
+      <li class="page-item mr-pages__arrow is-next"><a href="{{ next }}" class="page-link" aria-label="Следующая"><svg width="7" height="12" viewBox="0 0 7 12" aria-hidden="true"><path d="m1 1 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+    {% endif %}
+  </ul>
+</nav>

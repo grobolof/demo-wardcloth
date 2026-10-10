@@ -3,7 +3,7 @@
 define('APPLICATION', 'Catalog');
 
 // HTTP
-define('HTTP_SERVER', 'http://wardclotch.docker.local/');
+define('HTTP_SERVER', 'http://mr-robot.docker.local/');
 
 // DIR
 define('DIR_OPENCART', '/pub/www/app/public/');

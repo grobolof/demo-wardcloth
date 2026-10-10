@@ -75,7 +75,7 @@ class Pagination extends \Opencart\System\Engine\Controller {
 
 		$data['links'] = [];
 
-		if ($num_pages > 1) {
+		if ($num_pages >= 1) {
 			if ($num_pages <= $num_links) {
 				$start = 1;
 				$end = $num_pages;
@@ -110,7 +110,7 @@ class Pagination extends \Opencart\System\Engine\Controller {
 			$data['last'] = '';
 		}
 
-		if ($num_pages > 1 || $back) {
+		if ($num_pages >= 1 || $back) {
 			return $this->load->view('common/pagination', $data);
 		} else {
 			return '';

@@ -3,8 +3,8 @@
 define('APPLICATION', 'Admin');
 
 // HTTP
-define('HTTP_SERVER', 'http://wardclotch.docker.local/admin/');
-define('HTTP_CATALOG', 'http://wardclotch.docker.local/');
+define('HTTP_SERVER', 'http://mr-robot.docker.local/admin/');
+define('HTTP_CATALOG', 'http://mr-robot.docker.local/');
 // DIR
 define('DIR_OPENCART', '/pub/www/app/public/');
 define('DIR_APPLICATION', DIR_OPENCART . 'admin/');

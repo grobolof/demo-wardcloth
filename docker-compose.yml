@@ -16,7 +16,7 @@ services:
       - database
 
   database:
-    image: mariadb:11.8
+    image: mariadb
     environment:
       MARIADB_DATABASE: ${DB_DATABASE}
       MARIADB_USER: ${DB_USERNAME}

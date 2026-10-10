@@ -43,7 +43,7 @@ class Contact extends \Opencart\System\Engine\Controller {
 		$data['place'] = 'Мистер Робот, Санкт-Петербург';
 		$data['address_line'] = '194354, г. Санкт-Петербург, проспект Энгельса, д. 115, к. 1';
 		$data['hours'] = 'ежедневно с 10:00 до 20:00';
-		$data['phones'] = ['+7 (812) 53-21-31', '+7 (901) 390-28-63'];
+		$data['phones'] = ['+7 (901) 390-28-63'];
 		$data['contact_email'] = 'info@mr-robot.ru';
 		$data['legal'] = 'Индивидуальный предприниматель Куликов Игорь Петрович<br>ИНН: 781701713511. Почтовый адрес: 194354, г. Санкт-Петербург, проспект Энгельса, д. 115, к. 1';
 		$data['bank'] = 'Банк: Северо-Западный банк ПАО Сбербанк, БИК: 044030653<br>Номер счёта: 40802810220000015970';
@@ -148,25 +148,33 @@ class Contact extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			if ($this->config->get('config_mail_engine')) {
-				$mail_option = [
-					'parameter'     => $this->config->get('config_mail_parameter'),
-					'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
-					'smtp_username' => $this->config->get('config_mail_smtp_username'),
-					'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
-					'smtp_port'     => $this->config->get('config_mail_smtp_port'),
-					'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
-				];
+			$this->load->model('information/enquiry');
 
-				$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'), $mail_option);
-				$mail->setTo($this->config->get('config_email'));
-				// Less spam and fix bug when using SMTP like sendgrid.
-				$mail->setFrom($this->config->get('config_email'));
-				$mail->setReplyTo($post_info['email']);
-				$mail->setSender(html_entity_decode($post_info['name'], ENT_QUOTES, 'UTF-8'));
-				$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $post_info['name']), ENT_QUOTES, 'UTF-8'));
-				$mail->setText($post_info['enquiry']);
-				$mail->send();
+			$this->model_information_enquiry->addEnquiry($post_info);
+
+			if ($this->config->get('config_mail_engine')) {
+				try {
+					$mail_option = [
+						'parameter'     => $this->config->get('config_mail_parameter'),
+						'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+						'smtp_username' => $this->config->get('config_mail_smtp_username'),
+						'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+						'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+						'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+					];
+
+					$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'), $mail_option);
+					$mail->setTo($this->config->get('config_email'));
+					// Less spam and fix bug when using SMTP like sendgrid.
+					$mail->setFrom($this->config->get('config_email'));
+					$mail->setReplyTo($post_info['email']);
+					$mail->setSender(html_entity_decode($post_info['name'], ENT_QUOTES, 'UTF-8'));
+					$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $post_info['name']), ENT_QUOTES, 'UTF-8'));
+					$mail->setText($post_info['enquiry']);
+					$mail->send();
+				} catch (\Exception $e) {
+					// The request is already stored for the admin list.
+				}
 			}
 
 			$json['redirect'] = $this->url->link('information/contact.success', 'language=' . $this->config->get('config_language'), true);

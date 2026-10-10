@@ -161,6 +161,7 @@ body.mr-store #button-cart:hover {
 }
 
 .mr-search {
+  position: relative;
   flex: 1;
   display: flex;
   align-items: center;
@@ -199,6 +200,50 @@ body.mr-store #button-cart:hover {
 .mr-search button svg {
   width: 18px;
   height: 18px;
+}
+
+.mr-search__suggest {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+}
+
+.mr-search__suggest a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: var(--mr-text);
+  text-decoration: none;
+}
+
+.mr-search__suggest a.is-active,
+.mr-search__suggest a:hover {
+  background: #f6f6f6;
+}
+
+.mr-search__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mr-search__type {
+  flex: 0 0 auto;
+  color: var(--mr-muted);
+  font-size: 12px;
 }
 
 .mr-actions {

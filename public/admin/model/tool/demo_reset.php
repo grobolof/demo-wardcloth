@@ -1,3 +1,139 @@
+<?php
+namespace Opencart\Admin\Model\Tool;
+/**
+ * Class Demo Reset
+ *
+ * @package Opencart\Admin\Model\Tool
+ */
+class DemoReset extends \Opencart\System\Engine\Model {
+	/**
+	 * Restore
+	 *
+	 * Delete store data created during a demo and insert the original catalog and guest customer.
+	 *
+	 * @return void
+	 */
+	public function restore(): void {
+		$this->ensureEnquiryTable();
+
+		foreach ($this->cleanupStatements() as $sql) {
+			$this->db->query($sql);
+		}
+
+		foreach ($this->splitSql($this->catalogSql()) as $sql) {
+			$this->db->query(str_replace('oc_', DB_PREFIX, $sql));
+		}
+
+		$this->seedCustomer();
+		$this->grantEnquiryPermission();
+
+		$this->load->model('catalog/search_index');
+
+		$this->model_catalog_search_index->install();
+		$this->model_catalog_search_index->rebuild();
+
+		$this->cache->delete('product');
+		$this->cache->delete('category');
+		$this->cache->delete('manufacturer');
+		$this->cache->delete('information');
+	}
+
+	/**
+	 * @return list<string>
+	 */
+	private function cleanupStatements(): array {
+		$tables = [
+			'order_option',
+			'order_product',
+			'order_subscription',
+			'order_total',
+			'order_history',
+			'order',
+			'return_history',
+			'return',
+			'subscription_history',
+			'subscription_log',
+			'subscription_option',
+			'subscription_product',
+			'subscription',
+			'coupon_history',
+			'customer_activity',
+			'customer_affiliate_report',
+			'customer_affiliate',
+			'customer_approval',
+			'customer_authorize',
+			'customer_history',
+			'customer_ip',
+			'customer_login',
+			'customer_online',
+			'customer_reward',
+			'customer_search',
+			'customer_token',
+			'customer_transaction',
+			'customer_wishlist',
+			'address',
+			'gdpr',
+			'customer',
+			'enquiry'
+		];
+
+		$sql = [];
+
+		foreach ($tables as $table) {
+			$sql[] = "DELETE FROM `" . DB_PREFIX . $table . "`";
+		}
+
+		$sql[] = "UPDATE `" . DB_PREFIX . "statistics` SET `value` = '0'";
+
+		return $sql;
+	}
+
+	/**
+	 * @return void
+	 */
+	private function seedCustomer(): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_id` = '4', `customer_group_id` = '1', `store_id` = '0', `language_id` = '2', `firstname` = 'Иван', `lastname` = 'Дубров', `email` = 'guest@mail.ru', `telephone` = '', `password` = '" . $this->db->escape('$2y$12$whdkTGJlkXGkMRuZIwCHCuHMRWzpi4e445x09gdgaSZDonB1o.exi') . "', `custom_field` = '[]', `newsletter` = '0', `ip` = '', `status` = '1', `safe` = '0', `commenter` = '0', `date_added` = '2026-10-10 17:14:47'");
+	}
+
+	/**
+	 * @return void
+	 */
+	private function grantEnquiryPermission(): void {
+		$query = $this->db->query("SELECT `user_group_id`, `permission` FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` IN (1, 10)");
+
+		foreach ($query->rows as $group) {
+			$permission = json_decode((string)$group['permission'], true);
+
+			if (!is_array($permission)) {
+				continue;
+			}
+
+			foreach (['access', 'modify'] as $type) {
+				if (!isset($permission[$type]) || !is_array($permission[$type])) {
+					$permission[$type] = [];
+				}
+
+				if (!in_array('sale/enquiry', $permission[$type], true)) {
+					$permission[$type][] = 'sale/enquiry';
+				}
+			}
+
+			$this->db->query("UPDATE `" . DB_PREFIX . "user_group` SET `permission` = '" . $this->db->escape((string)json_encode($permission, JSON_UNESCAPED_UNICODE)) . "' WHERE `user_group_id` = '" . (int)$group['user_group_id'] . "'");
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private function ensureEnquiryTable(): void {
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "enquiry` (`enquiry_id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `email` varchar(96) NOT NULL, `enquiry` text NOT NULL, `date_added` datetime NOT NULL, PRIMARY KEY (`enquiry_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+	}
+
+	/**
+	 * @return string
+	 */
+	private function catalogSql(): string {
+		return <<<'CATALOG_SQL'
 SET NAMES utf8mb4;
 
 DELETE FROM oc_product_option_value;
@@ -53,7 +189,7 @@ UPDATE oc_setting SET value = 'RUB' WHERE `key` = 'config_currency' AND store_id
 UPDATE oc_setting SET value = 'Mr. Robot' WHERE `key` = 'config_name' AND store_id = 0;
 UPDATE oc_setting SET value = '8 (800) 100-55-88' WHERE `key` = 'config_telephone' AND store_id = 0;
 UPDATE oc_setting
-SET value = '{"1":{"meta_title":"Mr. Robot — интернет-магазин техники","meta_description":"Ноутбуки, телевизоры, смартфоны и кофемашины.","meta_keyword":"ноутбуки, телевизоры, смартфоны, кофемашины"}}'
+SET value = '{"1":{"meta_title":"Mr. Robot — интернет-магазин техники","meta_description":"Ноутбуки, телевизоры, смартфоны и кофемашины.","meta_keyword":"ноутбуки, телевизоры, смартфоны, кофемашины"},"2":{"meta_title":"Mr. Robot — интернет-магазин техники","meta_description":"Ноутбуки, телевизоры, смартфоны и кофемашины.","meta_keyword":"ноутбуки, телевизоры, смартфоны, кофемашины"}}'
 WHERE `key` = 'config_description' AND store_id = 0;
 
 INSERT INTO oc_manufacturer (manufacturer_id, name, image, sort_order) VALUES
@@ -320,3 +456,96 @@ INSERT INTO oc_seo_url (store_id, language_id, `key`, value, keyword, sort_order
 (0, 1, 'route', 'product/search', 'search', -1),
 (0, 1, 'route', 'product/special', 'special', -1),
 (0, 1, 'route', 'product/compare', 'compare', -1);
+
+INSERT INTO oc_category_description (category_id, language_id, name, description, meta_title, meta_description, meta_keyword)
+SELECT category_id, 2, name, description, meta_title, meta_description, meta_keyword
+FROM oc_category_description
+WHERE language_id = 1 AND category_id BETWEEN 40 AND 43;
+
+INSERT INTO oc_product_description (product_id, language_id, name, description, tag, meta_title, meta_description, meta_keyword)
+SELECT product_id, 2, name, description, tag, meta_title, meta_description, meta_keyword
+FROM oc_product_description
+WHERE language_id = 1 AND product_id BETWEEN 100 AND 115;
+
+INSERT INTO oc_product_attribute (product_id, attribute_id, language_id, text)
+SELECT product_id, attribute_id, 2, text
+FROM oc_product_attribute
+WHERE language_id = 1 AND product_id BETWEEN 100 AND 115;
+
+INSERT INTO oc_attribute_group_description (attribute_group_id, language_id, name)
+SELECT attribute_group_id, 2, name
+FROM oc_attribute_group_description
+WHERE language_id = 1 AND attribute_group_id = 10;
+
+INSERT INTO oc_attribute_description (attribute_id, language_id, name)
+SELECT attribute_id, 2, name
+FROM oc_attribute_description
+WHERE language_id = 1 AND attribute_id BETWEEN 20 AND 36;
+
+INSERT INTO oc_seo_url (store_id, language_id, `key`, value, keyword, sort_order)
+SELECT s.store_id, 2, s.`key`, s.value, s.keyword, s.sort_order
+FROM oc_seo_url s
+LEFT JOIN oc_seo_url t
+  ON t.language_id = 2 AND t.store_id = s.store_id AND t.`key` = s.`key` AND t.value = s.value
+WHERE s.language_id = 1 AND t.seo_url_id IS NULL;
+
+UPDATE oc_setting SET value = 'ru-ru' WHERE `key` = 'config_language_catalog' AND store_id = 0;
+UPDATE oc_language SET sort_order = 0 WHERE code = 'ru-ru';
+UPDATE oc_language SET sort_order = 1 WHERE code = 'en-gb';
+
+CATALOG_SQL;
+	}
+
+	/**
+	 * @param string $sql
+	 *
+	 * @return list<string>
+	 */
+	private function splitSql(string $sql): array {
+		$statements = [];
+		$buffer = '';
+		$length = strlen($sql);
+		$quote = false;
+
+		for ($i = 0; $i < $length; $i++) {
+			$char = $sql[$i];
+
+			if ($char === "'") {
+				$buffer .= $char;
+
+				if ($quote && ($i + 1) < $length && $sql[$i + 1] === "'") {
+					$buffer .= "'";
+					$i++;
+
+					continue;
+				}
+
+				$quote = !$quote;
+
+				continue;
+			}
+
+			if ($char === ';' && !$quote) {
+				$statement = trim($buffer);
+
+				if ($statement !== '') {
+					$statements[] = $statement;
+				}
+
+				$buffer = '';
+
+				continue;
+			}
+
+			$buffer .= $char;
+		}
+
+		$statement = trim($buffer);
+
+		if ($statement !== '') {
+			$statements[] = $statement;
+		}
+
+		return $statements;
+	}
+}

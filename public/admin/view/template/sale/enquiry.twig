@@ -1,0 +1,57 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-envelope"></i> {{ text_list }}</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="text-end">{{ column_enquiry_id }}</th>
+                <th>{{ column_name }}</th>
+                <th>{{ column_email }}</th>
+                <th>{{ column_enquiry }}</th>
+                <th>{{ column_date_added }}</th>
+                <th class="text-end">{{ column_action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if enquiries %}
+                {% for enquiry in enquiries %}
+                  <tr>
+                    <td class="text-end">{{ enquiry.enquiry_id }}</td>
+                    <td>{{ enquiry.name }}</td>
+                    <td>{{ enquiry.email }}</td>
+                    <td>{{ enquiry.enquiry }}</td>
+                    <td>{{ enquiry.date_added }}</td>
+                    <td class="text-end"><a href="{{ enquiry.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td class="text-center" colspan="6">{{ text_no_results }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-start">{{ pagination }}</div>
+          <div class="col-sm-6 text-end">{{ results }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

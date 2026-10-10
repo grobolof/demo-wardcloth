@@ -28,7 +28,7 @@ class DemoReset extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('tool/demo_reset', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['restore'] = $this->url->link('tool/demo_reset.restore', 'user_token=' . $this->session->data['user_token']);
+		$data['restore'] = $this->url->link('tool/demo_reset.restore', 'user_token=' . $this->session->data['user_token'], true);
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['header'] = $this->load->controller('common/header');
@@ -52,66 +52,23 @@ class DemoReset extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		$snapshot = dirname(DIR_OPENCART) . '/docker/demo-snapshot.sql';
-
-		if (!$json && !is_file($snapshot)) {
-			$json['error'] = $this->language->get('error_snapshot');
-		}
-
 		if (!$json) {
 			set_time_limit(0);
 
-			$command = 'mariadb';
+			try {
+				$this->load->model('tool/demo_reset');
 
-			if (!function_exists('proc_open')) {
+				$this->model_tool_demo_reset->restore();
+
+				$this->clearCache(DIR_CACHE);
+				$this->clearCache(DIR_IMAGE . 'cache/');
+
+				$json['success'] = $this->language->get('text_success');
+			} catch (\Exception $e) {
+				$this->log->write($e->getMessage());
+
 				$json['error'] = $this->language->get('error_restore');
-			} else {
-				$descriptors = [
-					0 => ['file', $snapshot, 'r'],
-					1 => ['pipe', 'w'],
-					2 => ['pipe', 'w']
-				];
-
-				$process = proc_open(
-					[
-						$command,
-						'-h' . DB_HOSTNAME,
-						'-P' . (string)DB_PORT,
-						'-u' . DB_USERNAME,
-						DB_DATABASE
-					],
-					$descriptors,
-					$pipes,
-					null,
-					[
-						'MYSQL_PWD' => DB_PASSWORD,
-						'PATH'      => (string)getenv('PATH')
-					]
-				);
-
-				if (!is_resource($process)) {
-					$json['error'] = $this->language->get('error_restore');
-				} else {
-					$stdout = stream_get_contents($pipes[1]);
-					$stderr = stream_get_contents($pipes[2]);
-
-					fclose($pipes[1]);
-					fclose($pipes[2]);
-
-					$code = proc_close($process);
-
-					if ($code !== 0) {
-						$json['error'] = trim($stderr ?: $stdout) ?: $this->language->get('error_restore');
-					}
-				}
 			}
-		}
-
-		if (!$json) {
-			$this->clearCache(DIR_CACHE);
-
-			$json['success'] = $this->language->get('text_success');
-			$json['redirect'] = $this->url->link('common/login', '', true);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

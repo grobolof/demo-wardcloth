@@ -344,6 +344,14 @@ class ColumnLeft extends \Opencart\System\Engine\Controller {
 				];
 			}
 
+			if ($this->user->hasPermission('access', 'sale/enquiry')) {
+				$sale[] = [
+					'name'     => $this->language->get('text_enquiry'),
+					'href'     => $this->url->link('sale/enquiry', 'user_token=' . $this->session->data['user_token']),
+					'children' => []
+				];
+			}
+
 			if ($this->user->hasPermission('access', 'sale/subscription')) {
 				$sale[] = [
 					'name'     => $this->language->get('text_subscription'),
@@ -881,6 +889,7 @@ class ColumnLeft extends \Opencart\System\Engine\Controller {
 			'catalog/category',
 			'catalog/product',
 			'sale/order',
+			'sale/enquiry',
 			'tool/demo_reset'
 		];
 

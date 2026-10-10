@@ -53,6 +53,7 @@ $_['text_navigation']          = 'Навигация';
 $_['text_online']              = 'Кто онлайн';
 $_['text_option']              = 'Опции';
 $_['text_order']               = 'Заказы';
+$_['text_enquiry']             = 'Заявки';
 $_['text_order_status']        = 'Статусы заказа';
 $_['text_product']             = 'Товары';
 $_['text_reports']             = 'Отчеты';

@@ -53,6 +53,7 @@ $_['text_navigation']          = 'Navigation';
 $_['text_online']              = 'Who\'s Online';
 $_['text_option']              = 'Options';
 $_['text_order']               = 'Orders';
+$_['text_enquiry']             = 'Enquiries';
 $_['text_order_status']        = 'Order Statuses';
 $_['text_product']             = 'Products';
 $_['text_reports']             = 'Reports';

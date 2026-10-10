@@ -43586,8 +43586,10 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `oc_session` WRITE;
 /*!40000 ALTER TABLE `oc_session` DISABLE KEYS */;
 INSERT INTO `oc_session` VALUES
+('0e95e1e4de1a9ac4f954d7e830','{\"currency\":\"RUB\",\"login_token\":\"a161794410116cc1c18c3efe44dba796\"}','2026-10-11 19:06:57'),
 ('19ccbb4ec5cd5693eb67b837c6','{\"currency\":\"RUB\",\"upload_token\":\"d208cc9e2bd0db3dac2fe19b1138979f\",\"review_token\":\"94e862aef96484caac67146dfac529ec\",\"wishlist\":[],\"user_id\":\"2\",\"user_token\":\"9dc4a15c35a163d102bc8ec00ffa5b7b\",\"compare\":[],\"customer_id\":\"4\",\"customer\":{\"customer_id\":\"4\",\"customer_group_id\":\"1\",\"firstname\":\"\\u0413\\u043e\\u0441\\u0442\\u044c\",\"lastname\":\"\\u041f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u044c\",\"email\":\"guest@mail.ru\",\"telephone\":\"\",\"custom_field\":[]},\"customer_token\":\"d15c9071cee7e4165ed5acb650\",\"login_token\":\"fccdc92febcd240837d39fd21a9bcde1\"}','2026-10-11 18:34:12'),
 ('1a381090d008818f41045532ed','{\"currency\":\"RUB\",\"login_token\":\"f6c792f1184b72cc1f1199daec\"}','2026-10-11 18:17:07'),
+('1c93cde3bc571abfdc3a821ef5','{\"currency\":\"RUB\",\"login_token\":\"f01c6fa196c1f8461e2c441567\"}','2026-10-11 19:03:30'),
 ('1f8f0551dc2bba3964e7d8a367','{\"currency\":\"RUB\",\"upload_token\":\"a32a15c2fc7a795f88e919ee6e996b13\",\"review_token\":\"dc334d5ba925bae07a301b284ea29c35\",\"login_token\":\"be711cb205129acf42022a52f0\"}','2026-10-11 18:17:40'),
 ('220062bb5cde3947da89a4fa37','{\"currency\":\"RUB\"}','2026-10-11 18:17:07'),
 ('2285b381267aae4741574b2a01','{\"currency\":\"RUB\",\"login_token\":\"4a6ab577f62fddbde5613ca73e\"}','2026-10-11 18:17:40'),
@@ -43596,9 +43598,13 @@ INSERT INTO `oc_session` VALUES
 ('41565865638eeb02a8f83b6494','{\"currency\":\"RUB\",\"upload_token\":\"11b7ef84c8788d4b995d877998785da8\",\"review_token\":\"caf1b4e06cf650b501a692fe1757e81f\",\"login_token\":\"557f70a297409497e335b94ace\"}','2026-10-11 17:58:29'),
 ('463c28b5bcac6b48fcf5dbe03f','{\"currency\":\"RUB\",\"login_token\":\"7b74668891298ae0c8d6905461\"}','2026-10-11 17:58:29'),
 ('572117c27d87542ff3d05eaeaf','{\"currency\":\"RUB\"}','2026-10-11 18:17:07'),
+('5a0f9cdba4fb57ba8e8908b221','{\"currency\":\"RUB\",\"login_token\":\"3c4dc6c87858509a30794cfe56\"}','2026-10-11 19:00:10'),
 ('678a4135267806d884c7295551','{\"login_token\":\"899647b2a0b417529ffdd03085554946\"}','2026-10-11 17:15:42'),
+('bbd811dc1b246afa55d553aa19','{\"currency\":\"RUB\",\"login_token\":\"3432c0a279826e6325726c7c04\"}','2026-10-11 18:41:55'),
 ('bfc3480a4ceb7a10b2fbbaf885','{\"currency\":\"RUB\",\"login_token\":\"c4d6a2fdb8cbb1ea0e74ec9ec4\"}','2026-10-11 17:58:29'),
 ('c6993158c8f6dcb4963b25ca40','{\"currency\":\"RUB\",\"login_token\":\"db361b97d522e5aa722a001184\"}','2026-10-11 18:17:40'),
+('ed9825d49dc58132fff5b2e260','{\"currency\":\"RUB\",\"login_token\":\"71c9f36108d727752a00bc0813\"}','2026-10-11 19:00:10'),
+('fae37dfedb33d9305e8be82ac4','{\"login_token\":\"e12f35e29361326119cf556a9d22a7c7\"}','2026-10-11 19:00:10'),
 ('fc7d18fecc0fbe0eb845887ced','{\"currency\":\"RUB\"}','2026-10-11 18:20:27');
 /*!40000 ALTER TABLE `oc_session` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -57291,4 +57297,4 @@ USE `opencart`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-10-10 18:35:55
+-- Dump completed on 2026-10-10 19:07:35

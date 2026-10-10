@@ -1,4 +1,138 @@
-<form action="{{ action }}" method="post" class="input-group mb-3">
-	<input type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" class="form-control form-control-lg"/>
-	<button type="submit" class="btn btn-light btn-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+<form action="{{ action }}" method="post" class="mr-search" data-suggest="{{ suggest }}">
+  <input type="text" name="search" value="{{ search }}" placeholder="Найти" aria-label="Найти" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mr-search-suggest" aria-autocomplete="list"/>
+  <button type="submit" aria-label="Найти">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 16.5 20 20.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+  <ul class="mr-search__suggest" id="mr-search-suggest" role="listbox" hidden></ul>
 </form>
+<script>
+(function () {
+  var form = document.querySelector('.mr-search');
+
+  if (!form || form.dataset.ready) {
+    return;
+  }
+
+  form.dataset.ready = '1';
+
+  var input = form.querySelector('input[name="search"]');
+  var list = form.querySelector('.mr-search__suggest');
+  var endpoint = form.getAttribute('data-suggest') || '';
+  var timer = null;
+  var items = [];
+  var active = -1;
+  var requestId = 0;
+
+  function close() {
+    items = [];
+    active = -1;
+    list.hidden = true;
+    list.replaceChildren();
+    input.setAttribute('aria-expanded', 'false');
+  }
+
+  function highlight() {
+    list.querySelectorAll('a').forEach(function (link, index) {
+      link.classList.toggle('is-active', index === active);
+    });
+  }
+
+  function render(rows) {
+    list.replaceChildren();
+    items = rows;
+    active = -1;
+
+    if (!rows.length) {
+      close();
+      return;
+    }
+
+    rows.forEach(function (row) {
+      var item = document.createElement('li');
+      var link = document.createElement('a');
+      var name = document.createElement('span');
+      var type = document.createElement('span');
+
+      link.href = row.href;
+      link.setAttribute('role', 'option');
+      name.className = 'mr-search__name';
+      name.textContent = row.name;
+      type.className = 'mr-search__type';
+      type.textContent = row.type === 'category' ? 'Категория' : 'Товар';
+      link.append(name, type);
+      item.append(link);
+      list.append(item);
+    });
+
+    list.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  function request() {
+    var query = input.value.trim();
+
+    clearTimeout(timer);
+
+    if (!query) {
+      close();
+      return;
+    }
+
+    timer = setTimeout(function () {
+      var current = ++requestId;
+      var separator = endpoint.indexOf('?') >= 0 ? '&' : '?';
+
+      fetch(endpoint + separator + 'query=' + encodeURIComponent(query), {
+        headers: {'X-Requested-With': 'XMLHttpRequest'}
+      }).then(function (response) {
+        return response.json();
+      }).then(function (rows) {
+        if (current !== requestId) {
+          return;
+        }
+
+        render(Array.isArray(rows) ? rows.slice(0, 5) : []);
+      }).catch(function () {
+        if (current === requestId) {
+          close();
+        }
+      });
+    }, 180);
+  }
+
+  input.addEventListener('input', request);
+
+  input.addEventListener('focus', function () {
+    if (input.value.trim()) {
+      request();
+    }
+  });
+
+  input.addEventListener('keydown', function (event) {
+    if (list.hidden) {
+      return;
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      active = Math.min(active + 1, items.length - 1);
+      highlight();
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      active = Math.max(active - 1, 0);
+      highlight();
+    } else if (event.key === 'Escape') {
+      close();
+    } else if (event.key === 'Enter' && active >= 0) {
+      event.preventDefault();
+      window.location.href = items[active].href;
+    }
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!form.contains(event.target)) {
+      close();
+    }
+  });
+})();
+</script>

@@ -1,0 +1,38 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end"><a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-envelope"></i> {{ text_info }}</div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">{{ entry_name }}</label>
+          <div class="col-sm-10"><div class="form-control">{{ name }}</div></div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">{{ entry_email }}</label>
+          <div class="col-sm-10"><div class="form-control"><a href="mailto:{{ email }}">{{ email }}</a></div></div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">{{ entry_date_added }}</label>
+          <div class="col-sm-10"><div class="form-control">{{ date_added }}</div></div>
+        </div>
+        <div class="row">
+          <label class="col-sm-2 col-form-label">{{ entry_enquiry }}</label>
+          <div class="col-sm-10"><div class="form-control" style="min-height: 120px; white-space: pre-wrap;">{{ enquiry }}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

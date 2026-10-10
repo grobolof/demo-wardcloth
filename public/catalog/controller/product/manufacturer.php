@@ -26,7 +26,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 		];
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_brand'),
+			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'))
 		];
 
@@ -111,11 +111,6 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-			];
-
-			$data['breadcrumbs'][] = [
-				'text' => $this->language->get('text_brand'),
-				'href' => $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'))
 			];
 
 			$url = '';
@@ -246,32 +241,6 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				'text'  => $this->language->get('text_price_desc'),
 				'value' => 'p.price-DESC',
 				'href'  => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=p.price&order=DESC' . $url)
-			];
-
-			if ($this->config->get('config_review_status')) {
-				$data['sorts'][] = [
-					'text'  => $this->language->get('text_rating_desc'),
-					'value' => 'rating-DESC',
-					'href'  => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=rating&order=DESC' . $url)
-				];
-
-				$data['sorts'][] = [
-					'text'  => $this->language->get('text_rating_asc'),
-					'value' => 'rating-ASC',
-					'href'  => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=rating&order=ASC' . $url)
-				];
-			}
-
-			$data['sorts'][] = [
-				'text'  => $this->language->get('text_model_asc'),
-				'value' => 'p.model-ASC',
-				'href'  => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=p.model&order=ASC' . $url)
-			];
-
-			$data['sorts'][] = [
-				'text'  => $this->language->get('text_model_desc'),
-				'value' => 'p.model-DESC',
-				'href'  => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=p.model&order=DESC' . $url)
 			];
 
 			$url = '';

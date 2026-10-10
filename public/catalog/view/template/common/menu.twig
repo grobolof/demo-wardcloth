@@ -1,45 +1,30 @@
 {% if categories %}
-  <div class="container">
-    <nav id="menu" class="navbar navbar-expand-lg bg-primary">
-      <div id="category" class="d-block d-sm-block d-lg-none">{{ text_category }}</div>
-      <button type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" class="navbar-toggler d-lg-none"><i class="fa-solid fa-bars"></i></button>
-      <div id="navbar-menu" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          {% for category in categories %}
-            {% if category.children %}
-              {% set total = category.children|length %}
-              {% if total > 20 %}
-                {% set batch = (total / 4)|round(0, 'ceil') %}
-                {% set column = 4 %}
-              {% else %}
-                {% set batch = 5 %}
-                {% set column = (total / 5)|round(0, 'ceil') %}
-              {% endif %}
-              <li class="nav-item dropdown"><a href="{{ category.href }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ category.name }}</a>
-                <div class="dropdown-menu dropdown-column-{{ column }}">
-                  <div class="dropdown-inner">
-                    {% for children in category.children|batch(batch) %}
-                      <ul class="list-unstyled">
-                        {% for child in children %}
-                          <li><a href="{{ child.href }}" class="dropdown-item">{{ child.name }}</a></li>
-                        {% endfor %}
-                      </ul>
-                    {% endfor %}
-                  </div>
-                  <ul class="list-unstyled">
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li><a href="{{ category.href }}" class="dropdown-item">{{ text_all }} {{ category.name }}</a></li>
-                  </ul>
-                </div>
-              </li>
+  <nav class="mr-nav" aria-label="Каталог">
+    <div class="mr-wrap mr-nav__row">
+      {% for category in categories %}
+        <a href="{{ category.href }}">{{ category.name }}</a>
+      {% endfor %}
+    </div>
+  </nav>
+  <div class="mr-catalog" id="mr-catalog">
+    <div class="mr-catalog__inner">
+      {% for category in categories %}
+        {% set label = category.name|lower %}
+        <a class="mr-catalog__item" href="{{ category.href }}">
+          <span class="mr-catalog__glyph" aria-hidden="true">
+            {% if 'ноут' in label %}
+              <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 34h36l-3-4H9l-3 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            {% elseif 'теле' in label %}
+              <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="22" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 38h12M24 32v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            {% elseif 'смарт' in label %}
+              <svg viewBox="0 0 48 48"><rect x="15" y="6" width="18" height="36" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="1.4" fill="currentColor"/></svg>
             {% else %}
-              <li class="nav-item"><a href="{{ category.href }}" class="dropdown-item">{{ category.name }}</a></li>
+              <svg viewBox="0 0 48 48"><path d="M16 18h16v16a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6V18z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 18V14a6 6 0 0 1 12 0v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </nav>
+          </span>
+          <span>{{ category.name }}</span>
+        </a>
+      {% endfor %}
+    </div>
   </div>
 {% endif %}

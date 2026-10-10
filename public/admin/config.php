@@ -11,7 +11,7 @@ define('DIR_APPLICATION', DIR_OPENCART . 'admin/');
 define('DIR_SYSTEM', DIR_OPENCART . 'system/');
 define('DIR_EXTENSION', DIR_OPENCART . 'extension/');
 define('DIR_IMAGE', DIR_OPENCART . 'image/');
-define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
+define('DIR_STORAGE', '/pub/www/app/storage/');
 define('DIR_CATALOG', DIR_OPENCART . 'catalog/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');

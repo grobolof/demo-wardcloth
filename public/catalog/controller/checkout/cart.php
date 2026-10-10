@@ -16,7 +16,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('checkout/cart');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle('Корзина');
 
 		$data['breadcrumbs'] = [];
 
@@ -26,9 +26,11 @@ class Cart extends \Opencart\System\Engine\Controller {
 		];
 
 		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('heading_title'),
+			'text' => 'Корзина',
 			'href' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'))
 		];
+
+		$data['catalog'] = $this->catalogUrl();
 
 		$data['list'] = $this->load->controller('checkout/cart.getList');
 
@@ -151,7 +153,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['products'][] = [
-				'thumb'        => $this->model_tool_image->resize($product['image'], $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height')),
+				'thumb'        => $this->model_tool_image->resize($product['image'], 240, 240),
 				'subscription' => $subscription,
 				'stock'        => $product['stock_status'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
 				'minimum'      => !$product['minimum_status'] ? sprintf($this->language->get('error_minimum'), $product['minimum']) : 0,
@@ -192,12 +194,21 @@ class Cart extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		$language = 'language=' . $this->config->get('config_language');
+
 		if ($products) {
-			$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
-			$data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
+			$data['continue'] = $this->url->link('common/home', $language);
+			$data['checkout'] = $this->url->link('checkout/checkout', $language);
 		} else {
-			$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
+			$data['continue'] = $this->url->link('common/home', $language);
 		}
+
+		$data['home'] = $this->url->link('common/home', $language);
+		$data['catalog'] = $this->catalogUrl();
+		$data['clear'] = $this->url->link('checkout/cart.clear', $language);
+		$data['wishlist_add'] = $this->url->link('account/wishlist.add', $language);
+		$data['coupon_save'] = $this->url->link('extension/opencart/checkout/coupon.save', $language, true);
+		$data['coupon'] = $this->session->data['coupon'] ?? '';
 
 		return $this->load->view('checkout/cart_list', $data);
 	}
@@ -377,5 +388,49 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
+	 * Clear
+	 *
+	 * @return void
+	 */
+	public function clear(): void {
+		$this->load->language('checkout/cart');
+
+		foreach ($this->cart->getProducts() as $product) {
+			$this->cart->remove($product['cart_id']);
+		}
+
+		unset($this->session->data['order_id']);
+		unset($this->session->data['shipping_method']);
+		unset($this->session->data['shipping_methods']);
+		unset($this->session->data['payment_method']);
+		unset($this->session->data['payment_methods']);
+		unset($this->session->data['reward']);
+
+		$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
+	 * Catalog Url
+	 *
+	 * @return string
+	 */
+	private function catalogUrl(): string {
+		$language = 'language=' . $this->config->get('config_language');
+
+		$this->load->model('catalog/category');
+
+		$categories = $this->model_catalog_category->getCategories(0);
+
+		if ($categories) {
+			return $this->url->link('product/category', $language . '&path=' . (int)$categories[0]['category_id']);
+		}
+
+		return $this->url->link('common/home', $language);
 	}
 }

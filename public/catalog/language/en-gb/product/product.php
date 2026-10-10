@@ -29,6 +29,6 @@ $_['entry_qty']                  = 'Qty';
 $_['entry_rating']               = 'Rating';
 
 // Tabs
-$_['tab_description']            = 'Description';
-$_['tab_attribute']              = 'Specification';
-$_['tab_review']                 = 'Reviews (%s)';
+$_['tab_description']            = 'Описание';
+$_['tab_attribute']              = 'Характеристики';
+$_['tab_review']                 = 'Отзывы';

@@ -70,8 +70,9 @@ class Image extends \Opencart\System\Engine\Model {
 			}
 		}
 
+		$version = is_file(DIR_IMAGE . $image_new) ? filemtime(DIR_IMAGE . $image_new) : time();
 		$image_new = str_replace(' ', '%20', $image_new);  // fix bug when attach image on email (gmail.com). it is automatically changing space from " " to +
 
-		return $this->config->get('config_url') . 'image/' . $image_new;
+		return $this->config->get('config_url') . 'image/' . $image_new . '?v=' . $version;
 	}
 }

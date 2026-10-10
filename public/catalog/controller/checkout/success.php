@@ -12,9 +12,9 @@ class Success extends \Opencart\System\Engine\Controller {
 	 * @return void
 	 */
 	public function index(): void {
-		$this->load->language('checkout/success');
+		$order_id = (int)($this->session->data['order_id'] ?? 0);
 
-		if (isset($this->session->data['order_id'])) {
+		if ($order_id) {
 			$this->cart->clear();
 
 			unset($this->session->data['order_id']);
@@ -28,37 +28,15 @@ class Success extends \Opencart\System\Engine\Controller {
 			unset($this->session->data['reward']);
 		}
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle('Заказ оформлен');
 
-		$data['breadcrumbs'] = [];
+		$language = 'language=' . $this->config->get('config_language');
+		$logged = $this->customer->isLogged();
 
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'language=' . $this->config->get('config_language'))
-		];
-
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_basket'),
-			'href' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'))
-		];
-
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_checkout'),
-			'href' => $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'))
-		];
-
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_success'),
-			'href' => $this->url->link('checkout/success', 'language=' . $this->config->get('config_language'))
-		];
-
-		if ($this->customer->isLogged()) {
-			$data['text_message'] = sprintf($this->language->get('text_customer'), $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']), $this->url->link('account/order', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']), $this->url->link('account/download', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
-		} else {
-			$data['text_message'] = sprintf($this->language->get('text_guest'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
-		}
-
-		$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
+		$data['order_id'] = $order_id;
+		$data['logged'] = $logged;
+		$data['orders'] = $this->url->link('account/order', $language . ($logged ? '&customer_token=' . $this->session->data['customer_token'] : ''));
+		$data['continue'] = $this->url->link('common/home', $language);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

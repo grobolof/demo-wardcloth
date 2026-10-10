@@ -2,49 +2,100 @@
 <div id="account-order" class="container">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
-      <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+      <li class="breadcrumb-item">
+        {% if loop.last %}
+          <span>{{ breadcrumb.text }}</span>
+        {% else %}
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        {% endif %}
+      </li>
     {% endfor %}
   </ul>
-  <div class="row">{{ column_left }}
-    <div id="content" class="col">{{ content_top }}
-      <h1>{{ heading_title }}</h1>
-      {% if orders %}
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th class="text-end">{{ column_order_id }}</th>
-
-                <th class="text-end">{{ column_product_total }}</th>
-                <th>{{ column_status }}</th>
-                <th class="text-end">{{ column_total }}</th>
-                <th>{{ column_date_added }}</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for order in orders %}
-                <tr>
-                  <td class="text-end">#{{ order.order_id }}</td>
-                  <td class="text-end">{{ order.product_total }}</td>
-                  <td>{{ order.status }}</td>
-                  <td class="text-end">{{ order.total }}</td>
-                  <td>{{ order.date_added }}</td>
-                  <td class="text-end"><a href="{{ order.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
-                </tr>
+  <div id="content">
+    {{ content_top }}
+    <h1>Заказы</h1>
+    <div class="mr-private">
+      <nav aria-label="Кабинет">
+        <ul class="mr-private__menu">
+          <li><a href="{{ account }}">Мой кабинет</a></li>
+          <li><a href="{{ edit }}">Личные данные</a></li>
+          <li><a class="is-active" href="{{ order }}" aria-current="page">Заказы</a></li>
+          <li><a href="{{ wishlist }}">Избранные товары</a></li>
+          <li><a href="{{ logout }}">Выйти</a></li>
+        </ul>
+      </nav>
+      <div class="mr-private__main">
+        <form class="mr-orders__filters" action="{{ action }}" method="get">
+          <label>
+            <select name="filter_status" onchange="this.form.submit()">
+              <option value="">Любой статус заказа</option>
+              <option value="7"{% if filter_status == '7' %} selected{% endif %}>Отменен</option>
+              <option value="5"{% if filter_status == '5' %} selected{% endif %}>Выполнен</option>
+              <option value="1"{% if filter_status == '1' %} selected{% endif %}>Ожидает оплату</option>
+            </select>
+          </label>
+          <label>
+            <select name="filter_year" onchange="this.form.submit()">
+              <option value="">За все время</option>
+              {% for year in years %}
+                <option value="{{ year }}"{% if filter_year == year %} selected{% endif %}>{{ year }}</option>
               {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        <div class="row mb-3">
-          <div class="col-sm-6 text-start">{{ pagination }}</div>
-          <div class="col-sm-6 text-end">{{ results }}</div>
-        </div>
-      {% else %}
-        <p>{{ text_no_results }}</p>
-      {% endif %}
-      <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
-      {{ content_bottom }}</div>
-    {{ column_right }}</div>
+            </select>
+          </label>
+        </form>
+        {% if orders %}
+          <div class="mr-orders">
+            {% for order in orders %}
+              <article class="mr-order-card{% if order.status_done %} is-done{% endif %}">
+                <a class="mr-order-card__cover" href="{{ order.view }}" aria-label="Заказ от {{ order.date }}"></a>
+                <div class="mr-order-card__info">
+                  <a class="mr-order-card__date" href="{{ order.view }}">Заказ от {{ order.date }}</a>
+                  <div class="mr-order-card__meta">
+                    <span>№{{ order.order_id }}</span>
+                    {% if order.pay_text %}
+                      <span class="mr-order-card__pay{% if not order.paid %} is-wait{% endif %}">{{ order.pay_text }}</span>
+                    {% endif %}
+                  </div>
+                  <div class="mr-order-card__status">
+                    <span class="mr-order-card__state{% if order.status_done %} is-done{% endif %}">{{ order.status_label }}</span>
+                    <span class="mr-order-card__steps" aria-hidden="true">
+                      {% for step in 1..4 %}
+                        <i{% if step <= order.step %} class="is-on"{% endif %}></i>
+                      {% endfor %}
+                    </span>
+                  </div>
+                </div>
+                <div class="mr-order-card__sum">{{ order.total }}</div>
+                <div class="mr-order-card__photos">
+                  {% for product in order.products %}
+                    <a href="{{ product.href }}" title="{{ product.name }}">
+                      {% if product.thumb %}
+                        <img src="{{ product.thumb }}" alt="{{ product.name }}">
+                      {% endif %}
+                    </a>
+                  {% endfor %}
+                  {% if order.more %}
+                    <span>+{{ order.more }}</span>
+                  {% endif %}
+                </div>
+                <div class="mr-order-card__actions">
+                  <a class="mr-order-card__repeat" href="{{ order.reorder }}">Повторить заказ</a>
+                  {% if order.can_cancel %}
+                    <a class="mr-order-card__cancel" href="{{ order.cancel }}">Отменить заказ</a>
+                  {% endif %}
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+          {% if pagination %}
+            <div class="mr-orders__pages">{{ pagination }}</div>
+          {% endif %}
+        {% else %}
+          <div class="mr-orders__empty">Заказов пока нет</div>
+        {% endif %}
+      </div>
+    </div>
+    {{ content_bottom }}
+  </div>
 </div>
 {{ footer }}

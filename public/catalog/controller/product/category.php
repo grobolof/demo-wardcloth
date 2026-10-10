@@ -50,6 +50,12 @@ class Category extends \Opencart\System\Engine\Controller {
 			$limit = $this->config->get('config_pagination');
 		}
 
+		if (isset($this->request->get['manufacturer_id'])) {
+			$manufacturer_id = (int)$this->request->get['manufacturer_id'];
+		} else {
+			$manufacturer_id = 0;
+		}
+
 		// Category
 		$parts = explode('_', $path);
 
@@ -130,6 +136,10 @@ class Category extends \Opencart\System\Engine\Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
+			if ($manufacturer_id) {
+				$url .= '&manufacturer_id=' . $manufacturer_id;
+			}
+
 			// Set the last category breadcrumb
 			$data['breadcrumbs'][] = [
 				'text' => $category_info['name'],
@@ -151,6 +161,36 @@ class Category extends \Opencart\System\Engine\Controller {
 
 			$data['description'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');
 			$data['compare'] = $this->url->link('product/compare', 'language=' . $this->config->get('config_language'));
+			$data['brands'] = [];
+
+			$brand_query = $this->db->query("SELECT DISTINCT `m`.`manufacturer_id`, `m`.`name` FROM `" . DB_PREFIX . "manufacturer` `m` INNER JOIN `" . DB_PREFIX . "product` `p` ON (`p`.`manufacturer_id` = `m`.`manufacturer_id`) INNER JOIN `" . DB_PREFIX . "product_to_category` `p2c` ON (`p2c`.`product_id` = `p`.`product_id`) INNER JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "') WHERE `p2c`.`category_id` = '" . (int)$category_id . "' AND `p`.`status` = '1' AND `p`.`manufacturer_id` > 0");
+
+			$brand_rows = $brand_query->rows;
+			$description_plain = trim(strip_tags($data['description']));
+
+			usort($brand_rows, function (array $left, array $right) use ($description_plain): int {
+				$left_pos = mb_stripos($description_plain, $left['name']);
+				$right_pos = mb_stripos($description_plain, $right['name']);
+
+				return ($left_pos === false ? PHP_INT_MAX : $left_pos) <=> ($right_pos === false ? PHP_INT_MAX : $right_pos);
+			});
+
+			$brand_path = isset($this->request->get['path']) ? (string)$this->request->get['path'] : (string)$category_id;
+
+			foreach ($brand_rows as $brand_row) {
+				$brand_id = (int)$brand_row['manufacturer_id'];
+				$brand_query_string = 'language=' . $this->config->get('config_language') . '&path=' . $brand_path;
+
+				if ($manufacturer_id !== $brand_id) {
+					$brand_query_string .= '&manufacturer_id=' . $brand_id;
+				}
+
+				$data['brands'][] = [
+					'name'   => $brand_row['name'],
+					'active' => $manufacturer_id === $brand_id,
+					'href'   => $this->url->link('product/category', $brand_query_string)
+				];
+			}
 
 			$url = '';
 
@@ -228,6 +268,10 @@ class Category extends \Opencart\System\Engine\Controller {
 				'limit'               => $limit
 			];
 
+			if ($manufacturer_id) {
+				$filter_data['filter_manufacturer_id'] = $manufacturer_id;
+			}
+
 			$results = $this->model_catalog_product->getProducts($filter_data);
 
 			foreach ($results as $result) {
@@ -288,6 +332,10 @@ class Category extends \Opencart\System\Engine\Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
+			if ($manufacturer_id) {
+				$url .= '&manufacturer_id=' . $manufacturer_id;
+			}
+
 			$data['sorts'] = [];
 
 			$data['sorts'][] = [
@@ -320,32 +368,6 @@ class Category extends \Opencart\System\Engine\Controller {
 				'href'  => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&sort=p.price&order=DESC' . $url)
 			];
 
-			if ($this->config->get('config_review_status')) {
-				$data['sorts'][] = [
-					'text'  => $this->language->get('text_rating_desc'),
-					'value' => 'rating-DESC',
-					'href'  => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&sort=rating&order=DESC' . $url)
-				];
-
-				$data['sorts'][] = [
-					'text'  => $this->language->get('text_rating_asc'),
-					'value' => 'rating-ASC',
-					'href'  => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&sort=rating&order=ASC' . $url)
-				];
-			}
-
-			$data['sorts'][] = [
-				'text'  => $this->language->get('text_model_asc'),
-				'value' => 'p.model-ASC',
-				'href'  => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&sort=p.model&order=ASC' . $url)
-			];
-
-			$data['sorts'][] = [
-				'text'  => $this->language->get('text_model_desc'),
-				'value' => 'p.model-DESC',
-				'href'  => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&sort=p.model&order=DESC' . $url)
-			];
-
 			$url = '';
 
 			if (isset($this->request->get['path'])) {
@@ -362,6 +384,10 @@ class Category extends \Opencart\System\Engine\Controller {
 
 			if (isset($this->request->get['order'])) {
 				$url .= '&order=' . $this->request->get['order'];
+			}
+
+			if ($manufacturer_id) {
+				$url .= '&manufacturer_id=' . $manufacturer_id;
 			}
 
 			$data['limits'] = [];
@@ -398,6 +424,10 @@ class Category extends \Opencart\System\Engine\Controller {
 
 			if (isset($this->request->get['limit'])) {
 				$url .= '&limit=' . $this->request->get['limit'];
+			}
+
+			if ($manufacturer_id) {
+				$url .= '&manufacturer_id=' . $manufacturer_id;
 			}
 
 			$product_total = $this->model_catalog_product->getTotalProducts($filter_data);

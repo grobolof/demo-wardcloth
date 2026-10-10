@@ -1,18 +1,18 @@
 <?php
 // Text
 $_['text_reviews']    = '%s reviews';
-$_['text_write']      = 'Write a review';
+$_['text_write']      = 'Добавить отзыв';
 $_['text_login']      = 'Please <a href="%s">login</a> or <a href="%s">register</a> to review';
-$_['text_no_results'] = 'Be the first to write a review for this product.';
+$_['text_no_results'] = 'Нет отзывов';
 $_['text_note']       = '<span class="text-danger">Note:</span> HTML is not translated!';
 $_['text_success']    = 'Thank you for your review. It has been submitted to the webmaster for approval.';
 
 // Entry
-$_['entry_author']     = 'Your Name';
-$_['entry_review']     = 'Your Review';
-$_['entry_rating']     = 'Rating';
-$_['entry_good']       = 'Good';
-$_['entry_bad']        = 'Bad';
+$_['entry_author']     = 'Ваше имя';
+$_['entry_review']     = 'Комментарий';
+$_['entry_rating']     = 'Оценка';
+$_['entry_good']       = 'Хорошо';
+$_['entry_bad']        = 'Плохо';
 
 // Tab
 $_['tab_review']       = 'Reviews (%s)';

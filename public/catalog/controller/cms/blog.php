@@ -299,6 +299,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['language'] = $this->config->get('config_language');
+		$data['blog_url'] = $this->url->link('cms/blog', 'language=' . $this->config->get('config_language'), true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

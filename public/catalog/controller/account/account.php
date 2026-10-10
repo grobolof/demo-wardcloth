@@ -42,6 +42,22 @@ class Account extends \Opencart\System\Engine\Controller {
 			$data['success'] = '';
 		}
 
+		$firstname = $this->customer->getFirstName();
+		$lastname = $this->customer->getLastName();
+		$data['fullname'] = $firstname === $lastname ? $firstname : trim($lastname . ' ' . $firstname);
+		$data['email'] = $this->customer->getEmail();
+		$data['telephone'] = $this->customer->getTelephone();
+
+		$this->load->controller('account/wishlist.sync');
+		$this->load->model('account/wishlist');
+		$this->load->model('account/order');
+		$this->load->model('account/address');
+
+		$data['wishlist_note'] = $this->quantityText($this->model_account_wishlist->getTotalWishlist($this->customer->getId()), 'Нет товаров', ['товар', 'товара', 'товаров']);
+		$data['order_note'] = $this->quantityText($this->model_account_order->getTotalOrders(), 'Нет заказов', ['заказ', 'заказа', 'заказов']);
+		$data['profile_note'] = $this->quantityText($this->model_account_address->getTotalAddresses($this->customer->getId()), 'Нет профилей', ['профиль', 'профиля', 'профилей']);
+		$data['help'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
+
 		$data['edit'] = $this->url->link('account/edit', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 		$data['password'] = $this->url->link('account/password', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 		$data['address'] = $this->url->link('account/address', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
@@ -87,5 +103,29 @@ class Account extends \Opencart\System\Engine\Controller {
 		$data['header'] = $this->load->controller('common/header');
 
 		$this->response->setOutput($this->load->view('account/account', $data));
+	}
+
+	/**
+	 * @param array<int, string> $forms
+	 */
+	private function quantityText(int $total, string $empty, array $forms): string {
+		if ($total < 1) {
+			return $empty;
+		}
+
+		$mod100 = $total % 100;
+		$mod10 = $total % 10;
+
+		if ($mod100 > 10 && $mod100 < 20) {
+			$word = $forms[2];
+		} elseif ($mod10 === 1) {
+			$word = $forms[0];
+		} elseif ($mod10 > 1 && $mod10 < 5) {
+			$word = $forms[1];
+		} else {
+			$word = $forms[2];
+		}
+
+		return $total . ' ' . $word;
 	}
 }

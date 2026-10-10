@@ -52,47 +52,125 @@ class Order extends \Opencart\System\Engine\Controller {
 		];
 
 		$limit = 10;
+		$language = 'language=' . $this->config->get('config_language');
+		$filter_status = (string)($this->request->get['filter_status'] ?? '');
 
-		$data['orders'] = [];
-
-		// Order
-		$this->load->model('account/order');
-
-		// Order Status
-		$this->load->model('localisation/order_status');
-
-		$results = $this->model_account_order->getOrders(($page - 1) * $limit, $limit);
-
-		foreach ($results as $result) {
-			$order_status_info = $this->model_localisation_order_status->getOrderStatus($result['order_status_id']);
-
-			if ($order_status_info) {
-				$order_status = $order_status_info['name'];
-			} else {
-				$order_status = '';
-			}
-
-			$data['orders'][] = [
-				'status'        => $order_status,
-				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'product_total' => $this->model_account_order->getTotalProductsByOrderId($result['order_id']),
-				'total'         => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
-				'view'          => $this->url->link('account/order.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $result['order_id']),
-			] + $result;
+		if (!in_array($filter_status, ['1', '5', '7'], true)) {
+			$filter_status = '';
 		}
 
-		$order_total = $this->model_account_order->getTotalOrders();
+		$filter_year = (string)($this->request->get['filter_year'] ?? '');
+
+		$data['orders'] = [];
+		$data['filter_status'] = $filter_status;
+		$data['filter_year'] = $filter_year;
+
+		$this->load->model('account/order');
+		$this->load->model('catalog/product');
+		$this->load->model('tool/image');
+
+		$results = $this->model_account_order->getOrders(0, 100);
+		$years = [];
+
+		foreach ($results as $result) {
+			$year = date('Y', strtotime($result['date_added']));
+
+			if (!in_array($year, $years, true)) {
+				$years[] = $year;
+			}
+		}
+
+		rsort($years);
+
+		if (!in_array(date('Y'), $years, true)) {
+			array_unshift($years, date('Y'));
+		}
+
+		$data['years'] = $years;
+		$filtered = [];
+
+		foreach ($results as $result) {
+			$state = $this->orderState((int)$result['order_status_id']);
+			$year = date('Y', strtotime($result['date_added']));
+
+			if ($filter_status !== '' && (string)$result['order_status_id'] !== $filter_status) {
+				continue;
+			}
+
+			if ($filter_year !== '' && $filter_year !== $year) {
+				continue;
+			}
+
+			$filtered[] = $result + ['mr_state' => $state];
+		}
+
+		$order_total = count($filtered);
+		$page_results = array_slice($filtered, ($page - 1) * $limit, $limit);
+
+		foreach ($page_results as $result) {
+			$state = $result['mr_state'];
+			$products = [];
+			$order_products = $this->model_account_order->getProducts((int)$result['order_id']);
+
+			foreach ($order_products as $order_product) {
+				$thumb = '';
+				$product_info = $this->model_catalog_product->getProduct((int)$order_product['product_id']);
+
+				if ($product_info && !empty($product_info['image']) && is_file(DIR_IMAGE . html_entity_decode($product_info['image'], ENT_QUOTES, 'UTF-8'))) {
+					$thumb = $this->model_tool_image->resize($product_info['image'], 64, 64);
+				}
+
+				$products[] = [
+					'name'  => $order_product['name'],
+					'thumb' => $thumb,
+					'href'  => $this->url->link('product/product', $language . '&product_id=' . (int)$order_product['product_id'])
+				];
+			}
+
+			$timestamp = strtotime($result['date_added']);
+
+			$data['orders'][] = [
+				'order_id'     => $result['order_id'],
+				'date'         => (int)date('j', $timestamp) . ' ' . $this->monthName((int)date('n', $timestamp)) . ' ' . date('Y', $timestamp),
+				'status_label' => $state['label'],
+				'status_done'  => $state['group'] === 'complete',
+				'step'         => $state['step'],
+				'pay_text'     => $state['canceled'] ? '' : ($state['paid'] ? 'Оплачен' : 'Ожидает оплату'),
+				'paid'         => $state['paid'],
+				'total'        => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+				'products'     => array_slice($products, 0, 3),
+				'more'         => max(0, count($products) - 3),
+				'view'         => $this->url->link('account/order.info', $language . '&order_id=' . $result['order_id']),
+				'reorder'      => $this->url->link('account/order.reorder', $language . '&order_id=' . $result['order_id']),
+				'cancel'       => $this->url->link('account/order.cancel', $language . '&order_id=' . $result['order_id']),
+				'can_cancel'   => $state['cancel']
+			];
+		}
+
+		$filter_url = '';
+
+		if ($filter_status !== '') {
+			$filter_url .= '&filter_status=' . urlencode($filter_status);
+		}
+
+		if ($filter_year !== '') {
+			$filter_url .= '&filter_year=' . urlencode($filter_year);
+		}
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $order_total,
 			'page'  => $page,
 			'limit' => $limit,
-			'url'   => $this->url->link('account/order', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&page={page}')
+			'url'   => $this->url->link('account/order', $language . $filter_url . '&page={page}')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($order_total - $limit)) ? $order_total : ((($page - 1) * $limit) + $limit), $order_total, ceil($order_total / $limit));
-
-		$data['continue'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+		$data['action'] = $this->url->link('account/order', $language);
+		$data['account'] = $this->url->link('account/account', $language);
+		$data['edit'] = $this->url->link('account/edit', $language);
+		$data['order'] = $data['action'];
+		$data['wishlist'] = $this->url->link('account/wishlist', $language);
+		$data['logout'] = $this->url->link('account/logout', $language);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -469,5 +547,93 @@ class Order extends \Opencart\System\Engine\Controller {
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($history_total - $limit)) ? $history_total : ((($page - 1) * $limit) + $limit), $history_total, ceil($history_total / $limit));
 
 		return $this->load->view('account/order_history', $data);
+	}
+
+	public function reorder(): void {
+		if (!$this->load->controller('account/login.validate')) {
+			$this->session->data['redirect'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language'), true));
+		}
+
+		$order_id = (int)($this->request->get['order_id'] ?? 0);
+
+		$this->load->model('account/order');
+
+		if ($this->model_account_order->getOrder($order_id)) {
+			foreach ($this->model_account_order->getProducts($order_id) as $product) {
+				$option_data = [];
+
+				foreach ($this->model_account_order->getOptions($order_id, (int)$product['order_product_id']) as $option) {
+					if ($option['type'] == 'checkbox') {
+						$option_data[$option['product_option_id']][] = $option['product_option_value_id'];
+					} elseif ($option['type'] == 'select' || $option['type'] == 'radio') {
+						$option_data[$option['product_option_id']] = $option['product_option_value_id'];
+					} else {
+						$option_data[$option['product_option_id']] = $option['value'];
+					}
+				}
+
+				$this->cart->add((int)$product['product_id'], (int)$product['quantity'], $option_data);
+			}
+		}
+
+		$this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+	}
+
+	public function cancel(): void {
+		if (!$this->load->controller('account/login.validate')) {
+			$this->session->data['redirect'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
+			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language'), true));
+		}
+
+		$order_id = (int)($this->request->get['order_id'] ?? 0);
+
+		$this->load->model('account/order');
+
+		$order_info = $this->model_account_order->getOrder($order_id);
+
+		if ($order_info && $this->orderState((int)$order_info['order_status_id'])['cancel']) {
+			$this->load->model('checkout/order');
+			$this->model_checkout_order->addHistory($order_id, 7, 'Заказ отменен покупателем', false);
+		}
+
+		$this->response->redirect($this->url->link('account/order', 'language=' . $this->config->get('config_language')));
+	}
+
+	/**
+	 * @return array{label: string, step: int, paid: bool, cancel: bool, canceled: bool, group: string}
+	 */
+	private function orderState(int $status_id): array {
+		$states = [
+			1  => ['label' => 'Принят', 'step' => 1, 'paid' => false, 'cancel' => true, 'canceled' => false, 'group' => 'accepted'],
+			2  => ['label' => 'Выполняется', 'step' => 2, 'paid' => false, 'cancel' => true, 'canceled' => false, 'group' => 'processing'],
+			3  => ['label' => 'Готов к выдаче', 'step' => 3, 'paid' => false, 'cancel' => true, 'canceled' => false, 'group' => 'ready'],
+			5  => ['label' => 'Выполнен', 'step' => 4, 'paid' => true, 'cancel' => false, 'canceled' => false, 'group' => 'complete'],
+			7  => ['label' => 'Отменен', 'step' => 0, 'paid' => false, 'cancel' => false, 'canceled' => true, 'group' => 'canceled'],
+			8  => ['label' => 'Отменен', 'step' => 0, 'paid' => false, 'cancel' => false, 'canceled' => true, 'group' => 'canceled'],
+			15 => ['label' => 'Выполняется', 'step' => 2, 'paid' => false, 'cancel' => true, 'canceled' => false, 'group' => 'processing'],
+			16 => ['label' => 'Отменен', 'step' => 0, 'paid' => false, 'cancel' => false, 'canceled' => true, 'group' => 'canceled']
+		];
+
+		return $states[$status_id] ?? ['label' => 'Принят', 'step' => 1, 'paid' => false, 'cancel' => true, 'canceled' => false, 'group' => 'accepted'];
+	}
+
+	private function monthName(int $month): string {
+		$months = [
+			1  => 'января',
+			2  => 'февраля',
+			3  => 'марта',
+			4  => 'апреля',
+			5  => 'мая',
+			6  => 'июня',
+			7  => 'июля',
+			8  => 'августа',
+			9  => 'сентября',
+			10 => 'октября',
+			11 => 'ноября',
+			12 => 'декабря'
+		];
+
+		return $months[$month] ?? '';
 	}
 }

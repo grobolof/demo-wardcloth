@@ -319,6 +319,9 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['wishlist_add'] = $this->url->link('account/wishlist.add', 'language=' . $this->config->get('config_language'));
 			$wishlist_ids = $this->load->controller('account/wishlist.ids');
 			$data['in_wishlist'] = is_array($wishlist_ids) && in_array((int)$product_id, $wishlist_ids, true);
+			$line = $this->cart->line($product_id);
+			$data['cart_qty'] = $line['quantity'];
+			$data['cart_href'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
 			$data['compare_add'] = $this->url->link('product/compare.add', 'language=' . $this->config->get('config_language'));
 
 			// Image

@@ -80,6 +80,7 @@ class Contact extends \Opencart\System\Engine\Controller {
 
 		$data['name'] = $this->customer->getFirstName();
 		$data['email'] = $this->customer->getEmail();
+		$data['entry_enquiry'] = 'Сообщение';
 
 		// Captcha
 		$this->load->model('setting/extension');

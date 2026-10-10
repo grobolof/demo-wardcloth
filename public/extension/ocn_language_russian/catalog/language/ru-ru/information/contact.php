@@ -15,7 +15,7 @@ $_['text_message']   = '<p>Ваш запрос был успешно отпра�
 // Entry
 $_['entry_name']     = 'Ваше имя';
 $_['entry_email']    = 'Адрес электронной почты';
-$_['entry_enquiry']  = 'Запрос';
+$_['entry_enquiry']  = 'Сообщение';
 
 // Email
 $_['email_subject']  = 'Запрос %s';

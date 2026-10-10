@@ -38,7 +38,8 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$price_status = false;
 		}
 
-		$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts(), $this->currency->format($total, $this->session->data['currency']));
+		$data['count'] = $this->cart->countProducts();
+		$data['text_items'] = sprintf($this->language->get('text_items'), $data['count'], $this->currency->format($total, $this->session->data['currency']));
 
 		// Products
 		$data['products'] = [];

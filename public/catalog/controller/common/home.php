@@ -67,15 +67,6 @@ class Home extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$data['categories'] = [];
-
-		foreach ($this->model_catalog_category->getCategories(0) as $category) {
-			$data['categories'][] = [
-				'name' => $category['name'],
-				'href' => $this->url->link('product/category', $language . '&path=' . $category['category_id'])
-			];
-		}
-
 		$data['about'] = $this->url->link('information/information', $language . '&information_id=1');
 		$data['products'] = [];
 		$data['actual'] = [];

@@ -297,6 +297,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$this->cart->add($product_info['product_id'], $quantity, $option, $subscription_plan_id);
 
 			$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_info['product_id']), $product_info['name'], $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+			$json += $this->cartState((int)$product_info['product_id']);
 
 			// Unset all shipping and payment methods
 			unset($this->session->data['order_id']);
@@ -334,8 +335,22 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$quantity = 1;
 		}
 
-		// Handles single item update
-		$this->cart->update($key, $quantity);
+		$product_id = 0;
+
+		foreach ($this->cart->getProducts() as $product) {
+			if ((int)$product['cart_id'] === $key) {
+				$product_id = (int)$product['product_id'];
+				break;
+			}
+		}
+
+		if ($quantity < 1) {
+			$this->cart->remove($key);
+		} else {
+			$this->cart->update($key, $quantity);
+		}
+
+		$json += $this->cartState($product_id);
 
 		if ($this->cart->hasProducts()) {
 			$json['success'] = $this->language->get('text_edit');
@@ -370,8 +385,18 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$key = 0;
 		}
 
-		// Remove
+		$product_id = 0;
+
+		foreach ($this->cart->getProducts() as $product) {
+			if ((int)$product['cart_id'] === $key) {
+				$product_id = (int)$product['product_id'];
+				break;
+			}
+		}
+
 		$this->cart->remove($key);
+
+		$json += $this->cartState($product_id);
 
 		if ($this->cart->hasProducts()) {
 			$json['success'] = $this->language->get('text_remove');
@@ -409,17 +434,33 @@ class Cart extends \Opencart\System\Engine\Controller {
 		unset($this->session->data['payment_methods']);
 		unset($this->session->data['reward']);
 
-		$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
+		$json = [
+			'total'    => 0,
+			'redirect' => $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true)
+		];
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
 	/**
-	 * Catalog Url
+	 * Cart totals for the storefront counter and product buttons.
 	 *
-	 * @return string
+	 * @param int $product_id
+	 *
+	 * @return array{total: int, product_id: int, cart_quantity: int, cart_id: int}
 	 */
+	private function cartState(int $product_id): array {
+		$line = $this->cart->line($product_id);
+
+		return [
+			'total'         => $this->cart->countProducts(),
+			'product_id'    => $product_id,
+			'cart_quantity' => $line['quantity'],
+			'cart_id'       => $line['cart_id']
+		];
+	}
+
 	private function catalogUrl(): string {
 		$language = 'language=' . $this->config->get('config_language');
 

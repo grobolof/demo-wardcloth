@@ -535,6 +535,30 @@ class Cart {
 	}
 
 	/**
+	 * Quantity of one product already in the cart.
+	 *
+	 * @param int $product_id
+	 *
+	 * @return array{cart_id: int, quantity: int}
+	 */
+	public function line(int $product_id): array {
+		$cart_id = 0;
+		$quantity = 0;
+
+		foreach ($this->getProducts() as $product) {
+			if ((int)$product['product_id'] === $product_id) {
+				$quantity += (int)$product['quantity'];
+				$cart_id = (int)$product['cart_id'];
+			}
+		}
+
+		return [
+			'cart_id'  => $cart_id,
+			'quantity' => $quantity
+		];
+	}
+
+	/**
 	 * Has Products
 	 *
 	 * @return bool

@@ -1,0 +1,32 @@
+{{ header }}
+<div id="information-project" class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+      <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <div id="content">{{ content_top }}
+    <div class="mr-project">
+      <article class="mr-project__card">
+        <h1>Доступы</h1>
+        <p class="mr-project__admin">👉 <a href="{{ admin }}">Вход в админ-панель</a></p>
+        <h4>Доступы в админ-панель</h4>
+        <p>Логин: <code>manager</code></p>
+        <p>Пароль: <code>5wdu6TX3O$</code></p>
+        <h4>Доступы в личный кабинет на сайте</h4>
+        <p>Логин: <code>guest@mail.ru</code></p>
+        <p>Пароль: <code>guest</code></p>
+      </article>
+      <article class="mr-project__card">
+        <h2>Возможности</h2>
+        <ol>
+          <li>На сайте можно авторизоваться как гость (<strong>guest@mail.ru</strong>) и добавлять товары в избранное, в корзину и оформлять заказы.</li>
+          <li>На странице <a href="{{ contact }}">Контакты</a> вы можете отправлять заявки в систему для просмотра через админ-панель.</li>
+          <li>В админ-панели можно авторизоваться как менеджер (<strong>manager</strong>) и добавлять, изменять и удалять категории и товары, которые выводятся на сайте. Все данные можно сбросить до исходных через команду «Восстановить демо».</li>
+        </ol>
+      </article>
+    </div>
+    {{ content_bottom }}
+  </div>
+</div>
+{{ footer }}

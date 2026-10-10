@@ -101,6 +101,7 @@ class Footer extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['about'] = $this->url->link('information/information', $language . '&information_id=1');
+		$data['project'] = $this->url->link('information/project', $language);
 		$data['offer'] = $this->url->link('information/information', $language . '&information_id=2');
 		$data['privacy'] = $this->url->link('information/information', $language . '&information_id=3');
 		$data['delivery'] = $this->url->link('information/information', $language . '&information_id=4');

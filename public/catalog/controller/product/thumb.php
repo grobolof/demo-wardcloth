@@ -33,6 +33,10 @@ class Thumb extends \Opencart\System\Engine\Controller {
 		$data['cart'] = $this->url->link('common/cart.info', 'language=' . $this->config->get('config_language'));
 
 		$data['cart_add'] = $this->url->link('checkout/cart.add', 'language=' . $this->config->get('config_language'));
+		$data['cart_edit'] = $this->url->link('checkout/cart.edit', 'language=' . $this->config->get('config_language'));
+		$line = $this->cart->line((int)($data['product_id'] ?? 0));
+		$data['cart_qty'] = $line['quantity'];
+		$data['cart_id'] = $line['cart_id'];
 		$data['wishlist_add'] = $this->url->link('account/wishlist.add', 'language=' . $this->config->get('config_language'));
 		$wishlist_ids = $this->load->controller('account/wishlist.ids');
 		$data['in_wishlist'] = is_array($wishlist_ids) && in_array((int)($data['product_id'] ?? 0), $wishlist_ids, true);

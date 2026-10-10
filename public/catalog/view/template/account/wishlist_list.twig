@@ -29,8 +29,13 @@
           {% endif %}
           <h3 class="mr-card__name"><a href="{{ product.href }}">{{ product.name }}</a></h3>
           <p class="mr-card__stock{% if product.quantity <= 0 %} is-out{% endif %}">{{ product.quantity > 0 ? 'Есть в наличии' : 'Нет в наличии' }}</p>
-          <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart">
-            <button class="mr-card__buy" type="submit" formaction="{{ cart_add }}">В корзину</button>
+          <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart" data-mr-buy-form data-product-id="{{ product.product_id }}" data-cart-add="{{ cart_add }}" data-cart-edit="{{ cart_edit }}"{% if product.cart_id %} data-cart-id="{{ product.cart_id }}"{% endif %}>
+            <div class="mr-card__incart" data-mr-incart{% if not product.cart_qty %} hidden{% endif %}>
+              <button type="button" data-mr-qty-step="-1" aria-label="Уменьшить количество">−</button>
+              <span data-mr-buy-qty>{{ product.cart_qty }}</span>
+              <button type="button" data-mr-qty-step="1" aria-label="Увеличить количество">+</button>
+            </div>
+            <button class="mr-card__buy" type="submit" formaction="{{ cart_add }}" data-mr-buy-add{% if product.cart_qty %} hidden{% endif %}>В корзину</button>
             <input type="hidden" name="product_id" value="{{ product.product_id }}"/>
             <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
           </form>

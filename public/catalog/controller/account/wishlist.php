@@ -90,6 +90,7 @@ class WishList extends \Opencart\System\Engine\Controller {
 	protected function getList(): string {
 		$data['cart'] = $this->url->link('common/cart.info', 'language=' . $this->config->get('config_language'));
 		$data['cart_add'] = $this->url->link('checkout/cart.add', 'language=' . $this->config->get('config_language'));
+		$data['cart_edit'] = $this->url->link('checkout/cart.edit', 'language=' . $this->config->get('config_language'));
 		$data['wishlist_add'] = $this->url->link('account/wishlist.add', 'language=' . $this->config->get('config_language'));
 
 		$data['products'] = [];
@@ -148,13 +149,17 @@ class WishList extends \Opencart\System\Engine\Controller {
 					$special = false;
 				}
 
+				$line = $this->cart->line((int)$product_info['product_id']);
+
 				$data['products'][] = [
-					'thumb'   => $image,
-					'stock'   => $stock,
-					'price'   => $price,
-					'special' => $special,
-					'minimum' => $product_info['minimum'] > 0 ? $product_info['minimum'] : 1,
-					'href'    => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_info['product_id']),
+					'thumb'    => $image,
+					'stock'    => $stock,
+					'price'    => $price,
+					'special'  => $special,
+					'minimum'  => $product_info['minimum'] > 0 ? $product_info['minimum'] : 1,
+					'cart_qty' => $line['quantity'],
+					'cart_id'  => $line['cart_id'],
+					'href'     => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_info['product_id']),
 					'remove'  => $this->url->link('account/wishlist.remove', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_info['product_id'] . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''))
 				] + $product_info;
 			} else {
